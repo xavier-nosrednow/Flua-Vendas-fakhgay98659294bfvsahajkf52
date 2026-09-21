@@ -64,20 +64,6 @@
   .status-icons{display:flex;align-items:center;gap:5px;}
   .status-icons svg{display:block;}
 
-  .menu{
-    position:relative;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding:14px 0 clamp(20px, 3vw, 28px);
-  }
-
-  .logo-img{
-    display:block;
-    height:34px;
-    width:auto;
-  }
-
   .icon-buttons{display:flex;gap:10px;}
   .icon-btn{
     position:relative;
@@ -114,23 +100,6 @@
     justify-content:center;
     box-shadow:0 1px 2px rgba(0,0,0,.15);
   }
-
-  .hub-user{display:flex;align-items:center;gap:10px;min-width:0;}
-  .hub-user-info{display:flex;align-items:center;gap:9px;min-width:0;}
-  .hub-user-text{min-width:0;}
-  .hub-user-text p{margin:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-  .hub-user-name{font-family:"Poppins",sans-serif;font-weight:500;font-size:14px;color:#f6f6f6;}
-  .hub-user-store{
-    display:flex;
-    align-items:center;
-    justify-content:flex-end;
-    gap:4px;
-    font-family:"Poppins",sans-serif;
-    font-weight:400;
-    font-size:14px;
-    color:rgba(255,255,255,.9);
-  }
-  .hub-user-store svg{width:12px;height:12px;flex-shrink:0;}
 
   .content{
     position:relative;
@@ -277,7 +246,6 @@
   @media (min-width:700px){
     .greeting-name{font-size:26px;}
     .greeting-sub{font-size:16px;}
-    .logo-img{height:40px;}
     .section-title{font-size:20px;}
     .card-title{font-size:19px;}
     .card-desc{font-size:14px;}
@@ -841,138 +809,153 @@
   .smart-account-btn svg{width:14px;height:14px;flex-shrink:0;}
   .smart-account-btn--subtle{background:#f9f9fa;}
 
-  .smart-alert{
-    display:flex;
-    flex-direction:column;
-    gap:12px;
+  /* ---- Venda Comissionada (Carrinho) - legacy table screen, matches production 1:1 ---- */
+  .venda-com{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    color:#333;
     width:100%;
-    padding:12px 16px;
-    border:1px solid #ffb900;
-    border-radius:6px;
-    background:#fffeea;
   }
-  .smart-alert p{
-    margin:0;
-    font-family:"Poppins",sans-serif;
-    font-weight:400;
-    font-size:14px;
-    color:#984d08;
+  .venda-com-header{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:2px 0 16px;
   }
+  .venda-com-header svg{width:24px;height:24px;color:#222;flex-shrink:0;}
+  .venda-com-header-divider{color:#ccc;font-weight:300;font-size:20px;line-height:1;}
+  .venda-com-header h2{margin:0;font-size:19px;font-weight:700;color:#1f1f1f;}
 
-  .smart-cart-box{
-    display:flex;
-    flex-direction:column;
-    width:100%;
-    border:1px solid var(--pdv-grey-100);
-    border-radius:12px;
+  .venda-com-box{
+    border:1px solid #e2e2e2;
+    border-radius:3px;
     overflow:hidden;
+    margin-bottom:16px;
   }
-  .smart-cart-item{
+  .venda-com-box-head{
     display:flex;
-    flex-direction:column;
-    gap:16px;
-    width:100%;
-    padding:16px 0;
-    border-bottom:1px solid var(--pdv-grey-100);
-    background:var(--surface);
+    align-items:center;
+    gap:8px;
+    background:#eeeeee;
+    padding:10px 14px;
+    border-bottom:1px solid #e2e2e2;
   }
-  .smart-cart-item-row{display:flex;gap:16px;align-items:center;padding:0 16px;width:100%;}
-  .smart-cart-img{
-    flex-shrink:0;
-    width:102px;
-    height:102px;
-    border:0.5px solid var(--pdv-grey-100);
+  .venda-com-box-head svg{width:15px;height:15px;color:#5a5a5a;flex-shrink:0;}
+  .venda-com-box-head-divider{color:#c9c9c9;font-size:14px;}
+  .venda-com-box-head span.venda-com-box-title{font-size:14px;font-weight:400;color:#4d4d4d;}
+
+  .venda-com-table-wrap{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;background:#fff;}
+  .venda-com-table{width:100%;min-width:960px;border-collapse:collapse;}
+  .venda-com-table thead th{
+    text-align:left;
+    padding:10px 14px;
+    font-size:13px;
+    font-weight:400;
+    color:#5b7c99;
+    border-bottom:1px solid #e2e2e2;
+    white-space:nowrap;
+  }
+  .venda-com-table tbody td{
+    padding:14px;
+    font-size:14px;
+    color:#333;
+    border-bottom:1px solid #ececec;
+    vertical-align:top;
+  }
+  .venda-com-table tbody tr:last-child td{border-bottom:none;}
+  .venda-com-thumb{
+    width:56px;
+    height:56px;
     border-radius:4px;
+    border:1px solid #e6e6e6;
+    background:#f3f3f3;
     display:flex;
     align-items:center;
     justify-content:center;
-    background:var(--pdv-grey-50);
-    color:var(--pdv-grey-300);
-  }
-  .smart-cart-img svg{width:36px;height:36px;}
-  .smart-cart-info{display:flex;flex-direction:column;flex:1;min-width:0;gap:4px;}
-  .smart-cart-info-top{display:flex;gap:4px;align-items:flex-start;width:100%;}
-  .smart-cart-info-main{flex:1;min-width:0;display:flex;flex-direction:column;}
-  .smart-cart-meta{display:flex;align-items:center;gap:4px;}
-  .smart-cart-code{margin:0;font-family:"Poppins",sans-serif;font-weight:400;font-size:14px;color:var(--pdv-grey-500);white-space:nowrap;}
-  .smart-cart-grade{
-    padding:4px 8px;
-    border-radius:20px;
-    background:var(--pdv-grey-50);
-    font-family:"Poppins",sans-serif;
-    font-weight:400;
-    font-size:14px;
-    color:var(--pdv-grey-500);
-    white-space:nowrap;
-  }
-  .smart-cart-name{
-    margin:0;
-    font-family:"Poppins",sans-serif;
-    font-weight:500;
-    font-size:16px;
-    color:#454545;
+    color:#b0b0b0;
     overflow:hidden;
-    text-overflow:ellipsis;
+    flex-shrink:0;
+  }
+  .venda-com-thumb svg{width:26px;height:26px;}
+  .venda-com-thumb img{width:100%;height:100%;object-fit:cover;display:block;}
+  .venda-com-desc{display:flex;flex-direction:column;gap:6px;max-width:280px;white-space:normal;}
+  .venda-com-incluso{display:flex;align-items:center;gap:6px;flex-wrap:wrap;font-size:12px;color:#8a8a8a;}
+  .venda-com-pill{
+    display:inline-flex;
+    align-items:center;
+    padding:2px 8px;
+    border-radius:3px;
+    font-size:11px;
+    font-weight:500;
     white-space:nowrap;
   }
-  .smart-cart-qty{margin:0;font-family:"Poppins",sans-serif;font-weight:400;font-size:14px;color:var(--pdv-grey-500);}
-  .smart-cart-kebab{flex-shrink:0;width:24px;height:24px;color:#454545;padding:0;border:none;background:none;cursor:pointer;}
-  .smart-cart-warranty{
+  .venda-com-pill--warranty{background:#4f7f92;color:#fff;}
+  .venda-com-pill--months{background:#eaeaea;color:#555;}
+  .venda-com-value-wrap{display:flex;flex-direction:column;gap:6px;align-items:flex-start;white-space:nowrap;}
+  .venda-com-badge{
+    display:inline-flex;
+    padding:2px 8px;
+    border-radius:3px;
+    font-size:11px;
+    font-weight:500;
+    background:#54c3e6;
+    color:#fff;
+    white-space:nowrap;
+  }
+  .venda-com-row-actions{display:flex;gap:6px;justify-content:flex-end;}
+  .venda-com-icon-btn{
+    width:30px;
+    height:30px;
     display:flex;
     align-items:center;
-    gap:4px;
-    align-self:flex-start;
-    margin:0 16px;
-    padding:6px 16px;
-    border-radius:29px;
-    background:#f2fbea;
-    font-family:"Poppins",sans-serif;
-    font-weight:500;
-    font-size:14px;
-    color:#46921e;
+    justify-content:center;
+    border:1px solid #d8d8d8;
+    border-radius:3px;
+    background:#fff;
+    color:#666;
+    cursor:pointer;
+    padding:0;
+    flex-shrink:0;
   }
-  .smart-cart-warranty svg{width:14px;height:14px;flex-shrink:0;}
-  .smart-cart-price-row{display:flex;justify-content:space-between;align-items:flex-end;width:100%;padding:0 16px;}
-  .smart-cart-unit{margin:0;font-family:"Poppins",sans-serif;font-weight:500;font-size:16px;color:var(--pdv-grey-500);}
-  .smart-cart-unit span{font-weight:400;font-size:12px;}
-  .smart-cart-total-block{display:flex;flex-direction:column;align-items:flex-end;gap:2px;}
-  .smart-cart-total-label{margin:0;font-family:"Poppins",sans-serif;font-weight:400;font-size:12px;color:var(--pdv-grey-500);}
-  .smart-cart-total-value{margin:0;font-family:"Poppins",sans-serif;font-weight:500;font-size:18px;color:#454545;}
-  .smart-cart-warranty-value{margin:0;display:flex;gap:4px;align-items:baseline;}
-  .smart-cart-warranty-value b{font-family:"Poppins",sans-serif;font-weight:500;font-size:14px;color:#46921e;}
-  .smart-cart-warranty-value span{font-family:"Poppins",sans-serif;font-weight:400;font-size:12px;color:var(--pdv-grey-500);}
-  .smart-cart-total-row{
+  .venda-com-icon-btn svg{width:14px;height:14px;}
+  .venda-com-footer-row{
     display:flex;
     justify-content:space-between;
     align-items:center;
     gap:16px;
-    width:100%;
-    padding:20px 16px;
-    background:var(--surface);
-    font-family:"Poppins",sans-serif;
+    padding:14px;
+    background:#fff;
   }
-  .smart-cart-total-row p{margin:0;font-weight:500;font-size:16px;color:#454545;}
-  .smart-cart-total-row strong{font-weight:500;font-size:16px;color:#262626;}
+  .venda-com-footer-row span{font-size:14px;font-weight:700;color:#1f1f1f;}
+  .venda-com-footer-row strong{font-size:14px;font-weight:700;color:#1f1f1f;white-space:nowrap;}
 
-  .smart-cart-actions{display:flex;align-items:center;justify-content:space-between;width:100%;gap:12px;flex-wrap:wrap;}
-  .smart-cart-actions>*{flex:1 1 auto;justify-content:center;}
-  .smart-btn-outline-danger,
-  .smart-btn-solid-success{
+  .venda-com-actions{
     display:flex;
     align-items:center;
-    gap:16px;
-    padding:12px 16px;
-    border-radius:6px;
-    font-family:"Poppins",sans-serif;
-    font-weight:500;
-    font-size:16px;
-    cursor:pointer;
-    border:none;
+    justify-content:space-between;
+    gap:12px;
+    flex-wrap:wrap;
+    margin-bottom:8px;
   }
-  .smart-btn-outline-danger{border:1px solid #d1040c;background:var(--surface);color:#d1040c;}
-  .smart-btn-outline-danger svg{width:16px;height:16px;}
-  .smart-btn-solid-success{background:#5cb85c;color:#fff;}
-  .smart-btn-solid-success svg{width:16px;height:16px;}
+  .venda-com-btn-group{display:flex;gap:10px;flex-wrap:wrap;}
+  .venda-com-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:9px 16px;
+    border-radius:4px;
+    font-family:inherit;
+    font-size:14px;
+    font-weight:500;
+    border:none;
+    color:#fff;
+    cursor:pointer;
+  }
+  .venda-com-btn svg{width:15px;height:15px;flex-shrink:0;}
+  .venda-com-btn--primary{background:#337ab7;}
+  .venda-com-btn--danger{background:#d9534f;}
+  .venda-com-btn--success{background:#5cb85c;}
+
+  .venda-com-obs{margin:0;font-size:12px;color:#8a8a8a;}
 
   /* ---- Conversas ---- */
   .conv-title{
@@ -1318,6 +1301,107 @@
     align-self:flex-start;
   }
   .user-sheet-logout svg{width:12px;height:12px;flex-shrink:0;}
+
+  /* ---- Modal: Selecionar Pedido (carrinho) ---- */
+  .cart-modal{
+    position:fixed;
+    top:50%;
+    left:50%;
+    z-index:61;
+    width:calc(100% - 32px);
+    max-width:520px;
+    max-height:85dvh;
+    overflow-y:auto;
+    background:var(--surface);
+    border-radius:12px;
+    border-top:4px solid var(--brand-500);
+    box-shadow:0 20px 60px rgba(0,0,0,.35);
+    padding:20px;
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+    color:var(--fg-primary);
+    opacity:0;
+    pointer-events:none;
+    transform:translate(-50%,-48%) scale(.97);
+    transition:opacity .2s ease, transform .2s ease;
+  }
+  .cart-modal.is-open{opacity:1;pointer-events:auto;transform:translate(-50%,-50%) scale(1);}
+  .cart-modal-header{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;}
+  .cart-modal-title{margin:0;font-family:"Poppins",sans-serif;font-weight:600;font-size:16px;color:#1f1f1f;}
+  .cart-modal-close{
+    flex-shrink:0;
+    width:24px;
+    height:24px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border:none;
+    background:none;
+    color:#9a9a9a;
+    cursor:pointer;
+    padding:0;
+  }
+  .cart-modal-close svg{width:18px;height:18px;}
+  .cart-modal-table-wrap{
+    width:100%;
+    overflow-x:auto;
+    border:1px solid var(--pdv-grey-100);
+    border-radius:8px;
+    -webkit-overflow-scrolling:touch;
+  }
+  .cart-modal-table{
+    width:100%;
+    min-width:640px;
+    border-collapse:collapse;
+  }
+  .cart-modal-table thead th{
+    position:sticky;
+    top:0;
+    text-align:left;
+    padding:10px 14px;
+    font-family:"Poppins",sans-serif;
+    font-weight:500;
+    font-size:11px;
+    color:var(--pdv-grey-500);
+    text-transform:uppercase;
+    letter-spacing:.02em;
+    background:var(--pdv-grey-25);
+    border-bottom:1px solid var(--pdv-grey-100);
+    white-space:nowrap;
+  }
+  .cart-modal-table thead th.cart-modal-th-radio{width:40px;}
+  .cart-modal-table tbody td{
+    padding:12px 14px;
+    font-family:"Poppins",sans-serif;
+    font-weight:500;
+    font-size:14px;
+    color:#262626;
+    white-space:nowrap;
+    border-bottom:1px solid var(--pdv-grey-100);
+  }
+  .cart-modal-table tbody tr:last-child td{border-bottom:none;}
+  .cart-modal-table tbody tr{cursor:pointer;}
+  .cart-modal-table tbody tr.is-selected td{background:var(--pdv-grey-50);}
+  .cart-modal-radio{flex-shrink:0;width:16px;height:16px;accent-color:var(--pdv-blue-700);cursor:pointer;}
+  .cart-modal-actions{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;}
+  .cart-modal-actions-right{display:flex;gap:12px;flex-wrap:wrap;}
+  .cart-modal-btn{
+    padding:10px 16px;
+    border-radius:6px;
+    font-family:"Poppins",sans-serif;
+    font-weight:500;
+    font-size:14px;
+    cursor:pointer;
+    border:none;
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+  }
+  .cart-modal-btn svg{width:14px;height:14px;flex-shrink:0;}
+  .cart-modal-btn--ghost{background:var(--surface);border:1px solid var(--pdv-grey-100);color:#454545;}
+  .cart-modal-btn--success{background:#5cb85c;color:#fff;}
+  .cart-modal-btn--primary{background:var(--pdv-blue-700);color:#fff;}
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1338,13 +1422,13 @@
       </span>
     </div>
 
-    <div class="menu">
-      <img class="logo-img" src="data:image/png;base64,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" alt="Flua Vendas" width="79" height="53">
-      <div class="hub-user">
-        <div class="hub-user-info">
-          <div class="hub-user-text">
-            <p class="hub-user-name">alissonrocha</p>
-            <p class="hub-user-store">
+    <div class="smart-header">
+      <img class="smart-logo-img" src="data:image/png;base64,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" alt="Flua Vendas" width="79" height="53">
+      <div class="smart-user">
+        <div class="smart-user-info">
+          <div class="smart-user-text">
+            <p class="smart-user-name">alissonrocha</p>
+            <p class="smart-user-store">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 21v-5a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v5"/><path d="M17.774 10.31a1.12 1.12 0 0 0-1.549 0 2.5 2.5 0 0 1-3.451 0 1.12 1.12 0 0 0-1.548 0 2.5 2.5 0 0 1-3.452 0 1.12 1.12 0 0 0-1.549 0 2.5 2.5 0 0 1-3.77-3.248l2.889-4.184A2 2 0 0 1 7 2h10a2 2 0 0 1 1.653.873l2.895 4.192a2.5 2.5 0 0 1-3.774 3.244"/><path d="M4 10.95V19a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8.05"/></svg>
               63 VITCONQ
             </p>
@@ -1608,7 +1692,7 @@
       Consultar Estoque
     </button>
     <button type="button" class="pdv-nav-item">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v16"/><path d="M20.001 19A2 2 0 0022 17V5a2 2 0 00-1.999-2L16 3.002A5 5 0 0012 5a5 5 0 00-4-2H4a2 2 0 00-2 2v12a2 2 0 001.999 2H8a5 5 0 014 2 5 5 0 014-2z"/></svg>
       Catálogo
     </button>
     <button type="button" class="pdv-nav-item" data-goto="hub">
@@ -1697,7 +1781,7 @@
       Consultar Estoque
     </button>
     <button type="button" class="pdv-nav-item">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v16"/><path d="M20.001 19A2 2 0 0022 17V5a2 2 0 00-1.999-2L16 3.002A5 5 0 0012 5a5 5 0 00-4-2H4a2 2 0 00-2 2v12a2 2 0 001.999 2H8a5 5 0 014 2 5 5 0 014-2z"/></svg>
       Catálogo
     </button>
     <button type="button" class="pdv-nav-item" data-goto="hub">
@@ -1834,7 +1918,7 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20v-8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8"/><path d="M4 10V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4"/><path d="M12 4v6"/><path d="M2 18h20"/></svg>
       Categorias
     </button>
-    <button type="button" class="pdv-nav-item" data-goto="smart-carrinho">
+    <button type="button" class="pdv-nav-item" data-open="cart-modal">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m2.05 2.05 1.099-.028a1 1 0 0 1 1.008.815l2.69 14.347A1 1 0 0 0 7.83 18H18"/><path d="M4.563 5h16.435a1 1 0 0 1 .981 1.204l-1.026 6.226A2 2 0 0 1 18.962 14H6.25"/><circle cx="18" cy="20" r="2"/><circle cx="8" cy="20" r="2"/></svg>
       Carrinho
     </button>
@@ -2047,7 +2131,7 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20v-8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8"/><path d="M4 10V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4"/><path d="M12 4v6"/><path d="M2 18h20"/></svg>
       Categorias
     </button>
-    <button type="button" class="pdv-nav-item" data-goto="smart-carrinho">
+    <button type="button" class="pdv-nav-item" data-open="cart-modal">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m2.05 2.05 1.099-.028a1 1 0 0 1 1.008.815l2.69 14.347A1 1 0 0 0 7.83 18H18"/><path d="M4.563 5h16.435a1 1 0 0 1 .981 1.204l-1.026 6.226A2 2 0 0 1 18.962 14H6.25"/><circle cx="18" cy="20" r="2"/><circle cx="8" cy="20" r="2"/></svg>
       Carrinho
     </button>
@@ -2153,7 +2237,7 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20v-8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8"/><path d="M4 10V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4"/><path d="M12 4v6"/><path d="M2 18h20"/></svg>
       Categorias
     </button>
-    <button type="button" class="pdv-nav-item" data-goto="smart-carrinho">
+    <button type="button" class="pdv-nav-item" data-open="cart-modal">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m2.05 2.05 1.099-.028a1 1 0 0 1 1.008.815l2.69 14.347A1 1 0 0 0 7.83 18H18"/><path d="M4.563 5h16.435a1 1 0 0 1 .981 1.204l-1.026 6.226A2 2 0 0 1 18.962 14H6.25"/><circle cx="18" cy="20" r="2"/><circle cx="8" cy="20" r="2"/></svg>
       Carrinho
     </button>
@@ -2215,108 +2299,149 @@
   <div class="smart-sheet">
     <div class="smart-sheet-inner">
 
-      <p class="smart-page-title">
-        <button type="button" class="smart-page-title-back" aria-label="Voltar" data-goto="smart">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
-        </button>
-        <span class="smart-page-title-text">Venda Comissionada</span>
-      </p>
+      <div class="venda-com">
 
-      <div class="smart-alert">
-        <p>OBS: Os produtos ainda não se encontram reservados para este pedido.</p>
-      </div>
-
-      <div>
-        <p class="smart-page-title-text" style="margin-bottom:16px;">Itens</p>
-        <div class="smart-cart-box">
-
-          <div class="smart-cart-item">
-            <div class="smart-cart-item-row">
-              <span class="smart-cart-img" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z"/><path d="M12 22V12"/><polyline points="3.29 7 12 12 20.71 7"/><path d="m7.5 4.27 9 5.15"/></svg>
-              </span>
-              <div class="smart-cart-info">
-                <div class="smart-cart-info-top">
-                  <div class="smart-cart-info-main">
-                    <div class="smart-cart-meta">
-                      <p class="smart-cart-code">421029</p>
-                      <span class="smart-cart-grade">BR/BR/RS</span>
-                    </div>
-                    <p class="smart-cart-name">Guarda Roupa Solteiro Flash 6 Portas - Demóbile</p>
-                  </div>
-                  <button type="button" class="smart-cart-kebab" aria-label="Mais opções">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>
-                  </button>
-                </div>
-                <p class="smart-cart-qty">Qtde: 1</p>
-              </div>
-            </div>
-            <span class="smart-cart-warranty">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>
-              Garantia Estendida: 24 meses
-            </span>
-            <div class="smart-cart-price-row">
-              <p class="smart-cart-unit">R$ 843,65<span> /uni</span></p>
-              <div class="smart-cart-total-block">
-                <p class="smart-cart-total-label">Valor total</p>
-                <p class="smart-cart-total-value">R$ 1.167,68</p>
-                <p class="smart-cart-warranty-value"><b>R$ 324,03</b><span>garantia</span></p>
-              </div>
-            </div>
-          </div>
-
-          <div class="smart-cart-item">
-            <div class="smart-cart-item-row">
-              <span class="smart-cart-img" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z"/><path d="M12 22V12"/><polyline points="3.29 7 12 12 20.71 7"/><path d="m7.5 4.27 9 5.15"/></svg>
-              </span>
-              <div class="smart-cart-info">
-                <div class="smart-cart-info-top">
-                  <div class="smart-cart-info-main">
-                    <div class="smart-cart-meta">
-                      <p class="smart-cart-code">1836</p>
-                      <span class="smart-cart-grade">UNICA - BIVOLT</span>
-                    </div>
-                    <p class="smart-cart-name">Fogão Itaglass Plus 5 Bocas Itatiaia - Tripla Chama</p>
-                  </div>
-                  <button type="button" class="smart-cart-kebab" aria-label="Mais opções">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>
-                  </button>
-                </div>
-                <p class="smart-cart-qty">Qtde: 1</p>
-              </div>
-            </div>
-            <span class="smart-cart-warranty">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>
-              Garantia Estendida: 24 meses
-            </span>
-            <div class="smart-cart-price-row">
-              <p class="smart-cart-unit">R$ 1.664,68<span> /uni</span></p>
-              <div class="smart-cart-total-block">
-                <p class="smart-cart-total-label">Valor total</p>
-                <p class="smart-cart-total-value">R$ 1.945,56</p>
-                <p class="smart-cart-warranty-value"><b>R$ 280,88</b><span>garantia</span></p>
-              </div>
-            </div>
-          </div>
-
-          <div class="smart-cart-total-row">
-            <p>Total</p>
-            <strong>R$ 4.000,00</strong>
-          </div>
-
+        <div class="venda-com-header">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m2.05 2.05 1.099-.028a1 1 0 0 1 1.008.815l2.69 14.347A1 1 0 0 0 7.83 18H18"/><path d="M4.563 5h16.435a1 1 0 0 1 .981 1.204l-1.026 6.226A2 2 0 0 1 18.962 14H6.25"/><circle cx="18" cy="20" r="2"/><circle cx="8" cy="20" r="2"/></svg>
+          <span class="venda-com-header-divider">|</span>
+          <h2>Venda Comissionada</h2>
         </div>
-      </div>
 
-      <div class="smart-cart-actions">
-        <button type="button" class="smart-btn-outline-danger">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 11v6"/><path d="M14 11v6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
-          Descartar Pedido
-        </button>
-        <button type="button" class="smart-btn-solid-success">
-          Prosseguir
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-        </button>
+        <div class="venda-com-box">
+          <div class="venda-com-box-head">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h.01"/><path d="M3 12h.01"/><path d="M3 19h.01"/><path d="M8 5h13"/><path d="M8 12h13"/><path d="M8 19h13"/></svg>
+            <span class="venda-com-box-head-divider">|</span>
+            <span class="venda-com-box-title">Produtos (2)</span>
+          </div>
+
+          <div class="venda-com-table-wrap">
+            <table class="venda-com-table">
+              <thead>
+                <tr>
+                  <th aria-label="Imagem"></th>
+                  <th>Cód</th>
+                  <th>Descrição</th>
+                  <th>Grade</th>
+                  <th>Valor Unit</th>
+                  <th>Qtde</th>
+                  <th>Valor Total</th>
+                  <th aria-label="Ações"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <span class="venda-com-thumb">
+                      <img src="data:image/jpeg;base64,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" alt="Mesa de jantar com 04 cadeiras Malta - Bom Pastor" width="56" height="56">
+                    </span>
+                  </td>
+                  <td>209270</td>
+                  <td>
+                    <div class="venda-com-desc">
+                      <span>Mesa de jantar com 04 cadeiras Malta - Bom Pastor</span>
+                      <span class="venda-com-incluso">
+                        Incluso:
+                        <span class="venda-com-pill venda-com-pill--warranty">Garantia Estendida</span>
+                        <span class="venda-com-pill venda-com-pill--months">24 meses</span>
+                      </span>
+                    </div>
+                  </td>
+                  <td>AM/OFV51</td>
+                  <td>
+                    <div class="venda-com-value-wrap">
+                      <span>2.140,65</span>
+                      <span class="venda-com-badge">+ 918,08</span>
+                    </div>
+                  </td>
+                  <td>1</td>
+                  <td>
+                    <div class="venda-com-value-wrap">
+                      <span>2.140,65</span>
+                      <span class="venda-com-badge">+ 918,08</span>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="venda-com-row-actions">
+                      <button type="button" class="venda-com-icon-btn" aria-label="Editar item">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></svg>
+                      </button>
+                      <button type="button" class="venda-com-icon-btn" aria-label="Remover item">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="venda-com-thumb">
+                      <img src="data:image/jpeg;base64,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" alt="Kit em Aço Florença, 8 portas, 2 gavetas - Itatiaia" width="56" height="56">
+                    </span>
+                  </td>
+                  <td>001326</td>
+                  <td>
+                    <div class="venda-com-desc">
+                      <span>Kit em Aço Florença , 8 portas, 2 gavetas - Itatiaia</span>
+                      <span class="venda-com-incluso">
+                        Incluso:
+                        <span class="venda-com-pill venda-com-pill--warranty">Garantia Estendida</span>
+                        <span class="venda-com-pill venda-com-pill--months">24 meses</span>
+                      </span>
+                    </div>
+                  </td>
+                  <td>BRANCO..</td>
+                  <td>
+                    <div class="venda-com-value-wrap">
+                      <span>1.902,67</span>
+                      <span class="venda-com-badge">+ 648,05</span>
+                    </div>
+                  </td>
+                  <td>1</td>
+                  <td>
+                    <div class="venda-com-value-wrap">
+                      <span>1.902,67</span>
+                      <span class="venda-com-badge">+ 648,05</span>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="venda-com-row-actions">
+                      <button type="button" class="venda-com-icon-btn" aria-label="Editar item">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></svg>
+                      </button>
+                      <button type="button" class="venda-com-icon-btn" aria-label="Remover item">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="venda-com-footer-row">
+            <span>Saldo de Desconto</span>
+            <strong>Total: R$ 5.609,45</strong>
+          </div>
+        </div>
+
+        <div class="venda-com-actions">
+          <button type="button" class="venda-com-btn venda-com-btn--primary" data-goto="smart-categorias">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+            Continuar Comprando
+          </button>
+          <div class="venda-com-btn-group">
+            <button type="button" class="venda-com-btn venda-com-btn--danger">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+              Descartar
+            </button>
+            <button type="button" class="venda-com-btn venda-com-btn--success">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+              Prosseguir
+            </button>
+          </div>
+        </div>
+
+        <p class="venda-com-obs">OBS: Os produtos ainda não se encontram reservados para este pedido.</p>
+
       </div>
 
     </div>
@@ -2331,7 +2456,7 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20v-8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8"/><path d="M4 10V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4"/><path d="M12 4v6"/><path d="M2 18h20"/></svg>
       Categorias
     </button>
-    <button type="button" class="pdv-nav-item is-active" data-goto="smart-carrinho">
+    <button type="button" class="pdv-nav-item is-active" data-open="cart-modal">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m2.05 2.05 1.099-.028a1 1 0 0 1 1.008.815l2.69 14.347A1 1 0 0 0 7.83 18H18"/><path d="M4.563 5h16.435a1 1 0 0 1 .981 1.204l-1.026 6.226A2 2 0 0 1 18.962 14H6.25"/><circle cx="18" cy="20" r="2"/><circle cx="8" cy="20" r="2"/></svg>
       Carrinho
     </button>
@@ -2874,6 +2999,55 @@
   </div>
 </div>
 
+<div class="cart-modal" data-sheet="cart-modal" role="dialog" aria-label="Selecionar Pedido">
+  <div class="cart-modal-header">
+    <p class="cart-modal-title">Selecionar Pedido</p>
+    <button type="button" class="cart-modal-close" aria-label="Fechar" data-close="cart-modal">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+    </button>
+  </div>
+
+  <div class="cart-modal-table-wrap" role="radiogroup" aria-label="Carrinhos disponíveis">
+    <table class="cart-modal-table">
+      <thead>
+        <tr>
+          <th class="cart-modal-th-radio" aria-label="Selecionar"></th>
+          <th>Nº Carrinho</th>
+          <th>Tipo Carrinho</th>
+          <th>Cliente</th>
+          <th>Valor Total</th>
+          <th>Criado Em</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <label>
+              <input type="radio" name="cart-select" class="cart-modal-radio" aria-label="Selecionar carrinho 1491773">
+            </label>
+          </td>
+          <td>1491773</td>
+          <td>Venda Comissionada</td>
+          <td>Sem Cliente</td>
+          <td>R$ 4.043,32</td>
+          <td>21/09/2026 09:53:11</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="cart-modal-actions">
+    <button type="button" class="cart-modal-btn cart-modal-btn--ghost" data-close="cart-modal">Fechar</button>
+    <div class="cart-modal-actions-right">
+      <button type="button" class="cart-modal-btn cart-modal-btn--success">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+        Criar Novo
+      </button>
+      <button type="button" class="cart-modal-btn cart-modal-btn--primary" data-goto="smart-carrinho" data-close="cart-modal">Selecionar</button>
+    </div>
+  </div>
+</div>
+
 <script>
 (function(){
   function go(id){
@@ -2886,7 +3060,10 @@
     var sheet = document.querySelector('[data-sheet="' + id + '"]');
     var backdrop = document.querySelector('.sheet-backdrop');
     if(sheet) sheet.classList.add('is-open');
-    if(backdrop) backdrop.classList.add('is-open');
+    if(backdrop){
+      backdrop.classList.add('is-open');
+      backdrop.setAttribute('data-close', id);
+    }
   }
   function closeSheet(id){
     var sheet = document.querySelector('[data-sheet="' + id + '"]');
@@ -2895,22 +3072,28 @@
     if(backdrop) backdrop.classList.remove('is-open');
   }
   document.addEventListener('click', function(e){
-    var openEl = e.target.closest('[data-open]');
-    if(openEl){
-      e.preventDefault();
-      openSheet(openEl.getAttribute('data-open'));
-      return;
-    }
-    var closeEl = e.target.closest('[data-close]');
-    if(closeEl){
-      e.preventDefault();
-      closeSheet(closeEl.getAttribute('data-close'));
-      return;
-    }
-    var el = e.target.closest('[data-goto]');
+    var el = e.target.closest('[data-goto],[data-open],[data-close]');
     if(!el) return;
     e.preventDefault();
-    go(el.getAttribute('data-goto'));
+    if(el.hasAttribute('data-close')) closeSheet(el.getAttribute('data-close'));
+    if(el.hasAttribute('data-open')) openSheet(el.getAttribute('data-open'));
+    if(el.hasAttribute('data-goto')) go(el.getAttribute('data-goto'));
+  });
+  document.addEventListener('change', function(e){
+    var radio = e.target.closest('.cart-modal-radio');
+    if(!radio) return;
+    document.querySelectorAll('.cart-modal-table tbody tr').forEach(function(row){
+      row.classList.toggle('is-selected', row.contains(radio) && radio.checked);
+    });
+  });
+  document.addEventListener('click', function(e){
+    var row = e.target.closest('.cart-modal-table tbody tr');
+    if(!row || e.target.closest('.cart-modal-radio')) return;
+    var radio = row.querySelector('.cart-modal-radio');
+    if(radio && !radio.checked){
+      radio.checked = true;
+      radio.dispatchEvent(new Event('change', {bubbles:true}));
+    }
   });
 })();
 </script>
