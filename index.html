@@ -1410,22 +1410,11 @@
   }
   .auth-login-logo{
     display:flex;
-    flex-direction:column;
-    align-items:flex-end;
-    line-height:1;
   }
-  .auth-login-logo-flua{
-    font-family:"Comfortaa",sans-serif;
-    font-weight:700;
-    font-size:36px;
-    color:var(--brand-500);
-  }
-  .auth-login-logo-vendas{
-    font-family:"Comfortaa",sans-serif;
-    font-weight:700;
-    font-size:15px;
-    color:var(--brand-500);
-    margin-top:-6px;
+  .auth-login-logo img{
+    width:124px;
+    height:auto;
+    display:block;
   }
 
   .auth-illustration{
@@ -1560,15 +1549,15 @@
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&family=Poppins:wght@400;500;600&family=Roboto:wght@700&family=Montserrat:wght@500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Roboto:wght@700&family=Montserrat:wght@500;600&display=swap" rel="stylesheet">
 </head>
 <body>
 
 <section class="screen is-active" data-screen="login">
 <div class="auth-screen auth-screen--login">
   <div class="auth-login-inner">
-    <div class="auth-login-logo" role="img" aria-label="Flua Vendas">
-      <span class="auth-login-logo-flua">flua</span><span class="auth-login-logo-vendas">vendas</span>
+    <div class="auth-login-logo">
+      <img src="data:image/png;base64,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" alt="Flua Vendas" width="83" height="55">
     </div>
 
     <div class="auth-illustration" aria-hidden="true">
@@ -2356,7 +2345,7 @@
           </button>
           <button type="button" class="smart-account-btn">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m2.05 2.05 1.099-.028a1 1 0 0 1 1.008.815l2.69 14.347A1 1 0 0 0 7.83 18H18"/><path d="M4.563 5h16.435a1 1 0 0 1 .981 1.204l-1.026 6.226A2 2 0 0 1 18.962 14H6.25"/><circle cx="18" cy="20" r="2"/><circle cx="8" cy="20" r="2"/></svg>
-            Selecionar/Criar Pedido
+            Selecionar/Criar Carrinho
           </button>
           <button type="button" class="smart-account-btn">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/></svg>
@@ -3110,7 +3099,7 @@
       </div>
     </div>
 
-    <button type="button" class="user-sheet-logout">
+    <button type="button" class="user-sheet-logout" data-close="user-sheet" data-goto="login">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 17 5-5-5-5"/><path d="M21 12H9"/><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/></svg>
       Sair do Sistema
     </button>
@@ -3173,6 +3162,14 @@
       s.classList.toggle('is-active', s.getAttribute('data-screen') === id);
     });
     window.scrollTo(0, 0);
+    if(id === 'login'){
+      var userEl = document.getElementById('oauth-user');
+      var passEl = document.getElementById('oauth-pass');
+      var errEl = document.getElementById('oauth-error');
+      if(userEl) userEl.value = '';
+      if(passEl) passEl.value = '';
+      if(errEl) errEl.hidden = true;
+    }
   }
   function openSheet(id){
     var sheet = document.querySelector('[data-sheet="' + id + '"]');
