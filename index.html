@@ -2001,6 +2001,19 @@
   .hb-tile-title{font-family:"Poppins",sans-serif; font-weight:400; font-size:16px; line-height:1.5; color:var(--fg-secondary);}
   .hb-tile-sub{font-family:"Poppins",sans-serif; font-weight:400; font-size:14px; line-height:1.5; color:var(--fg-tertiary);}
   .hb-tile-ext{align-self:flex-end; display:flex; width:16px; height:16px; flex-shrink:0;}
+  /* Apoio ao cliente: lista única em card (Figma 7125:14490) */
+  .hb-support{list-style:none; margin:0; padding:8px 16px; display:flex; flex-direction:column; background:var(--surface); border-radius:12px; overflow:clip;}
+  .hb-support li:not(:last-child) .hb-support-item{box-shadow:inset 0 -1px 0 #e7e7e7;} /* divisor dentro da linha, como o stroke do Figma */
+  .hb-support-item{width:100%; display:flex; align-items:center; gap:8px; padding:16px 0; border:0; background:none;
+    text-align:left; font:inherit; color:inherit; cursor:pointer; -webkit-tap-highlight-color:transparent; transition:scale 150ms ease-out;}
+  .hb-support-item:active{scale:.98;}
+  .hb-support-item:focus-visible{outline:2px solid #1967d2; outline-offset:2px; border-radius:4px;}
+  .hb-support-icon{display:flex; width:20px; height:20px; flex-shrink:0;}
+  .hb-support-icon img{display:block; width:20px; height:20px;}
+  .hb-support-text{flex:1; min-width:0; display:flex; flex-direction:column;}
+  .hb-support-title{font-family:"Poppins",sans-serif; font-weight:400; font-size:14px; line-height:1.5; color:var(--fg-secondary);}
+  .hb-support-sub{font-family:"Poppins",sans-serif; font-weight:400; font-size:14px; line-height:1.5; color:var(--fg-tertiary);}
+  .hb-support-ext{display:flex; width:16px; height:16px; flex-shrink:0;}
   /* Tablet: card horizontal (ícone · título · link externo) */
   @media (min-width:700px){
     .hb-tile{flex-direction:row; align-items:center; gap:16px; min-height:0;}
@@ -2172,23 +2185,24 @@
       </div>
 
       <div class="hb-section">
-        <p class="hb-section-title">Apoio ao cliente</p>
-        <div class="hb-grid" role="list" aria-label="Apoio ao cliente">
-          <button type="button" class="hb-tile" role="listitem">
-            <span class="hb-tile-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M10.5005 18.1658C12.0505 16.8275 16.6663 12.4941 16.6663 8.33329C16.6663 6.56518 15.964 4.86949 14.7137 3.61925C13.4635 2.36901 11.7678 1.66663 9.99967 1.66663C8.23156 1.66663 6.53587 2.36901 5.28563 3.61925C4.03539 4.86949 3.33301 6.56518 3.33301 8.33329C3.33301 12.4941 7.94884 16.8275 9.49884 18.1658C9.64324 18.2744 9.81901 18.3331 9.99967 18.3331C10.1803 18.3331 10.3561 18.2744 10.5005 18.1658Z" stroke="#FD5260" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 10.8334C11.3807 10.8334 12.5 9.71409 12.5 8.33337C12.5 6.95266 11.3807 5.83337 10 5.83337C8.61929 5.83337 7.5 6.95266 7.5 8.33337C7.5 9.71409 8.61929 10.8334 10 10.8334Z" stroke="#FD5260" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-            <span class="hb-tile-row">
-              <span class="hb-tile-text"><span class="hb-tile-title">Rastreio de pedidos</span></span>
-              <span class="hb-tile-ext"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M12 8.66667V12.6667C12 13.0203 11.8595 13.3594 11.6095 13.6095C11.3594 13.8595 11.0203 14 10.6667 14H3.33333C2.97971 14 2.64057 13.8595 2.39053 13.6095C2.14047 13.3594 2 13.0203 2 12.6667V5.33333C2 4.97971 2.14047 4.64057 2.39053 4.39053C2.64057 4.14047 2.97971 4 3.33333 4H7.33333" stroke="#6D6D6D" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 2H14V6" stroke="#6D6D6D" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/><path d="M6.66797 9.33333L14.0013 2" stroke="#6D6D6D" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-            </span>
-          </button>
-          <button type="button" class="hb-tile" role="listitem">
-            <span class="hb-tile-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M12.5003 9.16663L11.667 16.6666" stroke="#FD5260" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/><path d="M15.8333 9.16671L12.5 3.33337" stroke="#FD5260" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/><path d="M1.66699 9.16663H18.3337" stroke="#FD5260" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/><path d="M2.91699 9.16663L4.25033 15.3333C4.32824 15.7154 4.5377 16.0581 4.84223 16.3017C5.14676 16.5454 5.52708 16.6745 5.91699 16.6666H14.0837C14.4736 16.6745 14.8539 16.5454 15.1584 16.3017C15.463 16.0581 15.6724 15.7154 15.7503 15.3333L17.167 9.16663" stroke="#FD5260" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/><path d="M3.75 12.9166H16.25" stroke="#FD5260" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/><path d="M4.16699 9.16671L7.50033 3.33337" stroke="#FD5260" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/><path d="M7.5 9.16663L8.33333 16.6666" stroke="#FD5260" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-            <span class="hb-tile-row">
-              <span class="hb-tile-text"><span class="hb-tile-title">Acesse o site</span><span class="hb-tile-sub">simonetti.com.br</span></span>
-              <span class="hb-tile-ext"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M12 8.66667V12.6667C12 13.0203 11.8595 13.3594 11.6095 13.6095C11.3594 13.8595 11.0203 14 10.6667 14H3.33333C2.97971 14 2.64057 13.8595 2.39053 13.6095C2.14047 13.3594 2 13.0203 2 12.6667V5.33333C2 4.97971 2.14047 4.64057 2.39053 4.39053C2.64057 4.14047 2.97971 4 3.33333 4H7.33333" stroke="#6D6D6D" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 2H14V6" stroke="#6D6D6D" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/><path d="M6.66797 9.33333L14.0013 2" stroke="#6D6D6D" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-            </span>
-          </button>
-        </div>
+        <p class="hb-section-title" id="hb-apoio-title">Apoio ao cliente</p>
+        <ul class="hb-support" aria-labelledby="hb-apoio-title">
+          <li><button type="button" class="hb-support-item">
+            <span class="hb-support-icon"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAACAUlEQVR4nJ2UP2xSURTGf4d08dHNB51Ky1QMLNbIQodiYgc1wYWYuJkuDl1d3ZWxJnVpR/90ahO6yEAHOlgTXMC+TjRlEh4jt9s7DpcSGh/06Zfc4d538r3vfN/JEVVVwjA0YAz0fMhmQkvCMBf62vLQtockXbR1jvwDYSzsUfs+VGsEp030uAFt7z8J25495go1Bul0Ib+Kbu9aCyJAJj3UegP9sItkMygKCNLz0YW7SCKBbG1GVGgMXFzaAIoFFEBBHAeWUzC0iqmfRFMYvN+G331IJhB01J6gfd+Sxh0YaY69eD4zddHWmer3Jnp8EsknSbjIx8r0loP9Q/SoZlt8uoG8egnzDqyvITsVZL1w608mMSflEtrywBjkUQGWU+iVQQJFki5B6GBNR0xyGchZT7T6DYaG2JPH0B/YFpdSSHENki4U124nBJByyd56A3TvM/R9aNlhlmcb6IILPZ9Y3IlImMtAfhXSi2j7DP1yAAL69p0tKpeQnQpBhNDGDkkug1Zr0B+gP36iPR9te/D1wH5PusS2NiG9GJFwSprBr3P09RuoN64roxESd8bhTEIe3kfn76CdLux9Qk+bMwlvrq9cZhzGNXT/EIYG7XQJX5zTFAJyb+XviohbJlShpFM3VaRTyFLKzuAIenEZnZC4A9kVJP8AigUkZO5mRwJ/ANONzTB4CJSUAAAAAElFTkSuQmCC" width="20" height="20" alt=""></span>
+            <span class="hb-support-text"><span class="hb-support-title">Panfleto Virtual</span></span>
+            <span class="hb-support-ext"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M12 8.66667V12.6667C12 13.0203 11.8595 13.3594 11.6095 13.6095C11.3594 13.8595 11.0203 14 10.6667 14H3.33333C2.97971 14 2.64057 13.8595 2.39053 13.6095C2.14047 13.3594 2 13.0203 2 12.6667V5.33333C2 4.97971 2.14047 4.64057 2.39053 4.39053C2.64057 4.14047 2.97971 4 3.33333 4H7.33333" stroke="#6D6D6D" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 2H14V6" stroke="#6D6D6D" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/><path d="M6.66797 9.33333L14.0013 2" stroke="#6D6D6D" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </button></li>
+          <li><button type="button" class="hb-support-item">
+            <span class="hb-support-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M10.5005 18.1658C12.0505 16.8275 16.6663 12.4941 16.6663 8.33329C16.6663 6.56518 15.964 4.86949 14.7137 3.61925C13.4635 2.36901 11.7678 1.66663 9.99967 1.66663C8.23156 1.66663 6.53587 2.36901 5.28563 3.61925C4.03539 4.86949 3.33301 6.56518 3.33301 8.33329C3.33301 12.4941 7.94884 16.8275 9.49884 18.1658C9.64324 18.2744 9.81901 18.3331 9.99967 18.3331C10.1803 18.3331 10.3561 18.2744 10.5005 18.1658Z" stroke="#FD5260" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 10.8334C11.3807 10.8334 12.5 9.71409 12.5 8.33337C12.5 6.95266 11.3807 5.83337 10 5.83337C8.61929 5.83337 7.5 6.95266 7.5 8.33337C7.5 9.71409 8.61929 10.8334 10 10.8334Z" stroke="#FD5260" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span class="hb-support-text"><span class="hb-support-title">Rastreio de pedidos</span></span>
+            <span class="hb-support-ext"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M12 8.66667V12.6667C12 13.0203 11.8595 13.3594 11.6095 13.6095C11.3594 13.8595 11.0203 14 10.6667 14H3.33333C2.97971 14 2.64057 13.8595 2.39053 13.6095C2.14047 13.3594 2 13.0203 2 12.6667V5.33333C2 4.97971 2.14047 4.64057 2.39053 4.39053C2.64057 4.14047 2.97971 4 3.33333 4H7.33333" stroke="#6D6D6D" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 2H14V6" stroke="#6D6D6D" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/><path d="M6.66797 9.33333L14.0013 2" stroke="#6D6D6D" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </button></li>
+          <li><button type="button" class="hb-support-item">
+            <span class="hb-support-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M12.5003 9.16663L11.667 16.6666" stroke="#FD5260" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/><path d="M15.8333 9.16671L12.5 3.33337" stroke="#FD5260" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/><path d="M1.66699 9.16663H18.3337" stroke="#FD5260" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/><path d="M2.91699 9.16663L4.25033 15.3333C4.32824 15.7154 4.5377 16.0581 4.84223 16.3017C5.14676 16.5454 5.52708 16.6745 5.91699 16.6666H14.0837C14.4736 16.6745 14.8539 16.5454 15.1584 16.3017C15.463 16.0581 15.6724 15.7154 15.7503 15.3333L17.167 9.16663" stroke="#FD5260" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/><path d="M3.75 12.9166H16.25" stroke="#FD5260" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/><path d="M4.16699 9.16671L7.50033 3.33337" stroke="#FD5260" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/><path d="M7.5 9.16663L8.33333 16.6666" stroke="#FD5260" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span class="hb-support-text"><span class="hb-support-title">Acesse o site</span><span class="hb-support-sub">simonetti.com.br</span></span>
+            <span class="hb-support-ext"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M12 8.66667V12.6667C12 13.0203 11.8595 13.3594 11.6095 13.6095C11.3594 13.8595 11.0203 14 10.6667 14H3.33333C2.97971 14 2.64057 13.8595 2.39053 13.6095C2.14047 13.3594 2 13.0203 2 12.6667V5.33333C2 4.97971 2.14047 4.64057 2.39053 4.39053C2.64057 4.14047 2.97971 4 3.33333 4H7.33333" stroke="#6D6D6D" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 2H14V6" stroke="#6D6D6D" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/><path d="M6.66797 9.33333L14.0013 2" stroke="#6D6D6D" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </button></li>
+        </ul>
       </div>
     </div>
   </div>
