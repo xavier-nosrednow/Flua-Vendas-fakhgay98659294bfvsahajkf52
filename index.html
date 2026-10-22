@@ -43,20 +43,23 @@
     color:var(--fg-inverse);
   }
 
+  /* Grid: margem lateral de 16px em todas as páginas */
+  :root{--gutter:16px;}
   .frame{
     width:100%;
     max-width:768px;
     margin-inline:auto;
-    padding-inline:clamp(20px, 6vw, 64px);
+    padding-inline:var(--gutter);
   }
 
 
-  .icon-buttons{display:flex;gap:10px;}
+  .icon-buttons{display:flex;gap:8px;}
   .icon-btn{
     position:relative;
-    width:34px;
-    height:34px;
-    border-radius:12px;
+    width:44px;
+    height:44px;
+    flex-shrink:0;
+    border-radius:16px;
     background:rgba(255,240,240,.2);
     display:flex;
     align-items:center;
@@ -68,11 +71,11 @@
     cursor:default;
   }
   button.icon-btn{cursor:pointer;-webkit-tap-highlight-color:transparent;}
-  .icon-btn svg{width:18px;height:18px;}
+  .icon-btn svg{width:24px;height:24px;}
   .badge{
     position:absolute;
-    top:-5px;
-    right:-6px;
+    top:4px;
+    left:22px;
     min-width:16px;
     height:14px;
     padding:0 3px;
@@ -268,7 +271,8 @@
     align-items:center;
     justify-content:space-between;
     gap:12px;
-    padding:14px 0 clamp(18px, 3vw, 24px);
+    height:80px;
+    padding:0;
   }
 
   .pdv-logo-badge{
@@ -276,9 +280,10 @@
     align-items:center;
     gap:4px;
     flex-shrink:0;
+    height:35px;            /* mesma altura do logo Flua no topo */
     background:var(--surface);
     border-radius:4px;
-    padding:8px 9px;
+    padding:0 8px;
   }
   .pdv-logo-badge .pdv-logo-pdv{
     font-family:"Poppins",sans-serif;
@@ -298,7 +303,7 @@
     line-height:1.2;
   }
 
-  .pdv-user{display:flex;align-items:center;gap:10px;min-width:0;}
+  .pdv-user{display:flex;align-items:center;gap:8px;min-width:0;}
   .pdv-user-info{display:flex;align-items:center;gap:9px;min-width:0;}
   .pdv-avatar{
     width:32px;
@@ -314,10 +319,6 @@
     font-size:11px;
     color:var(--fg-inverse);
   }
-  .pdv-user-text{min-width:0;}
-  .pdv-user-text p{margin:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-  .pdv-user-name{font-family:"Poppins",sans-serif;font-weight:500;font-size:14px;color:#f6f6f6;}
-  .pdv-user-store{font-family:"Poppins",sans-serif;font-weight:400;font-size:12px;color:rgba(255,255,255,.9);}
 
   .pdv-sheet{
     flex:1;
@@ -331,7 +332,7 @@
     max-width:768px;
     margin-inline:auto;
     width:100%;
-    padding:clamp(20px, 4vw, 32px) clamp(20px, 6vw, 64px) calc(24px + var(--nav-h, 84px));
+    padding:clamp(20px, 4vw, 32px) var(--gutter) calc(24px + var(--nav-h, 84px));
     display:flex;
     flex-direction:column;
     gap:20px;
@@ -528,7 +529,6 @@
   }
 
   @media (min-width:700px){
-    .pdv-user-name{font-size:15px;}
     .pdv-card-title{font-size:16px;}
   }
 
@@ -540,32 +540,40 @@
     align-items:center;
     justify-content:space-between;
     gap:12px;
-    padding:14px 0 clamp(18px, 3vw, 24px);
+    height:80px;
+    padding:0;
   }
 
   .smart-logo-img{
     display:block;
     flex-shrink:0;
-    height:30px;
+    height:35px;
     width:auto;
   }
 
-  .smart-user{display:flex;align-items:center;gap:10px;min-width:0;}
+  .smart-user{display:flex;align-items:center;gap:8px;min-width:0;}
   .smart-user-info{display:flex;align-items:center;gap:9px;min-width:0;}
-  .smart-user-text{min-width:0;}
-  .smart-user-text p{margin:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-  .smart-user-name{font-family:"Poppins",sans-serif;font-weight:500;font-size:14px;color:#f6f6f6;}
-  .smart-user-store{
-    display:flex;
-    align-items:center;
-    justify-content:flex-end;
-    gap:4px;
-    font-family:"Poppins",sans-serif;
-    font-weight:400;
-    font-size:12px;
-    color:rgba(255,255,255,.9);
+  /* Topo: Loja em cima, usuário embaixo (Figma 6253:18258) */
+  .smart-user-text, .pdv-user-text{min-width:0; display:flex; flex-direction:column; align-items:flex-start; gap:4px;}
+  .smart-user-text p, .pdv-user-text p{margin:0; max-width:100%; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; line-height:1;}
+  .smart-user-store, .pdv-user-store{
+    display:flex; align-items:center; gap:4px;
+    font-family:"Poppins",sans-serif; font-weight:500; font-size:14px; line-height:1;
+    text-transform:uppercase; color:#fff;
   }
-  .smart-user-store svg{width:12px;height:12px;flex-shrink:0;}
+  .smart-user-store span, .pdv-user-store span{min-width:0; overflow:hidden; text-overflow:ellipsis;}
+  .smart-user-store svg, .pdv-user-store svg{width:14px; height:14px; flex-shrink:0;}
+  /* "LOJA 63" nunca é cortado; só o usuário pode ganhar reticências em telas muito estreitas */
+  .smart-user-text{min-width:76px;}
+  .smart-user-store{overflow:visible;}
+  /* Celulares bem estreitos (< 360px): topo mais compacto para caber sem quebrar */
+  @media (max-width:359px){
+    .smart-header, .pdv-header{gap:8px;}
+    .smart-header .icon-buttons, .pdv-header .icon-buttons{gap:4px;}
+    .smart-header .icon-btn, .pdv-header .icon-btn{width:40px; height:40px; border-radius:14px;}
+    .smart-header .icon-btn .badge, .pdv-header .icon-btn .badge{left:20px;}
+  }
+  .smart-user-name, .pdv-user-name{font-family:"Poppins",sans-serif; font-weight:400; font-size:14px; line-height:1; color:#fff;}
 
   .smart-sheet{
     flex:1;
@@ -579,7 +587,7 @@
     max-width:768px;
     margin-inline:auto;
     width:100%;
-    padding:clamp(20px, 4vw, 32px) clamp(20px, 6vw, 64px) calc(24px + var(--nav-h, 84px));
+    padding:clamp(20px, 4vw, 32px) var(--gutter) calc(24px + var(--nav-h, 84px));
     display:flex;
     flex-direction:column;
     gap:24px;
@@ -678,8 +686,6 @@
   }
 
   @media (min-width:700px){
-    .smart-logo-img{height:34px;}
-    .smart-user-name{font-size:15px;}
     .smart-section-title{font-size:17px;}
   }
 
@@ -960,41 +966,45 @@
     -webkit-overflow-scrolling:touch;
     scrollbar-width:thin;
   }
+  /* Chips de filtro de Conversas (Figma "Filtro", node 4667:15476) */
   .conv-chip{
+    position:relative;
     flex-shrink:0;
-    display:flex;
+    display:inline-flex;
     align-items:center;
-    gap:4px;
+    justify-content:center;
+    gap:8px;
     padding:12px 16px;
+    border:none;
     border-radius:32px;
-    border:1px solid var(--pdv-grey-100);
-    background:var(--surface);
+    background:transparent;
     font-family:"Poppins",sans-serif;
     font-weight:400;
     font-size:12px;
-    color:#5d5d5d;
+    line-height:1.25;
+    color:var(--fg-primary);
     white-space:nowrap;
     cursor:pointer;
+    -webkit-tap-highlight-color:transparent;
+    transition:scale 150ms ease-out, background-color 150ms ease-out, color 150ms ease-out;
   }
-  .conv-chip.is-active{
-    border-color:transparent;
-    background:var(--brand-500);
-    color:#fff;
-  }
+  .conv-chip::after{content:"";position:absolute;left:0;right:0;top:-3px;bottom:-3px;}
+  .conv-chip:active{scale:.96;}
+  .conv-chip.is-active{background:var(--brand-500);color:#fff;font-weight:500;}
   .conv-chip-count{
     display:flex;
     align-items:center;
     justify-content:center;
-    width:15px;
     height:15px;
     border-radius:50px;
-    background:var(--pdv-grey-50);
-    font-family:"Poppins",sans-serif;
-    font-weight:500;
-    font-size:10px;
-    color:#5d5d5d;
+    font-family:"Hanken Grotesk",system-ui,sans-serif;
+    font-weight:400;
+    font-size:12px;
+    line-height:1.25;
+    color:var(--fg-tertiary);
+    font-variant-numeric:tabular-nums;
   }
-  .conv-chip.is-active .conv-chip-count{background:#fff;color:var(--brand-500);}
+  .conv-chip.is-active .conv-chip-count{color:#fff;font-weight:500;}
 
   .conv-list{display:flex;flex-direction:column;width:100%;}
   .conv-item{
@@ -1287,6 +1297,233 @@
   }
   .user-sheet-logout svg{width:12px;height:12px;flex-shrink:0;}
 
+  /* ---- Página de Notificações (design: artifact "Flua Vendas · Notificações") ----
+     Abre por cima da tela atual deslizando pela lateral; "Voltar" desliza de volta e
+     a tela de origem continua exatamente como estava (mesma aplicação, mesma rolagem). */
+  .np-wrap{
+    --np-brand:#fd5260; --np-brand-deep:#e01d25;
+    --np-surface:#ffffff; --np-surface-subtle:#f9f9fa; --np-surface-sunken:#e7e7e7; --np-track:#f5f5f5;
+    --np-border:#e7e7e7; --np-border-subtle:#f5f5f5; --np-border-hover:#d6d6d6; --np-divider:#f5f5f5;
+    --np-fg-primary:#3d3d3d; --np-fg-secondary:#4f4f4f; --np-fg-tertiary:#6d6d6d; --np-grey-400:#858585;
+    --np-blue-700:#1967d2; --np-brand-text:#c42b3a; --np-brand-text-hover:#9e1f2c;
+    --np-inverse-surface:#262626; --np-inverse-fg:#ffffff; --np-inverse-fg-muted:#d4d4d4; --np-inverse-accent:#ffb3ba;
+    --np-font-num:'Hanken Grotesk', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    position:fixed; top:0; bottom:0; left:0; right:0; z-index:70;
+    max-width:768px; margin-inline:auto; overflow:hidden;
+    pointer-events:none; visibility:hidden;
+    transition:visibility 0s linear .26s;
+  }
+  .np-wrap.is-open{visibility:visible; pointer-events:auto; transition:visibility 0s;}
+  .np-scrim{position:absolute; inset:0; background:rgba(17,17,17,.22); opacity:0; transition:opacity .26s ease;}
+  .np-wrap.is-open .np-scrim{opacity:1; transition-duration:.36s;}
+  .np{
+    position:absolute; inset:0;
+    display:flex; flex-direction:column;
+    background:var(--np-surface); color:var(--np-fg-primary);
+    font-family:"Poppins", system-ui, -apple-system, "Segoe UI", sans-serif;
+    -webkit-font-smoothing:antialiased;
+    box-shadow:-16px 0 32px -20px rgba(0,0,0,.35);
+    transform:translateX(100%);
+    transition:transform .26s cubic-bezier(.4,0,1,1);
+    container:npapp / inline-size;
+  }
+  .np-wrap.is-open .np{transform:translateX(0); transition:transform .36s cubic-bezier(.2,0,0,1);}
+  @media (prefers-reduced-motion: reduce){
+    .np, .np-wrap.is-open .np{transform:none; opacity:0; transition:opacity .2s ease;}
+    .np-wrap.is-open .np{opacity:1;}
+    .np *{transition:none !important;}
+  }
+  :where(.np) *, :where(.np) *::before, :where(.np) *::after{box-sizing:border-box; margin:0;}
+  :where(.np) button, :where(.np) a{font:inherit; color:inherit;}
+  :where(.np) button{background:none; border:0; padding:0; cursor:pointer; touch-action:manipulation;}
+  .np :focus-visible{outline:2px solid var(--np-blue-700); outline-offset:2px;}
+  .np:focus, .np:focus-visible{outline:none;}
+  .np-sr-only{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap;}
+
+  /* Cabeçalho fixo, com elevação quando a lista rola */
+  .np-top{flex-shrink:0; position:relative; z-index:2; background:var(--np-surface);}
+  .np-top::after{content:""; position:absolute; left:0; right:0; bottom:0; height:16px; pointer-events:none;
+    box-shadow:0 6px 12px -6px rgba(0,0,0,.12), 0 1px 0 rgba(0,0,0,.03); opacity:0; transition:opacity 150ms ease-out;}
+  .np-top.is-elevated::after{opacity:1;}
+  .np-header{display:flex; align-items:center; gap:8px; padding:16px;}
+  .np-back{position:relative; display:flex; width:20px; height:20px; flex-shrink:0; color:var(--np-fg-secondary); transition:scale 150ms ease-out, color 150ms ease-out;}
+  .np-header h1{flex:1; font-weight:500; font-size:18px; line-height:1.5;}
+  .np-icon-btn{position:relative; width:40px; height:40px; flex-shrink:0; display:flex; align-items:center; justify-content:center;
+    background:var(--np-surface-subtle); color:var(--np-fg-primary); border-radius:6px;
+    transition:scale 150ms ease-out, background-color 150ms ease-out, color 150ms ease-out;}
+  .np-icon-btn svg{width:18px; height:18px; padding:1px; box-sizing:border-box;}
+  .np-icon-btn[aria-expanded="true"]{background:var(--np-surface-sunken); color:var(--np-fg-tertiary);}
+  .np-back::after, .np-icon-btn::after{content:""; position:absolute; top:50%; left:50%; width:44px; height:44px; transform:translate(-50%,-50%);}
+
+  /* Menu de filtros por aplicação */
+  .np-filter-menu{position:absolute; z-index:3; top:64px; right:16px; width:238px;
+    background:var(--np-surface); border-radius:12px; box-shadow:0 0 2px rgba(0,0,0,.1), 0 8px 20px -10px rgba(0,0,0,.18);
+    padding:16px; display:flex; flex-direction:column; align-items:flex-start; gap:8px; transform-origin:top right;
+    transition-property:opacity, transform, visibility; transition-duration:150ms; transition-timing-function:ease-out;}
+  .np-filter-menu[hidden]{display:flex; opacity:0; transform:scale(.96) translateY(-4px); visibility:hidden; pointer-events:none; transition-delay:0s, 0s, 150ms;}
+  .np-filter-menu:not([hidden]){transition-delay:0s; transition-duration:150ms, 150ms, 0s;}
+  .np-filter-menu .np-menu-title{font-size:14px; line-height:1.5; color:var(--np-fg-tertiary);}
+  .np-filter-menu .np-divider{height:1px; width:100%; background:var(--np-divider);}
+  .np-menu-items{width:100%; display:flex; flex-direction:column;}
+  .np-menu-item{width:100%; height:44px; padding:4px 0; display:flex; align-items:center; gap:8px; border-radius:4px; text-align:left;}
+  .np-menu-item .np-label{font-size:14px; line-height:1.5; color:var(--np-fg-primary); flex:1; white-space:nowrap;}
+  .np-count{font-family:var(--np-font-num); font-size:14px; line-height:1.5; color:var(--np-fg-tertiary); padding:0 5px; font-variant-numeric:tabular-nums;}
+  .np-checkbox{position:relative; width:24px; height:24px; flex-shrink:0;}
+  .np-checkbox .np-box{position:absolute; left:2px; top:2px; width:20px; height:20px; border-radius:3px; background:var(--np-surface);
+    border:2px solid var(--np-grey-400); transition:background-color .12s, border-color .12s;}
+  .np-checkbox .np-box svg{position:absolute; left:-2px; top:-2px; width:20px; height:20px; display:block; opacity:0; scale:.25; filter:blur(4px);
+    transition:opacity 150ms cubic-bezier(.2,0,0,1), scale 150ms cubic-bezier(.2,0,0,1), filter 150ms cubic-bezier(.2,0,0,1);}
+  .np-menu-item[aria-checked="true"] .np-box{background:var(--np-blue-700); border-color:var(--np-blue-700);}
+  .np-menu-item[aria-checked="true"] .np-box svg{opacity:1; scale:1; filter:blur(0);}
+  .np-btn-primary{height:44px; padding:0 12px; display:inline-flex; align-items:center; justify-content:center;
+    background:var(--np-brand); border-radius:8px; color:#fff; font-size:14px; line-height:1.5; white-space:nowrap; transition:scale 150ms ease-out;}
+  .np-btn-primary span{padding:0 8px;}
+  .np-btn-secondary{height:44px; padding:0 16px; border-radius:8px; font-size:14px; font-weight:500; line-height:1.5; color:var(--np-fg-primary); white-space:nowrap;
+    background:var(--np-surface-subtle); box-shadow:inset 0 0 0 1px var(--np-border); transition:scale 150ms ease-out, background-color 150ms ease-out;}
+
+  /* Lista rolável */
+  .np-scroll{flex:1; min-height:0; overflow-y:auto; overscroll-behavior:contain; padding-bottom:32px; scrollbar-width:none;}
+  .np-scroll::-webkit-scrollbar{display:none;}
+  /* Filtro Não lidas | Lidas — chips (Figma "Filtro s", node 6779:26348) */
+  .np-segmented{display:flex; flex-wrap:wrap; gap:8px; margin:16px 16px 4px;}
+  .np-seg{position:relative; flex:0 0 auto; display:inline-flex; align-items:center; justify-content:center; gap:8px;
+    padding:12px 16px; border-radius:32px; background:var(--np-surface);
+    font-size:12px; font-weight:400; line-height:1.25; color:var(--np-fg-primary); white-space:nowrap;
+    transition:scale 150ms ease-out, background-color 150ms ease-out, color 150ms ease-out;}
+  .np-seg::after{content:""; position:absolute; left:0; right:0; top:-3px; bottom:-3px;}
+  .np-seg[aria-pressed="true"]{background:var(--np-brand); color:#fff; font-weight:500;}
+  .np-seg .np-pill{height:15px; display:flex; align-items:center; justify-content:center; border-radius:50px;
+    font-family:var(--np-font-num); font-size:12px; font-weight:400; line-height:1.25; color:inherit; font-variant-numeric:tabular-nums;}
+  .np-seg[aria-pressed="false"] .np-pill{color:var(--np-fg-secondary);}
+  .np-seg .np-pill[hidden]{display:none;}
+  .np-bulk-bar{display:flex; align-items:center; justify-content:flex-end; gap:12px; padding:0 16px; min-height:44px;}
+  /* Espaço reservado: some só visualmente, para a lista não pular ao trocar de filtro */
+  /* Espaço sempre reservado: trocar Não lidas/Lidas não move a lista (não depende do atributo hidden) */
+  .np-bulk-bar.is-off{visibility:hidden !important; pointer-events:none;}
+  .np-mark-all{min-height:44px; display:inline-flex; align-items:center; gap:6px; font-size:14px; font-weight:500; line-height:1.5;
+    color:var(--np-brand-text); white-space:nowrap; border-radius:8px; padding:0 4px; transition:scale 150ms ease-out, color 150ms ease-out;}
+  .np-chips{display:flex; flex-wrap:wrap; gap:8px; padding:8px 16px; margin-bottom:16px;}
+  .np-chips:empty{display:none;}
+  .np-chip{display:inline-flex; align-items:center; gap:6px; padding:4px 10px; border-radius:24px; background:var(--np-surface-subtle);
+    font-size:12px; line-height:1.5; color:var(--np-fg-secondary); white-space:nowrap; transition:scale 150ms ease-out, background-color 150ms ease-out;}
+  .np-chip svg{flex-shrink:0;}
+  .np-empty{padding:48px 32px; text-align:center; color:var(--np-fg-tertiary); font-size:14px; line-height:1.5; text-wrap:balance;}
+  .np-empty button{color:var(--np-brand-text); font-weight:500; margin-top:8px; min-height:44px; padding:0 8px;}
+
+  .np-groups{display:flex; flex-direction:column; gap:32px;}
+  .np-group{display:flex; flex-direction:column; gap:4px;}
+  .np-group h2{padding:0 16px; font-weight:500; font-size:16px; line-height:1.5;}
+  .np-list{display:flex; flex-direction:column; padding:0 16px;}
+
+  /* Notificação em linha com divisor; ponto de não lida à esquerda */
+  .np-item{position:relative; transition:scale 150ms ease-out;}
+  .np-item:has(> .np-notif:active){scale:.96;}
+  .np-notif{position:relative; display:flex; align-items:center; gap:16px; width:100%; padding:24px 0 24px 18px;
+    background:transparent; border:0; text-decoration:none; text-align:left; -webkit-tap-highlight-color:transparent;}
+  .np-item + .np-item .np-notif{border-top:1px solid var(--np-border);}
+  .np-dot{position:absolute; left:0; top:50%; margin-top:-3px; width:6px; height:6px; border-radius:50%; background:var(--np-brand);}
+  .np-logo{position:relative; flex-shrink:0; width:33.45px; height:32px; padding:5.82px; display:flex; align-items:center; justify-content:center;
+    border:.727px solid var(--np-border); border-radius:10.18px;
+    box-shadow:0 2.91px 2.91px rgba(0,0,0,.05), inset 0 0 5.82px rgba(0,0,0,.06), inset 0 2.91px 2.91px rgba(255,255,255,.25);}
+  .np-logo-crm{font-weight:600; font-size:8.73px; line-height:1.5; color:var(--np-brand);}
+  .np-logo-pdv{width:18.91px; height:19.87px; display:flex; flex-direction:column; align-items:center; gap:.727px;}
+  .np-logo-pdv .np-pdv{flex:1; display:flex; align-items:center; justify-content:center; font-family:'Geist', system-ui, sans-serif; font-weight:800; font-size:8.12px; line-height:1; color:#767676;}
+  .np-logo-pdv .np-go{position:relative; width:17.45px; height:9.45px; border-radius:8.81px; background:var(--np-brand-deep); display:flex; align-items:center; justify-content:center;
+    font-family:'Geist', system-ui, sans-serif; font-weight:800; font-size:8.12px; line-height:1; color:#fff;
+    box-shadow:inset 0 2.91px 2.91px rgba(255,255,255,.25), inset 0 0 5.82px rgba(0,0,0,.06);}
+  .np-logo-flua-wrap{width:16.32px; height:10.91px; flex-shrink:0;}
+  .np-logo-flua{position:relative; width:22.437px; height:15px; transform:scale(.7273); transform-origin:0 0;}
+  .np-logo-flua svg{position:absolute; left:0; top:0;}
+  .np-logo-flua .np-smart{position:absolute; right:.3px; top:9.9px; font-family:'Comfortaa', system-ui, sans-serif; font-weight:700; font-size:7.169px; line-height:1; letter-spacing:.0717px; color:var(--np-brand); white-space:nowrap;}
+  .np-content{flex:1; min-width:0; display:flex; flex-direction:column; align-items:flex-start; gap:2px;}
+  .np-badge{background:var(--np-surface-subtle); border:1px solid var(--np-border); border-radius:6px; padding:2px 6px;
+    font-family:var(--np-font-num); font-size:12px; line-height:1.5; color:var(--np-fg-primary); white-space:nowrap;}
+  .np-message{width:100%; display:flex; align-items:flex-end; gap:12px;}
+  .np-texts{flex:1; min-width:0; display:flex; flex-direction:column; padding-inline-end:24px;}
+  .np-title{font-weight:500; font-size:16px; line-height:1.5; color:var(--np-fg-primary); overflow-wrap:break-word; text-wrap:pretty;}
+  .np-sub{display:flex; align-items:center; gap:4px;}
+  .np-sub svg{flex-shrink:0;}
+  .np-desc{flex:1; min-width:0; font-size:14px; line-height:1.5; color:var(--np-fg-tertiary); overflow-wrap:break-word; text-wrap:pretty;}
+  .np-time{flex-shrink:0; min-width:30px; align-self:stretch; display:flex; align-items:flex-end; justify-content:flex-end;
+    font-family:var(--np-font-num); font-size:12px; line-height:1.5; color:var(--np-fg-tertiary); white-space:nowrap; font-variant-numeric:tabular-nums;}
+  .np-notif.is-read .np-title, .np-notif.is-read .np-badge{color:var(--np-fg-tertiary);}
+
+  /* Ações por notificação (⋯) */
+  .np-more{position:absolute; top:20px; inset-inline-end:-6px; width:32px; height:32px; border-radius:8px; display:flex; align-items:center; justify-content:center;
+    color:var(--np-fg-tertiary); transition:scale 150ms ease-out, background-color 150ms ease-out, color 150ms ease-out;}
+  .np-more::after{content:""; position:absolute; inset:-6px;}
+  .np-more[aria-expanded="true"]{background:var(--np-surface-sunken); color:var(--np-fg-primary);}
+  .np-item-menu{position:absolute; z-index:5; width:220px; padding:6px; background:var(--np-surface); border-radius:12px;
+    box-shadow:0 0 2px rgba(0,0,0,.1), 0 8px 20px -10px rgba(0,0,0,.18); display:flex; flex-direction:column; transform-origin:top right;
+    transition-property:opacity, transform, visibility; transition-duration:150ms; transition-timing-function:ease-out;}
+  .np-item-menu[hidden]{display:flex; opacity:0; transform:scale(.96); visibility:hidden; pointer-events:none; transition-delay:0s, 0s, 150ms;}
+  .np-item-menu:not([hidden]){transition-delay:0s; transition-duration:150ms, 150ms, 0s;}
+  .np-item-menu.up{transform-origin:bottom right;}
+  .np-item-menu button{min-height:44px; padding:0 10px; border-radius:8px; display:flex; align-items:center; gap:12px; font-size:14px; line-height:1.5; color:var(--np-fg-primary); text-align:start; white-space:nowrap;}
+  .np-item-menu button svg{flex-shrink:0; color:var(--np-fg-secondary);}
+  .np-item-menu button.danger, .np-item-menu button.danger svg{color:var(--np-brand-text);}
+  .np-item-menu button:focus-visible{outline-offset:-2px;}
+
+  /* Aviso com Desfazer */
+  .np-toast{position:absolute; z-index:4; left:16px; right:16px; bottom:24px; display:flex; align-items:center; justify-content:space-between; gap:12px;
+    padding:8px 8px 8px 16px; border-radius:16px; background:var(--np-inverse-surface); color:var(--np-inverse-fg); font-size:14px; line-height:1.4;
+    box-shadow:0 10px 30px -10px rgba(0,0,0,.35); transition-property:opacity, transform, visibility; transition-duration:200ms; transition-timing-function:ease-out;}
+  .np-toast[hidden]{display:flex; opacity:0; transform:translateY(8px); visibility:hidden; pointer-events:none; transition-delay:0s, 0s, 200ms;}
+  .np-toast:not([hidden]){transition-delay:0s; transition-duration:200ms, 200ms, 0s;}
+  .np-toast button{min-height:40px; padding:0 12px; border-radius:8px; color:var(--np-inverse-accent); font-weight:500; font-size:14px; white-space:nowrap; transition:scale 150ms ease-out, background-color 150ms ease-out;}
+  .np-toast .np-actions{display:flex; align-items:center; gap:2px; flex-shrink:0;}
+  .np-toast .np-close{width:40px; display:flex; align-items:center; justify-content:center; padding:0; color:var(--np-inverse-fg-muted);}
+
+  /* Confirmação de "Marcar todas como lidas" */
+  .np-confirm-scrim{position:absolute; inset:0; z-index:6; display:flex; align-items:center; justify-content:center; padding:24px; background:rgba(17,17,17,.4);
+    transition-property:opacity, visibility; transition-duration:200ms; transition-timing-function:ease-out;}
+  .np-confirm-scrim[hidden]{display:flex; opacity:0; visibility:hidden; pointer-events:none; transition-delay:0s, 200ms;}
+  .np-confirm-scrim:not([hidden]){transition-delay:0s; transition-duration:200ms, 0s;}
+  .np-confirm{width:100%; max-width:360px; padding:24px; background:var(--np-surface); border-radius:16px;
+    box-shadow:0 0 2px rgba(0,0,0,.1), 0 16px 40px -12px rgba(0,0,0,.3); display:flex; flex-direction:column; gap:8px;
+    transition:transform 200ms ease-out, opacity 200ms ease-out;}
+  .np-confirm-scrim[hidden] .np-confirm{transform:translateY(8px) scale(.98); opacity:0;}
+  .np-confirm h2{font-size:18px; font-weight:500; line-height:1.4; color:var(--np-fg-primary); text-wrap:balance;}
+  .np-confirm p{font-size:14px; line-height:1.5; color:var(--np-fg-tertiary); text-wrap:pretty;}
+  .np-confirm-actions{display:flex; gap:8px; justify-content:flex-end; margin-top:16px;}
+  /* Confirmação ao abrir uma notificação de outra aplicação */
+  .np-goto-apps{display:flex; align-items:center; gap:8px; margin-bottom:16px; color:var(--np-fg-tertiary);}
+  .np-goto-apps .np-logo{flex-shrink:0;}
+  .np-goto h2{margin:0 0 4px;}
+  .np-goto p{margin:0;}
+  .np-goto p strong{font-weight:500; color:var(--np-fg-primary);}
+  .goto-toast{position:fixed; left:50%; bottom:calc(96px + env(safe-area-inset-bottom, 0px)); z-index:90; transform:translate(-50%, 8px);
+    max-width:calc(100% - 32px); padding:12px 16px; border-radius:8px; background:#262626; color:#fff;
+    font-family:"Poppins",sans-serif; font-size:14px; line-height:1.4; box-shadow:0 8px 24px rgba(0,0,0,.2);
+    opacity:0; pointer-events:none; transition:opacity .2s ease, transform .2s ease;}
+  .goto-toast.is-open{opacity:1; transform:translate(-50%, 0);}
+
+  /* Toque: retorno tátil (scale .96) */
+  .np-btn-primary:active, .np-btn-secondary:active, .np-icon-btn:active, .np-seg:active, .np-mark-all:active, .np-chip:active, .np-toast button:active, .np-back:active, .np-more:active{scale:.96;}
+  @media (hover:hover){
+    .np-notif:hover .np-title{text-decoration:underline; text-underline-offset:3px; text-decoration-thickness:from-font;}
+    .np-more:hover{background:var(--np-surface-sunken); color:var(--np-fg-primary);}
+    .np-item-menu button:hover{background:var(--np-surface-subtle);}
+    .np-mark-all:hover{color:var(--np-brand-text-hover);}
+    .np-toast button:hover{background:rgba(255,255,255,.08);}
+    .np-chip:hover{background:var(--np-surface-sunken);}
+    .np-btn-secondary:hover{background:var(--np-surface-sunken);}
+  }
+
+  /* Tablet (página com 600px ou mais) */
+  @container npapp (min-width: 600px){
+    .np-header{padding:16px var(--gutter);}
+    .np-toolbar{display:flex; align-items:center; gap:16px; padding:16px var(--gutter);}
+    .np-toolbar .np-segmented{flex:0 1 auto; margin:0;}
+    .np-toolbar .np-bulk-bar{margin-left:auto; padding:0;}
+    .np-chips{padding:0 var(--gutter) 8px;}
+    .np-group h2{padding:0 var(--gutter);}
+    .np-list{padding:0 var(--gutter);}
+    .np-filter-menu{right:var(--gutter);}
+    .np-toast{left:50%; right:auto; width:min(480px, calc(100% - 48px)); transform:translateX(-50%);}
+    .np-toast[hidden]{transform:translate(-50%, 8px);}
+  }
+
   /* ---- Modal: Selecionar Pedido (carrinho) ---- */
   .cart-modal{
     position:fixed;
@@ -1406,7 +1643,7 @@
     align-items:center;
     justify-content:center;
     gap:40px;
-    padding:48px 32px;
+    padding:48px var(--gutter);
   }
   .auth-login-logo{
     display:flex;
@@ -1478,7 +1715,7 @@
     align-items:center;
     justify-content:center;
     gap:40px;
-    padding:48px 20px;
+    padding:48px var(--gutter);
     width:100%;
   }
   .oauth-logo{
@@ -1546,10 +1783,235 @@
     cursor:pointer;
     align-self:center;
   }
+
+  .auth-pwd-banner{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    width:100%;
+    margin:0 0 4px;
+    padding:10px 14px;
+    border-radius:6px;
+    background:#e9f7ec;
+    border:1px solid #bfe6c6;
+    color:#1e7b34;
+    font-family:"Poppins",sans-serif;
+    font-weight:500;
+    font-size:13px;
+    line-height:1.4;
+  }
+  .auth-pwd-banner[hidden]{display:none;}
+  .auth-pwd-banner svg{width:16px;height:16px;flex-shrink:0;}
+
+  /* ---- Modal: Alterar Senha ---- */
+  .cp-modal{
+    position:fixed;
+    top:50%;
+    left:50%;
+    z-index:61;
+    width:calc(100% - 32px);
+    max-width:420px;
+    max-height:85dvh;
+    overflow-y:auto;
+    background:#ffffff;
+    border-radius:16px;
+    box-shadow:0 26px 61px rgba(199,20,28,.4);
+    padding:32px;
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+    color:var(--fg-primary);
+    opacity:0;
+    pointer-events:none;
+    transform:translate(-50%,-48%) scale(.97);
+    transition:opacity .2s ease, transform .2s ease;
+  }
+  .cp-modal.is-open{opacity:1;pointer-events:auto;transform:translate(-50%,-50%) scale(1);}
+  .cp-modal-header{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;}
+  .cp-modal-title{
+    margin:0;
+    font-family:"Poppins",sans-serif;
+    font-weight:500;
+    font-size:16px;
+    color:#3d3d3d;
+  }
+  .cp-modal-close{
+    flex-shrink:0;
+    width:24px;
+    height:24px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border:none;
+    background:none;
+    color:#9a9a9a;
+    cursor:pointer;
+    padding:0;
+  }
+  .cp-modal-close svg{width:18px;height:18px;}
+  .cp-modal .oauth-field label{
+    font-family:"Poppins",sans-serif;
+    font-weight:500;
+    font-size:14px;
+    color:#3d3d3d;
+  }
+  .cp-modal .oauth-input{
+    height:44px;
+    border-color:#e7e7e7;
+    border-radius:6px;
+    font-family:"Poppins",sans-serif;
+    color:#3d3d3d;
+  }
+  .cp-divider{
+    width:100%;
+    border:none;
+    border-top:1px solid #e7e7e7;
+    margin:0;
+  }
+  .cp-input-wrap{position:relative;display:flex;align-items:center;}
+  .cp-input-wrap .oauth-input{padding-right:40px;}
+  .cp-eye{
+    position:absolute;
+    right:10px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:24px;
+    height:24px;
+    border:none;
+    background:none;
+    padding:0;
+    color:#6d6d6d;
+    cursor:pointer;
+  }
+  .cp-eye svg{width:18px;height:18px;}
+  .cp-rules{
+    list-style:none;
+    margin:0;
+    padding:0;
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+  }
+  .cp-rules li{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-family:"Poppins",sans-serif;
+    font-weight:400;
+    font-size:14px;
+    color:#db3748;
+  }
+  .cp-rule-icon{width:14px;height:14px;flex-shrink:0;display:inline-flex;}
+  .cp-rule-icon svg{width:14px;height:14px;}
+  .cp-rules li.is-valid{color:#46921e;}
+  .cp-error{
+    margin:0;
+    font-family:"Poppins",sans-serif;
+    font-weight:500;
+    font-size:13px;
+    color:#d9534f;
+  }
+  .cp-submit{
+    width:100%;
+    height:44px;
+    border:none;
+    border-radius:6px;
+    background:#387025;
+    color:#fff;
+    font-family:"Poppins",sans-serif;
+    font-weight:400;
+    font-size:14px;
+    cursor:pointer;
+  }
+  .cp-toast{
+    position:fixed;
+    left:50%;
+    bottom:28px;
+    transform:translate(-50%, 12px);
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:12px 18px;
+    border-radius:8px;
+    background:#1e7b34;
+    color:#fff;
+    font-family:"Poppins",sans-serif;
+    font-weight:500;
+    font-size:14px;
+    box-shadow:0 8px 24px rgba(0,0,0,.2);
+    opacity:0;
+    pointer-events:none;
+    transition:opacity .25s ease, transform .25s ease;
+    z-index:80;
+    max-width:calc(100% - 40px);
+  }
+  .cp-toast svg{width:18px;height:18px;flex-shrink:0;}
+  .cp-toast.is-open{opacity:1;transform:translate(-50%, 0);}
+  /* ===== V2 · Topo que acompanha o scroll + header da página fixo ===== */
+  /* Header da página (ex.: "Conversas") fica preso no topo; a sombra cresce conforme o conteúdo passa por baixo.
+     O fundo branco é um ::before, então nada muda de tamanho nem de lugar no layout. */
+  body.v2-on .v2-sticky{
+    position:sticky; z-index:30;
+    top:12px;
+  }
+  body.v2-on .v2-sticky::before{
+    content:""; position:absolute; z-index:-1;
+    top:-12px; bottom:-12px; left:calc(-1 * var(--gutter)); right:calc(-1 * var(--gutter));
+    background:var(--surface);
+    box-shadow:0 6px 12px -6px rgba(0,0,0, calc(.12 * var(--v2-sh, 0))), 0 1px 0 rgba(0,0,0, calc(.04 * var(--v2-sh, 0)));
+  }
+
+  /* ---- Hub (Figma: phone 6886:35857 · tablet 6173:18772) ---- */
+  .hb{gap:32px; padding:8px 0 40px;}
+  .hb-greeting{display:flex; flex-direction:column; color:#f6f6f6;}
+  .hb-greeting p{margin:0;}
+  .hb-hello{font-family:"Poppins",sans-serif; font-weight:500; font-size:24px; line-height:1.3;}
+  .hb-sub{font-family:"Poppins",sans-serif; font-weight:400; font-size:16px; line-height:1.5;}
+  .hb-apps{display:flex; flex-direction:column; gap:16px;}
+  .hb-app{display:flex; align-items:center; gap:16px; width:100%; padding:16px; border:0; border-radius:12px;
+    background:var(--surface); text-align:left; font:inherit; color:inherit; cursor:pointer; -webkit-tap-highlight-color:transparent;
+    transition:scale 150ms ease-out;}
+  .hb-app:active, .hb-tile:active{scale:.98;}
+  .hb-logo{position:relative; flex-shrink:0; width:40px; height:40px; display:flex; align-items:center; justify-content:center;
+    border:.936px solid var(--pdv-grey-100); border-radius:10px; background:var(--surface); box-shadow:0 3.743px 3.743px rgba(0,0,0,.05);}
+  .hb-logo-crm{font-family:"Poppins",sans-serif; font-weight:600; font-size:11.23px; line-height:1.5; color:var(--brand-500);}
+  .hb-logo-pdv{display:flex; flex-direction:column; align-items:center; gap:1px; width:23.158px;}
+  .hb-pdv{font-family:"Geist",system-ui,sans-serif; font-weight:800; font-size:10.45px; line-height:1; color:#767676;}
+  .hb-go{display:flex; align-items:center; justify-content:center; width:22.456px; height:12.164px; border-radius:8.806px; background:#e01d25;
+    font-family:"Geist",system-ui,sans-serif; font-weight:800; font-size:10.45px; line-height:1; color:#fff;
+    box-shadow:inset 0 3.743px 3.743px rgba(255,255,255,.25), inset 0 0 7.485px rgba(0,0,0,.06);}
+  .hb-logo-smart{position:relative; display:flex; flex-direction:column; align-items:flex-end; width:20.8px;}
+  .hb-logo-smart svg{display:block; width:20.8px; height:auto;}
+  .hb-smart{font-family:"Comfortaa",system-ui,sans-serif; font-weight:700; font-size:6.75px; line-height:1; letter-spacing:.0675px; color:var(--brand-500); margin-top:1px;}
+  .hb-app-body{flex:1; min-width:0; display:flex; flex-direction:column;}
+  .hb-app-title{font-family:"Poppins",sans-serif; font-weight:500; font-size:16px; line-height:1.5; color:var(--fg-primary);}
+  .hb-app-desc{font-family:"Poppins",sans-serif; font-weight:400; font-size:14px; line-height:1.5; color:var(--fg-tertiary);}
+  .hb-chevron{flex-shrink:0; display:flex; width:20px; height:20px;}
+  .hb-section{display:flex; flex-direction:column; gap:16px;}
+  .hb-section-title{margin:0; font-family:"Poppins",sans-serif; font-weight:400; font-size:16px; line-height:1.5; color:#fff;}
+  .hb-grid{display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:16px;}
+  /* Celular: card vertical (ícone em cima, título e link externo embaixo) */
+  .hb-tile{display:flex; flex-direction:column; align-items:flex-start; gap:8px; min-height:108px; padding:16px; border:0; border-radius:12px;
+    background:var(--surface); text-align:left; font:inherit; color:inherit; cursor:pointer; -webkit-tap-highlight-color:transparent;
+    transition:scale 150ms ease-out;}
+  .hb-tile-icon{display:flex; width:20px; height:20px; flex-shrink:0;}
+  .hb-tile-row{display:flex; gap:8px; align-items:flex-start; width:100%; min-height:48px;}
+  .hb-tile-text{flex:1; min-width:0; display:flex; flex-direction:column;}
+  .hb-tile-title{font-family:"Poppins",sans-serif; font-weight:400; font-size:16px; line-height:1.5; color:var(--fg-secondary);}
+  .hb-tile-sub{font-family:"Poppins",sans-serif; font-weight:400; font-size:14px; line-height:1.5; color:var(--fg-tertiary);}
+  .hb-tile-ext{align-self:flex-end; display:flex; width:16px; height:16px; flex-shrink:0;}
+  /* Tablet: card horizontal (ícone · título · link externo) */
+  @media (min-width:700px){
+    .hb-tile{flex-direction:row; align-items:center; gap:16px; min-height:0;}
+    .hb-tile-row{align-items:center; min-height:0; gap:16px;}
+    .hb-tile-ext{align-self:center;}
+  }
+
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Roboto:wght@700&family=Montserrat:wght@500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Roboto:wght@700&family=Montserrat:wght@500;600&family=Hanken+Grotesk:wght@400;500&family=Geist:wght@800&family=Comfortaa:wght@700&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -1565,6 +2027,10 @@
     </div>
 
     <div class="auth-login-content">
+      <p class="auth-pwd-banner" id="login-pwd-banner" hidden>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+        Senha alterada com sucesso. Faça login novamente.
+      </p>
       <div class="auth-greet">
         <p class="auth-greet-hi">Olá,</p>
         <p class="auth-greet-title">Bem vindo!</p>
@@ -1615,11 +2081,11 @@
       <div class="smart-user">
         <div class="smart-user-info">
           <div class="smart-user-text">
-            <p class="smart-user-name">alissonrocha</p>
             <p class="smart-user-store">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 21v-5a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v5"/><path d="M17.774 10.31a1.12 1.12 0 0 0-1.549 0 2.5 2.5 0 0 1-3.451 0 1.12 1.12 0 0 0-1.548 0 2.5 2.5 0 0 1-3.452 0 1.12 1.12 0 0 0-1.549 0 2.5 2.5 0 0 1-3.77-3.248l2.889-4.184A2 2 0 0 1 7 2h10a2 2 0 0 1 1.653.873l2.895 4.192a2.5 2.5 0 0 1-3.774 3.244"/><path d="M4 10.95V19a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8.05"/></svg>
-              63 VITCONQ
+              <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 21v-5a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v5"/><path d="M17.774 10.31a1.12 1.12 0 0 0-1.549 0 2.5 2.5 0 0 1-3.451 0 1.12 1.12 0 0 0-1.548 0 2.5 2.5 0 0 1-3.452 0 1.12 1.12 0 0 0-1.549 0 2.5 2.5 0 0 1-3.77-3.248l2.889-4.184A2 2 0 0 1 7 2h10a2 2 0 0 1 1.653.873l2.895 4.192a2.5 2.5 0 0 1-3.774 3.244"/><path d="M4 10.95V19a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8.05"/></svg>
+              <span>Loja 63</span>
             </p>
+            <p class="smart-user-name">alissonrocha</p>
           </div>
         </div>
         <div class="icon-buttons">
@@ -1630,7 +2096,7 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719"/><path d="M8 12h.01"/><path d="M12 12h.01"/><path d="M16 12h.01"/></svg>
             <span class="badge">42</span>
           </button>
-          <button type="button" class="icon-btn" aria-label="Notificações, 42 não lidas" data-goto="notificacoes">
+          <button type="button" class="icon-btn" aria-label="Notificações, 42 não lidas" data-open="notif-page">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.268 21a2 2 0 0 0 3.464 0"/><path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326"/></svg>
             <span class="badge">42</span>
           </button>
@@ -1638,125 +2104,92 @@
       </div>
     </div>
 
-    <div class="content">
-
-      <div class="greeting">
-        <p class="greeting-name">Olá, Alisson Rocha!</p>
-        <p class="greeting-sub">Bem vindo, hoje é 08 de Setembro!</p>
+    <div class="content hb">
+      <div class="hb-greeting">
+        <p class="hb-hello">Olá, Alisson!</p>
+        <p class="hb-sub">Boas vindas, hoje é 08 de Setembro!</p>
       </div>
 
-      <div class="card-list" role="list" aria-label="Aplicativos Flua">
-        <button type="button" class="card" data-goto="campanhas" role="listitem">
-          <span class="card-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"/><path d="m15 9-6 6"/><path d="M9 9h.01"/><path d="M15 15h.01"/></svg>
+      <div class="hb-apps" role="list" aria-label="Aplicações Flua">
+        <button type="button" class="hb-app" data-goto="campanhas" role="listitem">
+          <span class="hb-logo" aria-hidden="true"><span class="hb-logo-crm">CRM</span></span>
+          <span class="hb-app-body">
+            <span class="hb-app-title">CRM de Vendas</span>
+            <span class="hb-app-desc">Conecte e conquiste, um CRM para transformar rotina em resultado.</span>
           </span>
-          <span class="card-body">
-            <p class="card-title">CRM de Vendas</p>
-            <p class="card-desc">Conecte e conquiste, um CRM para transformar rotina em resultado.</p>
-          </span>
+          <span class="hb-chevron"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M7.5 15L12.5 10L7.5 5" stroke="#6D6D6D" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
         </button>
-
-        <button type="button" class="card" data-goto="pdv" role="listitem">
-          <span class="card-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16v5"/><path d="M16 14.639V21"/><path d="M20 10.656V21"/><path d="m22 3-8.646 8.646a.5.5 0 0 1-.708 0L9.354 8.354a.5.5 0 0 0-.707 0L2 15"/><path d="M4 18.463V21"/><path d="M8 14.656V21"/></svg>
+        <button type="button" class="hb-app" data-goto="pdv" role="listitem">
+          <span class="hb-logo" aria-hidden="true"><span class="hb-logo-pdv"><span class="hb-pdv">PDV</span><span class="hb-go">GO</span></span></span>
+          <span class="hb-app-body">
+            <span class="hb-app-title">PDV Go</span>
+            <span class="hb-app-desc">Facilidade na criação de pedidos.</span>
           </span>
-          <span class="card-body">
-            <p class="card-title">PDV Go</p>
-            <p class="card-desc">Facilidade na criação de pedidos.</p>
-          </span>
+          <span class="hb-chevron"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M7.5 15L12.5 10L7.5 5" stroke="#6D6D6D" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
         </button>
-
-        <button type="button" class="card" data-goto="smart" role="listitem">
-          <span class="card-icon card-icon-img" aria-hidden="true">
-            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAYCAYAAAAPtVbGAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAOdEVYdFNvZnR3YXJlAEZpZ21hnrGWYwAAAhZJREFUeAHtU9Fx2kAQfXvCmeQrSgXBFYArCK4AbJL/cwV2KiBUYCggg1wARB1AKjDuQO6Av0zAus1bCYji+AOGfGTGfjOrO93e7dvbfQe84H+D2Gf10bciRU8VTf7Ga9+AdqVBfC0d3eAA1IzABUy1/F/QMvyeQ5zWcSBqxQ1sFjCI0uTzxrEm/yeosUQtjosqwWOErp/a6MbJqY3a8bE63DK5YTRJBsuOb9YiXK9jQQSznzku3qRJVpzbBMrP/cjsSRZFnQHqlZWYBLbWJmE9cix3SZBx79zmr5jED/qqJNZsv7a9EBx6xfmAL7zVcfQtOUEpmphEl1sSMs8coroZ9gTlaYoEy93frLGX/XXc5pak2Dz5em+G/VFI3vq0jZUmi+oGt0sU1jmD9eDswnoQB8FVEUxYfyAptgimy0++WSXboLYLR67oO0EriKbl8y2Jl4rhayqTBB1aM8pxyx5l9B7/SUI1MKPsr+SlfJh88dlROpqtOv6U+3qFk/tXJN5IlDh5OPeeZWnr+jFbn0WR4lBUS/N4btK28pY57YCHru9IjgazvBOHNk/NUSpnYUpiia7t1iHgu6PficyD6jsG/+AmydlOjWet53zhVJ68tWDROBnaaKQ4koaKzPhG+i5Cw4hlPLoheRpEinLtRLKiTJnVe4Xea2BgKwlHZj7HSu8k1zjv+kvNsfVTxplA46fU9oJngl9OFPIhVYX2gQAAAABJRU5ErkJggg==" alt="Flua Smart">
+        <button type="button" class="hb-app" data-goto="smart" role="listitem">
+          <span class="hb-logo" aria-hidden="true"><span class="hb-logo-smart"><svg width="21" height="10" viewBox="0 0 21 10" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M17.7531 9.36849C18.0186 9.35029 18.1988 9.22848 18.236 8.93445C18.2387 8.69362 18.2429 8.45279 18.2456 8.21057C18.2112 7.90533 17.9952 7.78772 17.6761 7.77232C14.969 7.77232 15.1781 4.09551 17.6417 4.17672C18.5757 4.20752 19.1851 5.07842 19.2154 5.91291C19.225 6.94623 19.2346 7.90673 19.2456 8.94005C19.269 9.22008 19.4217 9.34469 19.6624 9.36429C19.888 9.36569 20.1123 9.36709 20.3379 9.36989C20.6212 9.35589 20.8111 9.22848 20.8097 8.86864C20.8083 7.80452 20.8069 6.92662 20.8056 5.86251C20.7258 3.70767 19.1067 2.63515 17.6101 2.58474C13.3719 2.44193 12.4916 9.22848 17.7559 9.36989" fill="#FD5260"/><path fill-rule="evenodd" clip-rule="evenodd" d="M1.60333 3.80422H3.11784C3.48374 3.82382 3.54839 4.10245 3.54426 4.18226L3.54702 4.96775C3.53876 5.4284 3.14535 5.4004 3.09445 5.4004H3.08482C3.08482 5.4004 3.07382 5.4018 3.06832 5.4018H1.58269V9.059C1.56344 9.43144 1.2897 9.49725 1.21129 9.49305L0.439589 9.49585C-0.0129751 9.48745 0.0145364 9.087 0.0145364 9.0352C0.015912 7.2318 0.0337944 5.35139 0.000780618 3.56059C-0.0363599 1.47016 1.25393 0.0658073 3.41909 0.0294033L5.16057 0C5.52647 0.0196022 5.59112 0.298233 5.587 0.378042L5.58975 1.16353C5.58149 1.62418 5.18808 1.59618 5.13718 1.59618H4.73276L3.82763 1.58918C2.34889 1.57797 1.5992 2.63649 1.6047 3.80422" fill="#FD5260"/><path fill-rule="evenodd" clip-rule="evenodd" d="M7.01137 0.036377H6.38136C6.12413 0.036377 5.91504 0.250601 5.91504 0.51103V9.04497C5.91504 9.3068 6.1255 9.51963 6.38136 9.51963H7.01137C7.26861 9.51963 7.47769 9.3054 7.47769 9.04497V0.51103C7.47769 0.249201 7.26723 0.036377 7.01137 0.036377Z" fill="#FD5260"/><path fill-rule="evenodd" clip-rule="evenodd" d="M13.7296 3.20793C13.7296 4.28465 13.7351 5.36277 13.7296 6.43948C13.709 10.4957 7.94531 10.4201 7.94531 6.50389V3.18132C7.94531 2.9209 8.1544 2.70947 8.40888 2.70947H9.03477C9.29063 2.70947 9.49834 2.9223 9.49834 3.18132V6.50249C9.49834 8.46551 12.1752 8.20088 12.1752 6.44649V3.21073C12.1752 2.9503 12.3843 2.73888 12.6388 2.73888H13.2647C13.5205 2.73888 13.7282 2.9517 13.7282 3.21073" fill="#FD5260"/></svg><span class="hb-smart">smart</span></span></span>
+          <span class="hb-app-body">
+            <span class="hb-app-title">Flua Smart</span>
+            <span class="hb-app-desc">Encontre o produto que seu cliente precisa.</span>
           </span>
-          <span class="card-body">
-            <p class="card-title">Flua Smart</p>
-            <p class="card-desc">Encontre facilmente o produto que seu cliente precisa.</p>
-          </span>
+          <span class="hb-chevron"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M7.5 15L12.5 10L7.5 5" stroke="#6D6D6D" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
         </button>
       </div>
 
-      <div class="section">
-        <p class="section-title">Serviços para facilitar suas vendas</p>
-        <div class="services-grid" role="list" aria-label="Serviços">
-          <button type="button" class="card card--outline card--compact" role="listitem">
-            <span class="card-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 21a8 8 0 0 1 13.292-6"/><circle cx="10" cy="8" r="5"/><path d="M19 16v6"/><path d="M22 19h-6"/></svg>
-            </span>
-            <span class="card-body">
-              <p class="card-title">Cadastro de clientes</p>
-            </span>
-            <span class="card-chevron" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
+      <div class="hb-section">
+        <p class="hb-section-title">Para facilitar suas vendas</p>
+        <div class="hb-grid" role="list" aria-label="Para facilitar suas vendas">
+          <button type="button" class="hb-tile" role="listitem">
+            <span class="hb-tile-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M1.66699 17.4999C1.66692 16.2169 2.0371 14.961 2.73311 13.8832C3.42912 12.8053 4.42139 11.9511 5.59083 11.4233C6.76026 10.8954 8.05719 10.7162 9.32596 10.9072C10.5947 11.0981 11.7814 11.6512 12.7437 12.4999" stroke="#FD5260" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/><path d="M8.33366 10.8333C10.6348 10.8333 12.5003 8.96785 12.5003 6.66667C12.5003 4.36548 10.6348 2.5 8.33366 2.5C6.03247 2.5 4.16699 4.36548 4.16699 6.66667C4.16699 8.96785 6.03247 10.8333 8.33366 10.8333Z" stroke="#FD5260" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/><path d="M15.833 13.3334V18.3334" stroke="#FD5260" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/><path d="M18.333 15.8334H13.333" stroke="#FD5260" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span class="hb-tile-row">
+              <span class="hb-tile-text"><span class="hb-tile-title">Cadastro de clientes</span></span>
+              <span class="hb-tile-ext"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M12 8.66667V12.6667C12 13.0203 11.8595 13.3594 11.6095 13.6095C11.3594 13.8595 11.0203 14 10.6667 14H3.33333C2.97971 14 2.64057 13.8595 2.39053 13.6095C2.14047 13.3594 2 13.0203 2 12.6667V5.33333C2 4.97971 2.14047 4.64057 2.39053 4.39053C2.64057 4.14047 2.97971 4 3.33333 4H7.33333" stroke="#6D6D6D" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 2H14V6" stroke="#6D6D6D" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/><path d="M6.66797 9.33333L14.0013 2" stroke="#6D6D6D" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
             </span>
           </button>
-
-          <button type="button" class="card card--outline card--compact card-partner" role="listitem">
-            <span class="partner-mark" aria-hidden="true"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAOdEVYdFNvZnR3YXJlAEZpZ21hnrGWYwAABAFJREFUeAGtVH9IG2cYfr/vLsklXqpRr9EYDXZp7XTdnGG1U+ZCV4cy+mMFmTLYj8LWYWdZVxwMZGyMQZllqxNkrmyjuLbsn1JW6h+ygRuo0OE2xWpltrWZZppqTL3k8sO77+tdzIW0pP/1Pd674/1ennve57nvA3jMgbLUsJq01dHqrLRVnrEb7XsxwlZtgRAS9MV8Q8O+4Y9GpJElrS+VjwRkWqAFGqsb5yRFcklEUhsQQqk2unlRHvMI8WisY6yjTi0b1NzIBsi0FbfZmh3NdxeiC4pWEEwCE9oITfgk36jKki3PKa+zYHPViiFIaB7Q0ifKmJ4/vzKOj49rLOVMQG1Mcq7mHPXH/YqJMWGFKN91TnW+l+qhGQRo7/6+K9EcqVnOkcHpLmbe+PhNpK/hVCPpq+67sRhbVIyMEdM4PaSCHUut6WBs6h13XGk/aLSbOtEWgv4L31S6T3f9lmkANAqN2xMkUaHqgzHB35+cPTmolpUMOfA+2z5H/zP9U9rHtfygp+OMtZgbQTkbiBPw3voDFXwa0Ct4u1UTqMAJ6MTUiXd0PTKYkcPOV0dXjasrGXX48efzTXwRi8XEEq19fltnGjDfmP+i5qaYEP9KaYEyNJMHagZiYV4qmS6avXCk49DLmoHa+KoZkiFXWkFcGJU9bWnVv67e2C3acz4yP5rSCXVVdHXORGYue/O8V33MAos8mFZt39rvaIjSH3pB1x6WgncmzHnxlyxCzJ4GVHkkhUcYsboRLovrcxu27Vw3R9yoFiNwrwAqnYGoaRp5vcAOD2/KgrkIg7gIENM6TY8sgyxqT5fZ1ZAeV4HEbXQ7aKwzJMGYshkA2wQYWBPoYFoUuUkVcKsQj4kLaUB/1D+o7QAra63UtaOF6Na2V9yV3LOhv4Xam3LBU9MglPAQ9CfO6jpX1FdYZSYgEBSFf/+J/6SLDm1b2+x77Hv+D3MRYhMKLrcPHn1N4+jxeAyq8DI8uF/1Hx31T9ZcCwbWagocJvxu+w0DqMyTDC8GLgbUvXkdbAjEXPFw99HuIxr7LGBp0NO/Vp0Kra5VI4Tx0lz0kgoG6ZG1OD52fJezvJRRLDKhPPn2m1Pdv2QBgvoDhfzZSc+4wkY+pAQnTXQ+aWmEh/Zy0nGv18u+3fRWdOHeLQX4BMpzmrDq3p2V0OJ1hg+j4h3kuQQsF66vhwhWg9LN0c1WBq72+u1DA+HAw8dX8ij6uuezP5hc+QUxsQzYHAbEiWreA9VNSnGU2ooMeHEudt5gwCUOt6lBEile88cvfLJ//vVsB2zSwd27d9oaWnZ0uXYxB435ETvm7tK4LAZmr8UGfr+08eXk0HI0pS/1eK2FTccK3v+iZf5TeNxxH12sme2FREnIAAAAAElFTkSuQmCC" alt=""></span>
-            <span class="card-body">
-              <p class="card-title">Acordo Fácil</p>
-            </span>
-            <span class="card-chevron" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
+          <button type="button" class="hb-tile" role="listitem">
+            <span class="hb-tile-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M15.8333 5.83333V3.33333C15.8333 3.11232 15.7455 2.90036 15.5893 2.74408C15.433 2.5878 15.221 2.5 15 2.5H4.16667C3.72464 2.5 3.30072 2.67559 2.98816 2.98816C2.67559 3.30072 2.5 3.72464 2.5 4.16667C2.5 4.60869 2.67559 5.03262 2.98816 5.34518C3.30072 5.65774 3.72464 5.83333 4.16667 5.83333H16.6667C16.8877 5.83333 17.0996 5.92113 17.2559 6.07741C17.4122 6.23369 17.5 6.44565 17.5 6.66667V10M17.5 10H15C14.558 10 14.134 10.1756 13.8215 10.4882C13.5089 10.8007 13.3333 11.2246 13.3333 11.6667C13.3333 12.1087 13.5089 12.5326 13.8215 12.8452C14.134 13.1577 14.558 13.3333 15 13.3333H17.5C17.721 13.3333 17.933 13.2455 18.0893 13.0893C18.2455 12.933 18.3333 12.721 18.3333 12.5V10.8333C18.3333 10.6123 18.2455 10.4004 18.0893 10.2441C17.933 10.0878 17.721 10 17.5 10Z" stroke="#FD5260" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/><path d="M2.5 4.16663V15.8333C2.5 16.2753 2.67559 16.6992 2.98816 17.0118C3.30072 17.3244 3.72464 17.5 4.16667 17.5H16.6667C16.8877 17.5 17.0996 17.4122 17.2559 17.2559C17.4122 17.0996 17.5 16.8876 17.5 16.6666V13.3333" stroke="#FD5260" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/><path d="M7.88574 8.64319V14.9228" stroke="#FD5260" stroke-linecap="round" stroke-linejoin="round"/><path d="M9.45572 9.58521H7.10088C6.80943 9.58521 6.52991 9.70098 6.32382 9.90707C6.11773 10.1132 6.00195 10.3927 6.00195 10.6841C6.00195 10.9756 6.11773 11.2551 6.32382 11.4612C6.52991 11.6673 6.80943 11.7831 7.10088 11.7831H8.67077C8.96223 11.7831 9.24174 11.8988 9.44783 12.1049C9.65392 12.311 9.7697 12.5905 9.7697 12.882C9.7697 13.1734 9.65392 13.453 9.44783 13.659C9.24174 13.8651 8.96223 13.9809 8.67077 13.9809H6.00195" stroke="#FD5260" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span class="hb-tile-row">
+              <span class="hb-tile-text"><span class="hb-tile-title">Mais Crédito</span></span>
+              <span class="hb-tile-ext"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M12 8.66667V12.6667C12 13.0203 11.8595 13.3594 11.6095 13.6095C11.3594 13.8595 11.0203 14 10.6667 14H3.33333C2.97971 14 2.64057 13.8595 2.39053 13.6095C2.14047 13.3594 2 13.0203 2 12.6667V5.33333C2 4.97971 2.14047 4.64057 2.39053 4.39053C2.64057 4.14047 2.97971 4 3.33333 4H7.33333" stroke="#6D6D6D" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 2H14V6" stroke="#6D6D6D" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/><path d="M6.66797 9.33333L14.0013 2" stroke="#6D6D6D" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
             </span>
           </button>
-
-          <button type="button" class="card card--outline card--compact" role="listitem">
-            <span class="card-icon card-icon-img" aria-hidden="true">
-              <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAOdEVYdFNvZnR3YXJlAEZpZ21hnrGWYwAAAdVJREFUeAGtVEtSwkAQfRNFcWWsEj8r4w30BrhEFuIJCDfgBnID4ATEE8gGcAeeQD0BcaUlVhl3FGjG7jCBMAYCVXYVNTOdnsfr9zoRiIk7mGYa6TMfP14egyesEUJPdHBQoeUmUtKT8J1LDG6xQhhxYBKyNsRoz4c8B3xXQDj0rN/GfrmDIwurMuRLvObwfjqfNy0glaVyZk57OPRn9Tg5poBd0m2IrU/eS6ApYNRzeOvpFzrI2LQU6Wo2Tg6dodTuu9R+JU6/FjJnpFeVgVmea3ge5w2tztPOVqjfPTLVqH6TdkWP91vY2Q3zSYBTYAlRJoP6BN7gsVpQ9wcwDGrVz86clg7n1DN7G6krrANIYPYlPh5ouAsGNrwcBiV2ngRPHPLN+aNwCc5isDYOCtRig7MdHAZuUtteMANhNZ0l5DLACDSkORsCmRXBmMiwLVN18qW/bMZ8qzIwpYXjkzTGTSwwiZiuZopQABv4Ll8EczXSDUkMjaH/rBiUeTx8pMzQEMqWVgGeAyQzasTqVLGyDYhHMqTbRqZIwJzrqVJrsoz5XMnj9QWzLuNDfRDoYyBslXIxMYN/DrEuJTKMRg6ey+1GGFsKbGkYSQUxwP8bLMWyd/kXvzu6Iu0XsQkAAAAASUVORK5CYII=" alt="Catálogo">
-            </span>
-            <span class="card-body">
-              <p class="card-title">Catálogo</p>
-            </span>
-            <span class="card-chevron" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
+          <button type="button" class="hb-tile" role="listitem">
+            <span class="hb-tile-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M0.822029 9.99999C0.822029 15.0286 4.91405 19.135 9.95703 19.135C11.7725 19.135 13.4583 18.6019 14.8847 17.6797L19.1929 18.818L17.7376 14.7692C18.5877 13.386 19.0776 11.7434 19.0776 9.99999C19.0776 4.97142 14.9856 0.86499 9.94262 0.86499C4.89964 0.86499 0.807617 4.95701 0.807617 9.99999H0.822029ZM3.37234 9.99999C3.37234 6.36904 6.32608 3.4153 9.95703 3.4153C13.588 3.4153 16.5417 6.36904 16.5417 9.99999C16.5417 13.6309 13.588 16.5847 9.95703 16.5847C6.32608 16.5847 3.37234 13.6309 3.37234 9.99999Z" fill="url(#hb_af0)"/><path fill-rule="evenodd" clip-rule="evenodd" d="M8.17019 9.56771C8.17019 9.56771 8.31428 9.43803 8.38632 9.36599C8.45836 9.27954 8.54481 9.17868 8.63126 9.049C8.74653 8.89051 8.89062 8.71761 9.04911 8.51589C9.30847 8.21331 9.38051 8.15567 9.5246 8.04041C9.55341 8.026 9.58223 7.99718 9.59664 7.98277C9.65427 7.92514 9.74072 7.8675 9.82717 7.80987C10.0145 7.66579 10.245 7.50729 10.3171 7.39202C10.5764 7.03181 10.6485 6.83009 10.7205 6.61396C10.7637 6.48429 10.807 6.35461 10.8934 6.18171C10.9366 6.08085 11.0087 6.02321 11.0951 5.97999C11.1528 5.96558 11.2104 5.95117 11.268 5.95117C11.3257 5.95117 11.3833 5.96558 11.4265 5.9944C11.5274 6.05203 11.6282 6.13848 11.6715 6.25375C11.8011 6.58515 11.83 6.88772 11.7867 7.17589C11.7291 7.46407 11.5994 7.73783 11.3977 8.026C11.3401 8.11245 11.268 8.1989 11.2248 8.25653C11.1095 8.41503 11.0519 8.48707 11.0663 8.51589C11.0807 8.5447 11.1383 8.5447 11.2248 8.51589C11.268 8.51589 11.3113 8.50148 11.3689 8.48707C12.1325 8.38621 13.242 8.47266 13.0115 9.51007C12.9826 9.62534 12.9682 9.69739 13.0115 9.81265C13.3573 10.2737 13.2276 10.5043 13.0403 10.7348C13.0115 10.8212 12.997 10.8645 13.0691 10.9942V11.0086C13.1555 11.4408 13.0259 11.6281 12.9106 11.801C12.853 11.8875 12.7953 11.9739 12.8097 12.0748C12.8097 12.3053 12.7377 12.4782 12.5936 12.6655C12.4495 12.8529 12.2478 12.9969 12.0173 13.0113C11.5706 13.0834 11.0519 13.0978 10.5188 13.0834C10.3603 13.0834 8.38632 12.9105 8.17019 12.7376C7.66589 12.3197 7.39213 10.3458 7.78116 9.74061C7.8388 9.65416 8.09815 9.58212 8.15579 9.52448L8.17019 9.56771ZM7.40654 9.8847C7.32009 10.2449 7.34891 12.2477 7.6659 12.7952C7.98288 13.3427 6.67171 13.2131 6.46999 13.1266C6.26827 13.0402 6.08096 12.1324 6.03773 11.1094C5.99451 10.072 6.02332 9.5533 6.4988 9.52448C6.97429 9.49567 7.53622 9.46685 7.40654 9.89911V9.8847Z" fill="url(#hb_af1)"/><defs><linearGradient id="hb_af0" x1="3.50201" y1="3.54497" x2="18.9912" y2="19.0197" gradientUnits="userSpaceOnUse"><stop stop-color="#872B87"/><stop offset="0.3" stop-color="#872B87"/><stop offset="0.45" stop-color="#886360"/><stop offset="0.64" stop-color="#89A335"/><stop offset="0.73" stop-color="#8ABD24"/><stop offset="1" stop-color="#8ABD24"/></linearGradient><linearGradient id="hb_af1" x1="7.62267" y1="8.22772" x2="12.3487" y2="12.9537" gradientUnits="userSpaceOnUse"><stop stop-color="#872B87"/><stop offset="0.3" stop-color="#872B87"/><stop offset="0.45" stop-color="#886360"/><stop offset="0.64" stop-color="#89A335"/><stop offset="0.73" stop-color="#8ABD24"/><stop offset="1" stop-color="#8ABD24"/></linearGradient></defs></svg></span>
+            <span class="hb-tile-row">
+              <span class="hb-tile-text"><span class="hb-tile-title">Acordo Fácil</span></span>
+              <span class="hb-tile-ext"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M12 8.66667V12.6667C12 13.0203 11.8595 13.3594 11.6095 13.6095C11.3594 13.8595 11.0203 14 10.6667 14H3.33333C2.97971 14 2.64057 13.8595 2.39053 13.6095C2.14047 13.3594 2 13.0203 2 12.6667V5.33333C2 4.97971 2.14047 4.64057 2.39053 4.39053C2.64057 4.14047 2.97971 4 3.33333 4H7.33333" stroke="#6D6D6D" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 2H14V6" stroke="#6D6D6D" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/><path d="M6.66797 9.33333L14.0013 2" stroke="#6D6D6D" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
             </span>
           </button>
-
-          <button type="button" class="card card--outline card--compact" role="listitem">
-            <span class="card-icon card-icon-img" aria-hidden="true">
-              <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAOdEVYdFNvZnR3YXJlAEZpZ21hnrGWYwAAAaFJREFUeAGtVNttwjAUtYP5Z4SwAfwiUNwJYAMyAkwAG5ROUDJBO4J5is90g4yQz0h59VxkVw4KUVJxJMuxfe/xuY+YsReD24vpdCo55y5rj/h0On3XEs5msy9MC9Yda5DuzEIYZZpMQeG+LVNZlmTrYVQJrTDD4/EYsJZAVHuQDuw9rg98TJ/s/4h6vd5YKRWLCjvnYVEUMeuGAfxGaZrO8R1UCPM8310ul9YhEx6jc5qMUawNHOasA0TdppTShVq6daRVhGiNN0vVCmEu8TkwRXEch2yDWsIsy5ZwiPAZw0EJIQJLtcT0jn3KtRmE1WQy2T0L+UBC9fCh1rfOPD0voHpIA+T3PkSl3VrC8/mscEghUqMrzBvcPtLHRtGWckwDNtL41oZMzgh7jry4uJ3aKTbthMs+kEOXQrSJgAhqD41VNgCpf7vdIrOG4xppGONT4mxLe7hw+1Th9XoNMYWodpAkCbPJHmyo4kN7X2gFEeRT6X0Y/L1AUMH6/T45sQZ49sJ+vuhd69TEFmL8emOKpPLAgtTr+MDegQL+mBS8HL+pu71z7e8cUQAAAABJRU5ErkJggg==" alt="Mais Crédito">
-            </span>
-            <span class="card-body">
-              <p class="card-title">Mais Crédito</p>
-            </span>
-            <span class="card-chevron" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
+          <button type="button" class="hb-tile" role="listitem">
+            <span class="hb-tile-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M11.2275 9.26733L11.2178 9.26343L8.79102 8.2439L8.78418 8.24097C8.02276 7.92245 7.08261 7.96724 6.33008 8.35718C5.52968 8.77186 5.03105 9.51248 4.96387 10.3875L4.94434 10.6384V10.6394C4.8687 11.6239 5.00921 12.4593 5.3623 13.1208C5.71987 13.7906 6.3064 14.3048 7.10645 14.6511L10.958 16.2761C10.9719 16.2821 10.9856 16.2876 10.999 16.2927L11.3271 16.4207L11.3486 16.4294V14.7244L11.3389 14.7205L7.82617 13.2371C7.35888 13.0336 7.03768 12.7467 6.8457 12.3445C6.65346 11.9415 6.59002 11.4204 6.6416 10.7488L6.66113 10.4978C6.68854 10.1438 6.86345 9.87445 7.16797 9.71655C7.45385 9.56813 7.80111 9.54691 8.07129 9.65894L11.2051 10.9822L11.2275 10.9919V9.26733ZM15.5449 5.63452L15.5352 5.63062L7.45801 2.15503L7.45703 2.15405L7.27148 2.09741C6.34899 1.85988 5.47993 2.31523 5.01562 2.95581C4.83097 3.21063 4.76025 3.43793 4.81738 3.6521C4.86019 3.81214 4.97364 3.96242 5.1582 4.10913L5.36719 4.25562L5.36914 4.25659L12.748 7.49585C13.0117 7.6275 13.1461 7.73436 13.2207 7.86401C13.2581 7.92902 13.2811 8.00016 13.2969 8.08472L13.332 8.3855L13.6553 18.6609C13.6448 18.8664 13.5474 19.0415 13.3916 19.1541C13.2354 19.2667 13.0186 19.3176 12.7686 19.2712C10.1016 18.0421 7.20853 16.4961 3.95996 14.9158C3.70427 14.7585 3.58205 14.6394 3.51758 14.5027C3.45251 14.3646 3.44522 14.2067 3.4248 13.9675C3.28896 12.3703 3.23403 10.7713 3.17969 9.17163C3.12537 7.57252 3.07155 5.97242 2.93555 4.37378C2.93978 3.57478 3.17585 2.97806 3.6582 2.33862C4.02328 1.8546 4.3817 1.53812 4.69727 1.3269C5.53364 0.767371 6.62349 0.629051 7.70801 0.901123L16.4756 4.65308C16.7082 4.7694 16.8405 4.86002 16.9199 4.97241C16.9992 5.08472 17.0271 5.22216 17.0439 5.43628L17.0449 5.45093L17.0938 14.9412C17.0941 15.1606 17.002 15.3206 16.8643 15.4226C16.726 15.525 16.5409 15.5702 16.3545 15.5554C15.9817 15.5259 15.6105 15.2599 15.6084 14.7556L15.5449 5.64526V5.63452Z" fill="#B70016" stroke="#FD5260" stroke-width="0.0327113"/></svg></span>
+            <span class="hb-tile-row">
+              <span class="hb-tile-text"><span class="hb-tile-title">Catálogo</span></span>
+              <span class="hb-tile-ext"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M12 8.66667V12.6667C12 13.0203 11.8595 13.3594 11.6095 13.6095C11.3594 13.8595 11.0203 14 10.6667 14H3.33333C2.97971 14 2.64057 13.8595 2.39053 13.6095C2.14047 13.3594 2 13.0203 2 12.6667V5.33333C2 4.97971 2.14047 4.64057 2.39053 4.39053C2.64057 4.14047 2.97971 4 3.33333 4H7.33333" stroke="#6D6D6D" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 2H14V6" stroke="#6D6D6D" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/><path d="M6.66797 9.33333L14.0013 2" stroke="#6D6D6D" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
             </span>
           </button>
         </div>
       </div>
 
-      <div class="section">
-        <p class="section-title">Mais soluções para você</p>
-        <div class="solutions-row" role="list" aria-label="Mais soluções">
-          <button type="button" class="card card--outline card--compact" role="listitem">
-            <span class="card-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg>
-            </span>
-            <span class="card-body">
-              <p class="card-title">Rastreio de pedidos</p>
-            </span>
-            <span class="card-chevron" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
+      <div class="hb-section">
+        <p class="hb-section-title">Apoio ao cliente</p>
+        <div class="hb-grid" role="list" aria-label="Apoio ao cliente">
+          <button type="button" class="hb-tile" role="listitem">
+            <span class="hb-tile-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M10.5005 18.1658C12.0505 16.8275 16.6663 12.4941 16.6663 8.33329C16.6663 6.56518 15.964 4.86949 14.7137 3.61925C13.4635 2.36901 11.7678 1.66663 9.99967 1.66663C8.23156 1.66663 6.53587 2.36901 5.28563 3.61925C4.03539 4.86949 3.33301 6.56518 3.33301 8.33329C3.33301 12.4941 7.94884 16.8275 9.49884 18.1658C9.64324 18.2744 9.81901 18.3331 9.99967 18.3331C10.1803 18.3331 10.3561 18.2744 10.5005 18.1658Z" stroke="#FD5260" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 10.8334C11.3807 10.8334 12.5 9.71409 12.5 8.33337C12.5 6.95266 11.3807 5.83337 10 5.83337C8.61929 5.83337 7.5 6.95266 7.5 8.33337C7.5 9.71409 8.61929 10.8334 10 10.8334Z" stroke="#FD5260" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span class="hb-tile-row">
+              <span class="hb-tile-text"><span class="hb-tile-title">Rastreio de pedidos</span></span>
+              <span class="hb-tile-ext"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M12 8.66667V12.6667C12 13.0203 11.8595 13.3594 11.6095 13.6095C11.3594 13.8595 11.0203 14 10.6667 14H3.33333C2.97971 14 2.64057 13.8595 2.39053 13.6095C2.14047 13.3594 2 13.0203 2 12.6667V5.33333C2 4.97971 2.14047 4.64057 2.39053 4.39053C2.64057 4.14047 2.97971 4 3.33333 4H7.33333" stroke="#6D6D6D" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 2H14V6" stroke="#6D6D6D" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/><path d="M6.66797 9.33333L14.0013 2" stroke="#6D6D6D" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
             </span>
           </button>
-
-          <button type="button" class="card card--outline card--compact" role="listitem">
-            <span class="card-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 11-1 9"/><path d="m19 11-4-7"/><path d="M2 11h20"/><path d="m3.5 11 1.6 7.4a2 2 0 0 0 2 1.6h9.8a2 2 0 0 0 2-1.6l1.7-7.4"/><path d="M4.5 15.5h15"/><path d="m5 11 4-7"/><path d="m9 11 1 9"/></svg>
-            </span>
-            <span class="card-body">
-              <p class="card-title">Acesse o site</p>
-            </span>
-            <span class="card-chevron" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
+          <button type="button" class="hb-tile" role="listitem">
+            <span class="hb-tile-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M12.5003 9.16663L11.667 16.6666" stroke="#FD5260" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/><path d="M15.8333 9.16671L12.5 3.33337" stroke="#FD5260" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/><path d="M1.66699 9.16663H18.3337" stroke="#FD5260" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/><path d="M2.91699 9.16663L4.25033 15.3333C4.32824 15.7154 4.5377 16.0581 4.84223 16.3017C5.14676 16.5454 5.52708 16.6745 5.91699 16.6666H14.0837C14.4736 16.6745 14.8539 16.5454 15.1584 16.3017C15.463 16.0581 15.6724 15.7154 15.7503 15.3333L17.167 9.16663" stroke="#FD5260" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/><path d="M3.75 12.9166H16.25" stroke="#FD5260" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/><path d="M4.16699 9.16671L7.50033 3.33337" stroke="#FD5260" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/><path d="M7.5 9.16663L8.33333 16.6666" stroke="#FD5260" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span class="hb-tile-row">
+              <span class="hb-tile-text"><span class="hb-tile-title">Acesse o site</span><span class="hb-tile-sub">simonetti.com.br</span></span>
+              <span class="hb-tile-ext"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M12 8.66667V12.6667C12 13.0203 11.8595 13.3594 11.6095 13.6095C11.3594 13.8595 11.0203 14 10.6667 14H3.33333C2.97971 14 2.64057 13.8595 2.39053 13.6095C2.14047 13.3594 2 13.0203 2 12.6667V5.33333C2 4.97971 2.14047 4.64057 2.39053 4.39053C2.64057 4.14047 2.97971 4 3.33333 4H7.33333" stroke="#6D6D6D" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 2H14V6" stroke="#6D6D6D" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/><path d="M6.66797 9.33333L14.0013 2" stroke="#6D6D6D" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
             </span>
           </button>
         </div>
       </div>
-
     </div>
   </div>
 </div>
@@ -1771,20 +2204,25 @@
         <span class="pdv-logo-pdv">PDV</span>
         <span class="pdv-logo-go">GO</span>
       </span>
-      <div class="pdv-user">
-        <div class="pdv-user-info">
-          <div class="pdv-avatar" aria-hidden="true">AR</div>
-          <div class="pdv-user-text">
-            <p class="pdv-user-name">@alissonrocha</p>
-            <p class="pdv-user-store">O2 (PH)</p>
+      <div class="smart-user">
+        <div class="smart-user-info">
+          <div class="smart-user-text">
+            <p class="smart-user-store">
+              <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 21v-5a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v5"/><path d="M17.774 10.31a1.12 1.12 0 0 0-1.549 0 2.5 2.5 0 0 1-3.451 0 1.12 1.12 0 0 0-1.548 0 2.5 2.5 0 0 1-3.452 0 1.12 1.12 0 0 0-1.549 0 2.5 2.5 0 0 1-3.77-3.248l2.889-4.184A2 2 0 0 1 7 2h10a2 2 0 0 1 1.653.873l2.895 4.192a2.5 2.5 0 0 1-3.774 3.244"/><path d="M4 10.95V19a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8.05"/></svg>
+              <span>Loja 63</span>
+            </p>
+            <p class="smart-user-name">alissonrocha</p>
           </div>
         </div>
         <div class="icon-buttons">
+          <button type="button" class="icon-btn" aria-label="Minha conta" data-open="user-sheet">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.925 20.056a6 6 0 0 0-11.851.001"/><circle cx="12" cy="11" r="4"/><circle cx="12" cy="12" r="10"/></svg>
+          </button>
           <button type="button" class="icon-btn" aria-label="Mensagens, 42 não lidas" data-goto="conversas">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719"/><path d="M8 12h.01"/><path d="M12 12h.01"/><path d="M16 12h.01"/></svg>
             <span class="badge">42</span>
           </button>
-          <button type="button" class="icon-btn" aria-label="Notificações, 42 não lidas" data-goto="notificacoes">
+          <button type="button" class="icon-btn" aria-label="Notificações, 42 não lidas" data-open="notif-page">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.268 21a2 2 0 0 0 3.464 0"/><path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326"/></svg>
             <span class="badge">42</span>
           </button>
@@ -1891,20 +2329,25 @@
         <span class="pdv-logo-pdv">PDV</span>
         <span class="pdv-logo-go">GO</span>
       </span>
-      <div class="pdv-user">
-        <div class="pdv-user-info">
-          <div class="pdv-avatar" aria-hidden="true">AR</div>
-          <div class="pdv-user-text">
-            <p class="pdv-user-name">@alissonrocha</p>
-            <p class="pdv-user-store">O2 (PH)</p>
+      <div class="smart-user">
+        <div class="smart-user-info">
+          <div class="smart-user-text">
+            <p class="smart-user-store">
+              <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 21v-5a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v5"/><path d="M17.774 10.31a1.12 1.12 0 0 0-1.549 0 2.5 2.5 0 0 1-3.451 0 1.12 1.12 0 0 0-1.548 0 2.5 2.5 0 0 1-3.452 0 1.12 1.12 0 0 0-1.549 0 2.5 2.5 0 0 1-3.77-3.248l2.889-4.184A2 2 0 0 1 7 2h10a2 2 0 0 1 1.653.873l2.895 4.192a2.5 2.5 0 0 1-3.774 3.244"/><path d="M4 10.95V19a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8.05"/></svg>
+              <span>Loja 63</span>
+            </p>
+            <p class="smart-user-name">alissonrocha</p>
           </div>
         </div>
         <div class="icon-buttons">
+          <button type="button" class="icon-btn" aria-label="Minha conta" data-open="user-sheet">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.925 20.056a6 6 0 0 0-11.851.001"/><circle cx="12" cy="11" r="4"/><circle cx="12" cy="12" r="10"/></svg>
+          </button>
           <button type="button" class="icon-btn" aria-label="Mensagens, 42 não lidas" data-goto="conversas">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719"/><path d="M8 12h.01"/><path d="M12 12h.01"/><path d="M16 12h.01"/></svg>
             <span class="badge">42</span>
           </button>
-          <button type="button" class="icon-btn" aria-label="Notificações, 42 não lidas" data-goto="notificacoes">
+          <button type="button" class="icon-btn" aria-label="Notificações, 42 não lidas" data-open="notif-page">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.268 21a2 2 0 0 0 3.464 0"/><path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326"/></svg>
             <span class="badge">42</span>
           </button>
@@ -1971,11 +2414,11 @@
       <div class="smart-user">
         <div class="smart-user-info">
           <div class="smart-user-text">
-            <p class="smart-user-name">alissonrocha</p>
             <p class="smart-user-store">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 21v-5a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v5"/><path d="M17.774 10.31a1.12 1.12 0 0 0-1.549 0 2.5 2.5 0 0 1-3.451 0 1.12 1.12 0 0 0-1.548 0 2.5 2.5 0 0 1-3.452 0 1.12 1.12 0 0 0-1.549 0 2.5 2.5 0 0 1-3.77-3.248l2.889-4.184A2 2 0 0 1 7 2h10a2 2 0 0 1 1.653.873l2.895 4.192a2.5 2.5 0 0 1-3.774 3.244"/><path d="M4 10.95V19a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8.05"/></svg>
-              63 VITCONQ
+              <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 21v-5a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v5"/><path d="M17.774 10.31a1.12 1.12 0 0 0-1.549 0 2.5 2.5 0 0 1-3.451 0 1.12 1.12 0 0 0-1.548 0 2.5 2.5 0 0 1-3.452 0 1.12 1.12 0 0 0-1.549 0 2.5 2.5 0 0 1-3.77-3.248l2.889-4.184A2 2 0 0 1 7 2h10a2 2 0 0 1 1.653.873l2.895 4.192a2.5 2.5 0 0 1-3.774 3.244"/><path d="M4 10.95V19a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8.05"/></svg>
+              <span>Loja 63</span>
             </p>
+            <p class="smart-user-name">alissonrocha</p>
           </div>
         </div>
         <div class="icon-buttons">
@@ -1986,7 +2429,7 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719"/><path d="M8 12h.01"/><path d="M12 12h.01"/><path d="M16 12h.01"/></svg>
             <span class="badge">42</span>
           </button>
-          <button type="button" class="icon-btn" aria-label="Notificações, 42 não lidas" data-goto="notificacoes">
+          <button type="button" class="icon-btn" aria-label="Notificações, 42 não lidas" data-open="notif-page">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.268 21a2 2 0 0 0 3.464 0"/><path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326"/></svg>
             <span class="badge">42</span>
           </button>
@@ -2104,11 +2547,11 @@
       <div class="smart-user">
         <div class="smart-user-info">
           <div class="smart-user-text">
-            <p class="smart-user-name">alissonrocha</p>
             <p class="smart-user-store">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 21v-5a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v5"/><path d="M17.774 10.31a1.12 1.12 0 0 0-1.549 0 2.5 2.5 0 0 1-3.451 0 1.12 1.12 0 0 0-1.548 0 2.5 2.5 0 0 1-3.452 0 1.12 1.12 0 0 0-1.549 0 2.5 2.5 0 0 1-3.77-3.248l2.889-4.184A2 2 0 0 1 7 2h10a2 2 0 0 1 1.653.873l2.895 4.192a2.5 2.5 0 0 1-3.774 3.244"/><path d="M4 10.95V19a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8.05"/></svg>
-              63 VITCONQ
+              <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 21v-5a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v5"/><path d="M17.774 10.31a1.12 1.12 0 0 0-1.549 0 2.5 2.5 0 0 1-3.451 0 1.12 1.12 0 0 0-1.548 0 2.5 2.5 0 0 1-3.452 0 1.12 1.12 0 0 0-1.549 0 2.5 2.5 0 0 1-3.77-3.248l2.889-4.184A2 2 0 0 1 7 2h10a2 2 0 0 1 1.653.873l2.895 4.192a2.5 2.5 0 0 1-3.774 3.244"/><path d="M4 10.95V19a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8.05"/></svg>
+              <span>Loja 63</span>
             </p>
+            <p class="smart-user-name">alissonrocha</p>
           </div>
         </div>
         <div class="icon-buttons">
@@ -2119,7 +2562,7 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719"/><path d="M8 12h.01"/><path d="M12 12h.01"/><path d="M16 12h.01"/></svg>
             <span class="badge">42</span>
           </button>
-          <button type="button" class="icon-btn" aria-label="Notificações, 42 não lidas" data-goto="notificacoes">
+          <button type="button" class="icon-btn" aria-label="Notificações, 42 não lidas" data-open="notif-page">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.268 21a2 2 0 0 0 3.464 0"/><path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326"/></svg>
             <span class="badge">42</span>
           </button>
@@ -2308,11 +2751,11 @@
       <div class="smart-user">
         <div class="smart-user-info">
           <div class="smart-user-text">
-            <p class="smart-user-name">alissonrocha</p>
             <p class="smart-user-store">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 21v-5a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v5"/><path d="M17.774 10.31a1.12 1.12 0 0 0-1.549 0 2.5 2.5 0 0 1-3.451 0 1.12 1.12 0 0 0-1.548 0 2.5 2.5 0 0 1-3.452 0 1.12 1.12 0 0 0-1.549 0 2.5 2.5 0 0 1-3.77-3.248l2.889-4.184A2 2 0 0 1 7 2h10a2 2 0 0 1 1.653.873l2.895 4.192a2.5 2.5 0 0 1-3.774 3.244"/><path d="M4 10.95V19a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8.05"/></svg>
-              63 VITCONQ
+              <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 21v-5a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v5"/><path d="M17.774 10.31a1.12 1.12 0 0 0-1.549 0 2.5 2.5 0 0 1-3.451 0 1.12 1.12 0 0 0-1.548 0 2.5 2.5 0 0 1-3.452 0 1.12 1.12 0 0 0-1.549 0 2.5 2.5 0 0 1-3.77-3.248l2.889-4.184A2 2 0 0 1 7 2h10a2 2 0 0 1 1.653.873l2.895 4.192a2.5 2.5 0 0 1-3.774 3.244"/><path d="M4 10.95V19a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8.05"/></svg>
+              <span>Loja 63</span>
             </p>
+            <p class="smart-user-name">alissonrocha</p>
           </div>
         </div>
         <div class="icon-buttons">
@@ -2323,7 +2766,7 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719"/><path d="M8 12h.01"/><path d="M12 12h.01"/><path d="M16 12h.01"/></svg>
             <span class="badge">42</span>
           </button>
-          <button type="button" class="icon-btn" aria-label="Notificações, 42 não lidas" data-goto="notificacoes">
+          <button type="button" class="icon-btn" aria-label="Notificações, 42 não lidas" data-open="notif-page">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.268 21a2 2 0 0 0 3.464 0"/><path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326"/></svg>
             <span class="badge">42</span>
           </button>
@@ -2405,11 +2848,11 @@
       <div class="smart-user">
         <div class="smart-user-info">
           <div class="smart-user-text">
-            <p class="smart-user-name">alissonrocha</p>
             <p class="smart-user-store">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 21v-5a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v5"/><path d="M17.774 10.31a1.12 1.12 0 0 0-1.549 0 2.5 2.5 0 0 1-3.451 0 1.12 1.12 0 0 0-1.548 0 2.5 2.5 0 0 1-3.452 0 1.12 1.12 0 0 0-1.549 0 2.5 2.5 0 0 1-3.77-3.248l2.889-4.184A2 2 0 0 1 7 2h10a2 2 0 0 1 1.653.873l2.895 4.192a2.5 2.5 0 0 1-3.774 3.244"/><path d="M4 10.95V19a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8.05"/></svg>
-              63 VITCONQ
+              <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 21v-5a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v5"/><path d="M17.774 10.31a1.12 1.12 0 0 0-1.549 0 2.5 2.5 0 0 1-3.451 0 1.12 1.12 0 0 0-1.548 0 2.5 2.5 0 0 1-3.452 0 1.12 1.12 0 0 0-1.549 0 2.5 2.5 0 0 1-3.77-3.248l2.889-4.184A2 2 0 0 1 7 2h10a2 2 0 0 1 1.653.873l2.895 4.192a2.5 2.5 0 0 1-3.774 3.244"/><path d="M4 10.95V19a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8.05"/></svg>
+              <span>Loja 63</span>
             </p>
+            <p class="smart-user-name">alissonrocha</p>
           </div>
         </div>
         <div class="icon-buttons">
@@ -2420,7 +2863,7 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719"/><path d="M8 12h.01"/><path d="M12 12h.01"/><path d="M16 12h.01"/></svg>
             <span class="badge">42</span>
           </button>
-          <button type="button" class="icon-btn" aria-label="Notificações, 42 não lidas" data-goto="notificacoes">
+          <button type="button" class="icon-btn" aria-label="Notificações, 42 não lidas" data-open="notif-page">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.268 21a2 2 0 0 0 3.464 0"/><path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326"/></svg>
             <span class="badge">42</span>
           </button>
@@ -2615,11 +3058,11 @@
       <div class="smart-user">
         <div class="smart-user-info">
           <div class="smart-user-text">
-            <p class="smart-user-name">alissonrocha</p>
             <p class="smart-user-store">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 21v-5a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v5"/><path d="M17.774 10.31a1.12 1.12 0 0 0-1.549 0 2.5 2.5 0 0 1-3.451 0 1.12 1.12 0 0 0-1.548 0 2.5 2.5 0 0 1-3.452 0 1.12 1.12 0 0 0-1.549 0 2.5 2.5 0 0 1-3.77-3.248l2.889-4.184A2 2 0 0 1 7 2h10a2 2 0 0 1 1.653.873l2.895 4.192a2.5 2.5 0 0 1-3.774 3.244"/><path d="M4 10.95V19a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8.05"/></svg>
-              63 VITCONQ
+              <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 21v-5a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v5"/><path d="M17.774 10.31a1.12 1.12 0 0 0-1.549 0 2.5 2.5 0 0 1-3.451 0 1.12 1.12 0 0 0-1.548 0 2.5 2.5 0 0 1-3.452 0 1.12 1.12 0 0 0-1.549 0 2.5 2.5 0 0 1-3.77-3.248l2.889-4.184A2 2 0 0 1 7 2h10a2 2 0 0 1 1.653.873l2.895 4.192a2.5 2.5 0 0 1-3.774 3.244"/><path d="M4 10.95V19a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8.05"/></svg>
+              <span>Loja 63</span>
             </p>
+            <p class="smart-user-name">alissonrocha</p>
           </div>
         </div>
         <div class="icon-buttons">
@@ -2630,7 +3073,7 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719"/><path d="M8 12h.01"/><path d="M12 12h.01"/><path d="M16 12h.01"/></svg>
             <span class="badge">42</span>
           </button>
-          <button type="button" class="icon-btn" aria-label="Notificações, 42 não lidas" data-goto="notificacoes">
+          <button type="button" class="icon-btn" aria-label="Notificações, 42 não lidas" data-open="notif-page">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.268 21a2 2 0 0 0 3.464 0"/><path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326"/></svg>
             <span class="badge">42</span>
           </button>
@@ -2772,136 +3215,7 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719"/><path d="M8 12h.01"/><path d="M12 12h.01"/><path d="M16 12h.01"/></svg>
       Conversas
     </button>
-    <button type="button" class="pdv-nav-item" data-goto="notificacoes">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.268 21a2 2 0 0 0 3.464 0"/><path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326"/></svg>
-      Notificações
-    </button>
-    <button type="button" class="pdv-nav-item" data-goto="hub">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="1"/><circle cx="19" cy="5" r="1"/><circle cx="5" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/><circle cx="12" cy="19" r="1"/><circle cx="19" cy="19" r="1"/><circle cx="5" cy="19" r="1"/></svg>
-      Início
-    </button>
-  </nav>
-</div>
-</section>
-
-<section class="screen" data-screen="notificacoes">
-<div class="device device--smart">
-  <div class="frame">
-
-    <div class="smart-header">
-      <img class="smart-logo-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJ4AAABpCAYAAADLEpraAAAACXBIWXMAACE4AAAhOAFFljFgAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAOdEVYdFNvZnR3YXJlAEZpZ21hnrGWYwAAC55JREFUeAHtne914zgOwJF5932ng+FWMNkKoq1gchXEW0GyFdhbwWQrsKeCzFVgp4JkKpCugsxWgCUiOKFpSiQkypZs/N7j8x+RFCVBEEkA1AVkBBGN/Shs+sWmS5s+ctri//Yx3u9nm+4vLi6+efuhOu5s+txQH5X725arQDk9SABsmtn0YNMLDsedt88yoQzlMaCcDvaCFji8sLk8OPueCcqtQRkl/5FktheysB9zqB+nh8R9nN5AOpegjJIkwcO6T7Ww6RamxUdQRklU8LDuJ9Ejy4CiZOJD20YrdPSoegIVOiUzjYLHQkeabgyPKwPKSREUPOfxOpY+0k9QToo9wRuh0BEqeCdGSOPRdImBcbEC5aTYGdXS5Kz9mMFwVJHtJpB/z2SmTB9/OmUO+dg4qbLC839QFOZN8FjbGejPCmot9QMUJQamGd5b7aJ4AKM87ycZUEbJ6+CCbbAGukMa7nd1Q1JS2Y5qJYZ3n4UVuD9BUQRsBa+AbpCm+wsURcgHNo0ZkFOpplO6QqNaA92YgTJJ8D1E4ROEr38FtbWIZiaerYLJbjkiwbsCORvbmEeYKPbEk19hAWGzYGXTX0MOlOz+r6GOFwnxaPe9gbz7o+OkfX6B5uNuK08xLBvIGccinZ5gugjrUdobKL9KKEYu/dm9l7GOF3lK2P9XyICtx1BdmDdEgdrfZzD61riUE+FSwhHBHoJnf14LimaP17B1LgX773xxsRbwexyWsk8baVQr9ULZwHSRaOoC8iPRogV0AOvHOCmHocMUjE309FhiB8PBB5APLjYwXY7t6iXZvwEhpOXsxwMc9jhnNq1Z4JP5AHIqUEYFP1qpa3CsYCxjE4W7LlILiMIbmQqU0YD1iJWEbgyhnHPbHrAj30Uso1jjqXvT6BiL0G2Zp2g+scazlUp99n5YYf0OSna4TzfGoHUSvue2697lUbsAIdyI30DJBtb+k2MOsF/yda9CG+lRW8HwXNpGfAElCzx9kdNbfAio77ls2thF43WFHgn/AyUHOQKyyP5KprDv/L1ytl1yKnruhxZ3KkImwEMKnpIB1nYz6E5lE/UNv7UY/x+d/c2gn6CT1vvV/7PLPJ5yXPrYce+ssP1q09+pHic238p+UP98Bd0ge3Hh/6mCNyFY24ksBExl028kcNABElKb/oAOA0tmrz+qgjctugwoSLNRPMwz9IS9ze9BDvX1Prl/qOBNiwLk/JHTt5C9zrsI8Y6mVsGbCNgtEnA10OR9l5CHowleb1V/5nSZBx0kEIunRzYgY8fCcijB+24bq3N4/ZCaxlYDxzlLhZo8aN6OQTqPRx3VO5BRTTk+Y0SIBQ8GhLSeFSSSB4nvH8WZvD75xIKnKzcdHtYUIufOA93s1H+cCfK/HYMOLqbBWMMTpP12s/2igjcNpIKXZJXIgNQ3UzXexBir4HXejwqechRU8E6TY0fTRVHBO03G6A6/gwreNBCPHjn6bLScm+BVksy+R0UGjCCv23GvQE7/9U0GRDXegUD5IkBvgsdOm9IRZBe/PSk6qk1EeqIKyIdU8Crv9wZkFCHP38yo4CUinfDM2UmXPvr8ft0G5CzH2tc7N8GTdtJnOS4cvq/AKcG/SbrYyA3Ui/iMjrMSPHYTkjweSOhyBE1L19r76buqcz9vA3LokbuEkXGOg4sNyLjDHi+OsWVXIPccbtLMXR07Z7yQooGRoIIX53U1JulF46XD6DHXZVpjFfqTPX8r6Iaxqey6kGJuzlHwqK8kHY0Zm2jJ3iQnWA6CfoLuUxptvnR9X/Ewg1oA6Wa6xQHWek7h7FYSoL4SP/6ShMiBNB8tZE19PnKAJFd+d36NLiAtdTuDfrbSVpd1Ct6xbdhA/6meghPdKPTx00urQZ1+UfbyvKMuvM3tXQvaiw11GBwvJuEcUPtzruTexENCOyS8DXLO0nLBGuUexkdSgA7nOcRblWiV/AIG4JxNZjRCPJTDZAoVCEatvKbJAoZnkHeanK3g8bzYf2E8/CkNR+QlJRYwQc7aSYCnJxZwfBZdI/6PKXx94nbP3jtlBFpj0ffVq1yetHcFE0HdouCowtdb6LawxvwdBg7kzoUKHsMCQGvAVTA81L+cXWR+yTQ9+ngduwLyHUcFA6CC58AjxaG1xgbqRRIHm5ylVQRo5U+oBbBT39HhZ8/t4bwom0DO/kZDKSh7A+ITdMSWvcJur1RtPHd4pNetYj3RO0P58UQNBjbPXFDf564Fj+7Hb9tQHLK9+P7OV+nrVYkS6/N7tPf7hsD6piI77RJrYSy9dr/w/yahro9cz0vkPOy4l11wYVrQeQbNNkZSkYuua+jmBmtjPR2Iacm2yN2H4gtBd+12OX7/fFXwvoz/Zoqv37LH+KlPu3E/QOqf0ELfFzBhGjTJP1AvjTYmq0R28P1175uB18FTlHe8x+Mo4yqUE8TrQ42qD5mCTqcoR0EFTzkKKnjKUVDBU47CWQoeT3pmHQliPdFsICNc5yAjVj4HBjKRu76DYhv+gLWFIDnyiS/OEyfTkm9rMvJn2Om/qIWD97Od5b/h/wpus18nteWmi9DYMteBdtL3pXt8XUa1kfaK44e5vmVDfUucgiDiriks2SaMu7bbeWD7VjBjlNguuLdu+2y6T6wz6SbCd8GO8ZXzu1xlqrvERDOjzbfCNPq85nR4sFbV7p1TJJTxo5yMt/0S9+/GEuu7fqtdXV6wQfiw3ab9wvWWDdtahY+PI1SW/lsHtq2931c96g7ZWBeR9t4HjvGJ6wvd5KNbQmMH3L24Ua2Hu9pu7W3zT/hT6AIF8q0h3ra3vH6dXN/Szxc5jtLLTzfF54R6t1w11PsxUPccvS4A1k4Dfr6bljpdvgbq22srjBkUaD3c13a+ALgH/oQt/S3cj1MtAnnm3v5iMad+/qIh38zLNxfWu3fsTt6Fly+meR+cvC+hc4a7XaKXSH0zrjPHwkfDgolaD+s7rTEf7gqSgfh+3T7cMtKu1DrXbXWm5omUIZoEr3TyRC8+7t/4t4E8rd2byYL7qtw05CmdPDfedvFAxdtvGdg+d7YnOZji7s3xFNknkToQKbxyV5E8L5AIJtz4uNuPK7EewRsQMLq1U5y1TWb8F911ftQ8uQMZ/l4F3Mjd/tGroyKksX0boUnIl8IP53voUe8K2t6aeE0kvjnRFcYNpPPY0D4XiutYw/u5WtGftk0V1L6I5G7/ODl3LdxV53t9DWzRdrx9jv352FJnqhZ1+28hLVq0bY/UXTplryLnIHlUid6jNJJvie3QdhMqP0rLBd8pG/65syon1kuAGf5ZJQTNkGaohGlx6o6kLSRNejsRbRRURB7hpOUqL9sM6uXdCpgKnjZ402oY0Xacx9U0WSYwcRiN53fUky46JnTw0ZvwhkSwtpy8AUK4bXPvOgVHyKMFd0dvc0x8NGHkUd2xLXPphYwJHudpHUX2qLeICWdDuaVbCDqC+1NUX2Aq4L7Wc0dTN5Gyaydvb603oODNvWM0kTrpgpaYIKy4e+FTJuR9YcVAHhqskTYtEupLvl6jA8M2xjLhAvkncRHJT0byJTZMaQwoeP7cWYnNZjtf6BrzOsfkssQG7c/na898Fsj3lHJOMTLBP3owHEc7Tyw798qVWM85FXxiyJZ7i55pLaGubILH+a4Dx7jk/wuuh+YEfcG4TmjDOnAOvnK927rX2ECgvpDte+7UR21eePlEI/bREDgxRlB2jjLmCfVkFbxA3hh0UVO9SEijpgajl347AvUVKFt9gpiWttuCPUepXL6MnJw1tnt5fHHyppq2XG0dtXZgmvsSbTcgBOM34BLZQdb5r2xpJ+WPrcO8xoauy2QCurEeFZk+qxnwSSDhMlDPV23n+L6nRM9jPYf4i03fUuf5uMwnLlMlljH24/V4u7QzUi9ZdQqv3p3jwfoR/jmlzVjfrNv6tv1Hsl480+JBoCiKoiiKoiiKoiiKoijKZPkX9hRcuICal/MAAAAASUVORK5CYII=" alt="Flua Vendas" width="79" height="53">
-      <div class="smart-user">
-        <div class="smart-user-info">
-          <div class="smart-user-text">
-            <p class="smart-user-name">alissonrocha</p>
-            <p class="smart-user-store">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 21v-5a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v5"/><path d="M17.774 10.31a1.12 1.12 0 0 0-1.549 0 2.5 2.5 0 0 1-3.451 0 1.12 1.12 0 0 0-1.548 0 2.5 2.5 0 0 1-3.452 0 1.12 1.12 0 0 0-1.549 0 2.5 2.5 0 0 1-3.77-3.248l2.889-4.184A2 2 0 0 1 7 2h10a2 2 0 0 1 1.653.873l2.895 4.192a2.5 2.5 0 0 1-3.774 3.244"/><path d="M4 10.95V19a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8.05"/></svg>
-              63 VITCONQ
-            </p>
-          </div>
-        </div>
-        <div class="icon-buttons">
-          <button type="button" class="icon-btn" aria-label="Minha conta" data-open="user-sheet">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.925 20.056a6 6 0 0 0-11.851.001"/><circle cx="12" cy="11" r="4"/><circle cx="12" cy="12" r="10"/></svg>
-          </button>
-          <button type="button" class="icon-btn" aria-label="Mensagens, 42 não lidas" data-goto="conversas">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719"/><path d="M8 12h.01"/><path d="M12 12h.01"/><path d="M16 12h.01"/></svg>
-            <span class="badge">42</span>
-          </button>
-          <button type="button" class="icon-btn" aria-label="Notificações, 42 não lidas" data-goto="notificacoes">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.268 21a2 2 0 0 0 3.464 0"/><path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326"/></svg>
-            <span class="badge">42</span>
-          </button>
-        </div>
-      </div>
-    </div>
-
-  </div>
-
-  <div class="smart-sheet">
-    <div class="smart-sheet-inner">
-
-      <p class="notif-breadcrumb">
-        <button type="button" class="notif-breadcrumb-back" aria-label="Voltar" data-goto="hub">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
-        </button>
-        <span class="notif-breadcrumb-text">Notificações</span>
-      </p>
-
-      <div class="notif-filters" role="tablist" aria-label="Filtros de notificações">
-        <button type="button" class="conv-chip is-active" role="tab" aria-selected="true">
-          Não lidas <span class="conv-chip-count">4</span>
-        </button>
-        <button type="button" class="conv-chip" role="tab" aria-selected="false">
-          Lidas <span class="conv-chip-count">3</span>
-        </button>
-      </div>
-
-      <div class="notif-list" role="list" aria-label="Lista de notificações">
-
-        <div class="notif-item" role="listitem">
-          <span class="notif-dot" aria-hidden="true"></span>
-          <div class="notif-main">
-            <div class="notif-top">
-              <span class="conv-badge">Empréstimo Pessoal</span>
-              <p class="conv-time" style="margin:0;">10:15</p>
-            </div>
-            <p class="notif-title">Title</p>
-            <p class="notif-desc">✨ Você possui novas tarefas esperando por você. Conclua agora e potencialize seus resultados nas campanhas de CRM!</p>
-          </div>
-        </div>
-
-        <div class="notif-item" role="listitem">
-          <span class="notif-dot" aria-hidden="true"></span>
-          <div class="notif-main">
-            <div class="notif-top">
-              <span class="conv-badge">Empréstimo Pessoal</span>
-              <p class="conv-time" style="margin:0;">10:15</p>
-            </div>
-            <p class="notif-title">Title</p>
-            <p class="notif-desc">✨ Você possui novas tarefas esperando por você. Conclua agora e potencialize seus resultados nas campanhas de CRM!</p>
-          </div>
-        </div>
-
-        <div class="notif-item" role="listitem">
-          <span class="notif-dot" aria-hidden="true"></span>
-          <div class="notif-main">
-            <div class="notif-top">
-              <span class="conv-badge">Empréstimo Pessoal</span>
-              <p class="conv-time" style="margin:0;">10:15</p>
-            </div>
-            <p class="notif-title">Title</p>
-            <p class="notif-desc">✨ Você possui novas tarefas esperando por você. Conclua agora e potencialize seus resultados nas campanhas de CRM!</p>
-          </div>
-        </div>
-
-        <div class="notif-item" role="listitem">
-          <span class="notif-dot" aria-hidden="true"></span>
-          <div class="notif-main">
-            <div class="notif-top">
-              <span class="conv-badge">Empréstimo Pessoal</span>
-              <p class="conv-time" style="margin:0;">10:15</p>
-            </div>
-            <p class="notif-title">Title</p>
-            <p class="notif-desc">✨ Você possui novas tarefas esperando por você. Conclua agora e potencialize seus resultados nas campanhas de CRM!</p>
-          </div>
-        </div>
-
-      </div>
-
-    </div>
-  </div>
-
-  <nav class="pdv-nav" aria-label="Navegação Notificações">
-    <button type="button" class="pdv-nav-item" data-goto="campanhas">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 6a13 13 0 0 0 8.4-2.8A1 1 0 0 1 21 4v12a1 1 0 0 1-1.6.8A13 13 0 0 0 11 14H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z"/><path d="M6 14a12 12 0 0 0 2.4 7.2 2 2 0 0 0 3.2-2.4A8 8 0 0 1 10 14"/><path d="M8 6v8"/></svg>
-      Campanhas
-    </button>
-    <button type="button" class="pdv-nav-item" data-goto="conversas">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719"/><path d="M8 12h.01"/><path d="M12 12h.01"/><path d="M16 12h.01"/></svg>
-      Conversas
-    </button>
-    <button type="button" class="pdv-nav-item is-active" data-goto="notificacoes">
+    <button type="button" class="pdv-nav-item" data-open="notif-page">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.268 21a2 2 0 0 0 3.464 0"/><path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326"/></svg>
       Notificações
     </button>
@@ -2922,11 +3236,11 @@
       <div class="smart-user">
         <div class="smart-user-info">
           <div class="smart-user-text">
-            <p class="smart-user-name">alissonrocha</p>
             <p class="smart-user-store">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 21v-5a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v5"/><path d="M17.774 10.31a1.12 1.12 0 0 0-1.549 0 2.5 2.5 0 0 1-3.451 0 1.12 1.12 0 0 0-1.548 0 2.5 2.5 0 0 1-3.452 0 1.12 1.12 0 0 0-1.549 0 2.5 2.5 0 0 1-3.77-3.248l2.889-4.184A2 2 0 0 1 7 2h10a2 2 0 0 1 1.653.873l2.895 4.192a2.5 2.5 0 0 1-3.774 3.244"/><path d="M4 10.95V19a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8.05"/></svg>
-              63 VITCONQ
+              <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 21v-5a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v5"/><path d="M17.774 10.31a1.12 1.12 0 0 0-1.549 0 2.5 2.5 0 0 1-3.451 0 1.12 1.12 0 0 0-1.548 0 2.5 2.5 0 0 1-3.452 0 1.12 1.12 0 0 0-1.549 0 2.5 2.5 0 0 1-3.77-3.248l2.889-4.184A2 2 0 0 1 7 2h10a2 2 0 0 1 1.653.873l2.895 4.192a2.5 2.5 0 0 1-3.774 3.244"/><path d="M4 10.95V19a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8.05"/></svg>
+              <span>Loja 63</span>
             </p>
+            <p class="smart-user-name">alissonrocha</p>
           </div>
         </div>
         <div class="icon-buttons">
@@ -2937,7 +3251,7 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719"/><path d="M8 12h.01"/><path d="M12 12h.01"/><path d="M16 12h.01"/></svg>
             <span class="badge">42</span>
           </button>
-          <button type="button" class="icon-btn" aria-label="Notificações, 42 não lidas" data-goto="notificacoes">
+          <button type="button" class="icon-btn" aria-label="Notificações, 42 não lidas" data-open="notif-page">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.268 21a2 2 0 0 0 3.464 0"/><path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326"/></svg>
             <span class="badge">42</span>
           </button>
@@ -3043,7 +3357,7 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719"/><path d="M8 12h.01"/><path d="M12 12h.01"/><path d="M16 12h.01"/></svg>
       Conversas
     </button>
-    <button type="button" class="pdv-nav-item" data-goto="notificacoes">
+    <button type="button" class="pdv-nav-item" data-open="notif-page">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.268 21a2 2 0 0 0 3.464 0"/><path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326"/></svg>
       Notificações
     </button>
@@ -3076,7 +3390,7 @@
       </div>
     </div>
 
-    <button type="button" class="user-sheet-btn">
+    <button type="button" class="user-sheet-btn" data-close="user-sheet" data-open="change-password-modal">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
       Alterar Senha
     </button>
@@ -3104,6 +3418,96 @@
       Sair do Sistema
     </button>
   </div>
+</div>
+
+<div class="np-wrap" id="np-wrap" aria-hidden="true">
+  <div class="np-scrim" aria-hidden="true"></div>
+  <main class="np" id="np" role="dialog" aria-modal="true" aria-labelledby="np-title" tabindex="-1">
+    <header class="np-top" id="np-top">
+      <div class="np-header">
+        <button type="button" class="np-back" id="np-back" aria-label="Voltar">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M12.5 15L7.5 10L12.5 5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <h1 id="np-title">Notificações</h1>
+        <button type="button" class="np-icon-btn" id="np-filter-btn" aria-label="Filtrar por aplicação" aria-haspopup="true" aria-expanded="false" aria-controls="np-filter-menu">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M1.33398 3.33325H14.6673" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 8H12" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 12.6667H10" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <div class="np-filter-menu" id="np-filter-menu" role="dialog" aria-label="Filtrar" hidden>
+      <p class="np-menu-title">Filtrar</p>
+      <div class="np-divider"></div>
+      <div class="np-menu-items" id="np-menu-items"></div>
+      <button type="button" class="np-btn-primary" id="np-apply"><span>Aplicar filtro</span></button>
+    </div>
+
+    <section class="np-scroll" id="np-scroll" tabindex="-1" aria-label="Lista de notificações">
+      <div class="np-toolbar">
+        <div class="np-segmented" role="group" aria-label="Mostrar notificações">
+          <button type="button" class="np-seg" data-np-tab="unread" aria-pressed="true">Não lidas <span class="np-pill" id="np-unread-count">0</span></button>
+          <button type="button" class="np-seg" data-np-tab="read" aria-pressed="false">Lidas</button>
+        </div>
+        <div class="np-bulk-bar" id="np-bulk-bar">
+          <button type="button" class="np-mark-all" id="np-mark-all">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12.5l4.5 4.5L15 8.5"/><path d="M10.5 16l1 1L22 6.5"/></svg>
+            Marcar todas como lidas
+          </button>
+        </div>
+      </div>
+      <div class="np-chips" id="np-chips" aria-label="Filtros aplicados"></div>
+      <div class="np-groups" id="np-groups"></div>
+    </section>
+
+    <div class="np-confirm-scrim" id="np-confirm-scrim" hidden>
+      <div class="np-confirm" role="alertdialog" aria-modal="true" aria-labelledby="np-confirm-title" aria-describedby="np-confirm-text">
+        <h2 id="np-confirm-title">Marcar todas como lidas?</h2>
+        <p id="np-confirm-text"></p>
+        <div class="np-confirm-actions">
+          <button type="button" class="np-btn-secondary" id="np-confirm-cancel">Cancelar</button>
+          <button type="button" class="np-btn-primary" id="np-confirm-ok"><span>Marcar como lidas</span></button>
+        </div>
+      </div>
+    </div>
+
+    <div class="np-confirm-scrim" id="np-goto-scrim" hidden>
+      <div class="np-confirm np-goto" role="alertdialog" aria-modal="true" aria-labelledby="np-goto-title" aria-describedby="np-goto-text">
+        <div class="np-goto-apps" aria-hidden="true">
+          <div class="np-logo" id="np-goto-from"></div>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          <div class="np-logo" id="np-goto-to"></div>
+        </div>
+        <h2 id="np-goto-title"></h2>
+        <p id="np-goto-text"></p>
+        <div class="np-confirm-actions">
+          <button type="button" class="np-btn-secondary" id="np-goto-cancel">Ficar aqui</button>
+          <button type="button" class="np-btn-primary" id="np-goto-ok"><span id="np-goto-ok-label"></span></button>
+        </div>
+      </div>
+    </div>
+
+    <div class="np-item-menu" id="np-item-menu" role="menu" aria-label="Ações da notificação" hidden>
+      <button type="button" role="menuitem" data-act="toggle-read">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
+        <span id="np-toggle-read-label">Marcar como lida</span>
+      </button>
+      <button type="button" role="menuitem" data-act="delete" class="danger">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 12a2 2 0 002 2h6a2 2 0 002-2l1-12M9 7V4h6v3"/></svg>
+        Excluir
+      </button>
+    </div>
+
+    <div class="np-toast" id="np-toast" hidden>
+      <span id="np-toast-msg"></span>
+      <span class="np-actions">
+        <button type="button" id="np-undo">Desfazer</button>
+        <button type="button" class="np-close" id="np-toast-close" aria-label="Fechar aviso">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
+      </span>
+    </div>
+    <div class="np-sr-only" id="np-live" role="status" aria-live="polite"></div>
+  </main>
 </div>
 
 <div class="cart-modal" data-sheet="cart-modal" role="dialog" aria-label="Selecionar Pedido">
@@ -3154,9 +3558,573 @@
     </div>
   </div>
 </div>
+<div class="cp-modal" data-sheet="change-password-modal" role="dialog" aria-label="Alterar Senha">
+  <div class="cp-modal-header">
+    <p class="cp-modal-title">Alterar Senha</p>
+    <button type="button" class="cp-modal-close" aria-label="Fechar" data-close="change-password-modal">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+    </button>
+  </div>
+
+  <div class="oauth-field">
+    <label for="cp-current">Senha atual</label>
+    <input type="password" id="cp-current" class="oauth-input" autocomplete="current-password">
+  </div>
+
+  <hr class="cp-divider">
+
+  <div class="oauth-field">
+    <label for="cp-new">Nova senha</label>
+    <div class="cp-input-wrap">
+      <input type="password" id="cp-new" class="oauth-input" autocomplete="new-password">
+      <button type="button" class="cp-eye" data-toggle="cp-new" aria-label="Mostrar senha">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <ul class="cp-rules" id="cp-rules">
+    <li data-rule="len"><span class="cp-rule-icon"></span>Ter ao menos 8 caracteres</li>
+    <li data-rule="num"><span class="cp-rule-icon"></span>Ter ao menos um número</li>
+    <li data-rule="upper"><span class="cp-rule-icon"></span>Ter ao menos uma letra maiúscula</li>
+    <li data-rule="special"><span class="cp-rule-icon"></span>Ter ao menos um caractere especial</li>
+  </ul>
+
+  <div class="oauth-field">
+    <label for="cp-confirm">Repita a nova senha</label>
+    <div class="cp-input-wrap">
+      <input type="password" id="cp-confirm" class="oauth-input" autocomplete="new-password">
+      <button type="button" class="cp-eye" data-toggle="cp-confirm" aria-label="Mostrar senha">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <p class="cp-error" id="cp-error" hidden></p>
+
+  <button type="button" class="cp-submit" id="cp-submit">Alterar</button>
+</div>
+
+<div class="cp-toast" id="cp-toast">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+  Senha alterada com sucesso!
+</div>
+
 
 <script>
 (function(){
+  var pwdJustChanged = false;
+  function resetChangePasswordScreen(){
+    ['cp-current','cp-new','cp-confirm'].forEach(function(id){
+      var el = document.getElementById(id);
+      if(!el) return;
+      el.value = '';
+      el.type = 'password';
+    });
+    document.querySelectorAll('.cp-eye').forEach(function(btn){
+      btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></svg>';
+    });
+    document.querySelectorAll('#cp-rules li').forEach(function(li){
+      li.classList.remove('is-valid');
+      var icon = li.querySelector('.cp-rule-icon');
+      if(icon) icon.innerHTML = RULE_ICON_INVALID;
+    });
+    var errEl = document.getElementById('cp-error');
+    if(errEl){ errEl.hidden = true; errEl.textContent = ''; }
+    var toast = document.getElementById('cp-toast');
+    if(toast) toast.classList.remove('is-open');
+  }
+  /* ---- Página de Notificações (abre pela lateral; Voltar retorna à tela de origem) ---- */
+  var openNotifPage = function(){}, closeNotifPage = function(){};
+  (function(){
+  // ---------- Ícones / logos ----------
+  const CHECK_SVG = '<svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M8.49999 12.379L15.394 5.48425L16.4552 6.54475L8.49999 14.5L3.72699 9.727L4.78749 8.6665L8.49999 12.379Z" fill="white"/></svg>';
+  const USER_SVG = '<svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 6.5C7.38071 6.5 8.5 5.38071 8.5 4C8.5 2.61929 7.38071 1.5 6 1.5C4.61929 1.5 3.5 2.61929 3.5 4C3.5 5.38071 4.61929 6.5 6 6.5Z" stroke="#6D6D6D" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 10.5C10 9.43913 9.57857 8.42172 8.82843 7.67157C8.07828 6.92143 7.06087 6.5 6 6.5C4.93913 6.5 3.92172 6.92143 3.17157 7.67157C2.42143 8.42172 2 9.43913 2 10.5" stroke="#6D6D6D" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  const FLUA_SVG = '<svg width="23" height="11" viewBox="0 0 23 11" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M18.973 10.0128C19.2568 9.99331 19.4494 9.86312 19.4891 9.54887C19.492 9.29149 19.4964 9.03411 19.4994 8.77523C19.4626 8.44901 19.2318 8.32331 18.8907 8.30685C15.9975 8.30685 16.2209 4.37726 18.854 4.46405C19.8522 4.49698 20.5035 5.42775 20.5358 6.31961C20.5461 7.42396 20.5564 8.45051 20.5682 9.55486C20.5931 9.85414 20.7563 9.98732 21.0136 10.0083C21.2547 10.0098 21.4943 10.0113 21.7355 10.0143C22.0383 9.9993 22.2412 9.86312 22.2397 9.47854C22.2382 8.34127 22.2368 7.40301 22.2353 6.26574C22.15 3.96275 20.4197 2.8165 18.8201 2.76263C14.2906 2.60999 13.3497 9.86312 18.976 10.0143" fill="#FD5260"/><path fill-rule="evenodd" clip-rule="evenodd" d="M1.71356 4.06576H3.33219C3.72325 4.08671 3.79234 4.3845 3.78793 4.46979L3.79087 5.30928C3.78205 5.8016 3.36159 5.77167 3.30719 5.77167H3.2969C3.2969 5.77167 3.28514 5.77317 3.27926 5.77317H1.6915V9.68181C1.67092 10.0799 1.37836 10.1502 1.29456 10.1457L0.469811 10.1487C-0.0138672 10.1397 0.0155358 9.71173 0.0155358 9.65637C0.0170059 7.72898 0.0361178 5.7193 0.000834285 3.80538C-0.0388597 1.57124 1.34014 0.0703315 3.65415 0.0314247L5.51536 0C5.90641 0.0209498 5.97551 0.318736 5.9711 0.404032L5.97404 1.24352C5.96522 1.73584 5.54476 1.70591 5.49036 1.70591H5.05814L4.09078 1.69843C2.51038 1.68646 1.70915 2.81775 1.71503 4.06576" fill="#FD5260"/><path fill-rule="evenodd" clip-rule="evenodd" d="M7.49397 0.0390625H6.82065C6.54573 0.0390625 6.32227 0.268014 6.32227 0.546347V9.667C6.32227 9.94683 6.5472 10.1743 6.82065 10.1743H7.49397C7.76889 10.1743 7.99235 9.94533 7.99235 9.667V0.546347C7.99235 0.266518 7.76742 0.0390625 7.49397 0.0390625Z" fill="#FD5260"/><path fill-rule="evenodd" clip-rule="evenodd" d="M14.6732 3.42823C14.6732 4.57897 14.6791 5.73122 14.6732 6.88196C14.6511 11.2171 8.49121 11.1363 8.49121 6.95079V3.3998C8.49121 3.12147 8.71467 2.89551 8.98665 2.89551H9.65557C9.92901 2.89551 10.151 3.12296 10.151 3.3998V6.9493C10.151 9.04727 13.0119 8.76445 13.0119 6.88944V3.43122C13.0119 3.15289 13.2354 2.92693 13.5074 2.92693H14.1763C14.4497 2.92693 14.6717 3.15439 14.6717 3.43122" fill="#FD5260"/></svg>';
+
+  const CATALOGO_SVG = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.6481 4.34766C13.6211 4.00458 13.5589 3.89755 13.1857 3.71096L6.16977 0.708328C5.29913 0.489817 4.42351 0.60025 3.75071 1.05036C3.49687 1.22019 3.20927 1.47482 2.91618 1.86343C2.52887 2.37687 2.33836 2.85628 2.33496 3.49873C2.55269 6.05676 2.50899 8.61871 2.72645 11.1754C2.7589 11.5557 2.74974 11.6915 3.16216 11.9448C5.76101 13.209 8.07697 14.4463 10.2111 15.4297C10.6182 15.5059 10.9202 15.2662 10.9367 14.9281L10.6782 6.70758C10.6468 6.33127 10.6271 6.19624 10.2043 5.98505L4.30052 3.39327C3.80671 3.08395 3.72925 2.77725 4.02286 2.37216C4.41645 1.82915 5.17535 1.45493 5.96068 1.73599L12.4226 4.51645L12.4731 11.8048C12.4765 12.6281 13.6892 12.672 13.6881 11.9532L13.6486 4.34766H13.6481ZM3.96869 8.51194L3.98413 8.31096C4.03752 7.61565 4.4332 7.02737 5.06963 6.69764C5.66837 6.38727 6.41629 6.35168 7.02184 6.605L7.0276 6.60735L8.96881 7.42278V8.77389L6.46208 7.71509C6.242 7.62376 5.9599 7.64103 5.72804 7.76141C5.48022 7.8899 5.3376 8.10972 5.31535 8.39732L5.29991 8.5983C5.21722 9.67515 5.50299 10.2742 6.25561 10.6018L9.0659 11.7883V13.1245L8.80395 13.0222C8.79296 13.018 8.78197 13.0138 8.77098 13.0091L5.68983 11.7093C5.05209 11.4332 4.58576 11.0234 4.3013 10.4906C4.02025 9.96406 3.90824 9.29832 3.96869 8.5122V8.51194Z" fill="#B70016"/></svg>';
+
+  const LOGOS = {
+    crm:   { cls: '',    html: '<span class="np-logo-crm">CRM</span>' },
+    pdv:   { cls: '',    html: '<div class="np-logo-pdv"><span class="np-pdv">PDV</span><span class="np-go">GO</span></div>' },
+    catalogo: { cls: '', html: CATALOGO_SVG },
+    smart: { cls: '',    html: '<div class="np-logo-flua-wrap"><div class="np-logo-flua">' + FLUA_SVG + '<span class="np-smart">smart</span></div></div>' }
+  };
+
+  // ---------- Dados (conteúdo do design) ----------
+  const APPS = [
+    { id: 'crm',      label: 'CRM' },
+    { id: 'pdv',      label: 'PDV Go' },
+    { id: 'smart',    label: 'Flua Smart' },
+    { id: 'catalogo', label: 'Catálogo' }
+  ];
+
+  // ---------- Dados: planilha "Notificações para usar no protótipo" (polida) ----------
+  // [app, diasAtrás, hora, título, texto, badge, ícone de usuário, lida]
+  // As datas são relativas ao dia em que o protótipo é aberto, preservando a ordem original.
+  const RAW = [["pdv",0,"14:49","Proposta reprovada","A forma de pagamento do pedido 2/298940 foi rejeitada.",0,0,0],["pdv",0,"14:38","Proposta do pedido 2/298940 possui 1 pendência","Proposta criada com sucesso!",0,0,0],["pdv",0,"12:39","Proposta do pedido 2/298928 possui 1 pendência","Pendente: assinatura do contrato de financiamento.",0,0,0],["pdv",0,"12:31","Proposta do pedido 2/298928 possui 1 pendência","Proposta criada com sucesso!",0,0,0],["pdv",0,"12:13","Pagamento via Pix recebido","O pagamento via Pix do carrinho #1541438 foi recebido.",0,0,0],["pdv",0,"12:11","Formalização assinada","A formalização do carrinho #1541438 foi assinada.",0,0,0],["crm",0,"12:03","1 novo contato disponível!","Ele está esperando por você. Conclua agora e potencialize seus resultados!",0,0,0],["crm",0,"08:06","9 novos contatos disponíveis!","Eles estão esperando por você. Conclua agora e potencialize seus resultados!",0,0,0],["crm",1,"12:04","1 novo contato disponível!","Ele está esperando por você. Conclua agora e potencialize seus resultados!",0,0,0],["smart",1,"10:36","Formalização assinada","A formalização do carrinho #1537826 foi assinada.",0,0,0],["crm",1,"08:07","1 novo contato disponível!","Ele está esperando por você. Conclua agora e potencialize seus resultados!",0,0,0],["crm",2,"08:03","9 novos contatos disponíveis!","Eles estão esperando por você. Conclua agora e potencialize seus resultados!",0,0,0],["crm",3,"08:03","10 novos contatos disponíveis!","Eles estão esperando por você. Conclua agora e potencialize seus resultados!",0,0,0],["crm",15,"08:04","8 novos contatos disponíveis!","Eles estão esperando por você. Conclua agora e potencialize seus resultados!",0,0,0],["crm",16,"12:04","2 novos contatos disponíveis!","Eles estão esperando por você. Conclua agora e potencialize seus resultados!",0,0,1],["smart",16,"10:36","Pagamento via Pix recebido","O pagamento via Pix do carrinho #1528896 foi recebido.",0,0,1],["smart",16,"10:31","Formalização assinada","A formalização do carrinho #1528896 foi assinada.",0,0,1],["catalogo",16,"10:22","Não foi possível finalizar o carrinho #1528896 automaticamente","O carrinho #1528896 não possui assinatura digital configurada. Aguarde enquanto o sistema verifica se a assinatura digital é necessária para continuar.",0,0,0],["smart",16,"10:22","Formalização cancelada","A formalização do carrinho #1528896 foi cancelada.",0,0,1],["smart",16,"10:22","Pagamento via Pix recebido","O pagamento via Pix do carrinho #1541438 foi recebido.",0,0,1],["smart",16,"10:22","Formalização assinada","A formalização do carrinho #1541438 foi assinada.",0,0,1],["smart",16,"10:22","Cliente marcou o carrinho #1528896 como “Não confere”","O cliente Anderson Alves de Melo marcou o carrinho #1528896 como “Não confere”. As mercadorias não estão mais reservadas.",0,0,1],["crm",16,"08:05","4 novos contatos disponíveis!","Eles estão esperando por você. Conclua agora e potencialize seus resultados!",0,0,1],["crm",17,"12:03","3 novos contatos disponíveis!","Eles estão esperando por você. Conclua agora e potencialize seus resultados!",0,0,1],["crm",17,"08:35","Cláudio dos Santos Barbosa","Sim, tenho interesse","Mais Crédito",0,1],["crm",17,"08:04","9 novos contatos disponíveis!","Eles estão esperando por você. Conclua agora e potencialize seus resultados!",0,0,1],["crm",27,"08:05","1 novo contato disponível!","Ele está esperando por você. Conclua agora e potencialize seus resultados!",0,0,1],["crm",29,"08:03","7 novos contatos disponíveis!","Eles estão esperando por você. Conclua agora e potencialize seus resultados!",0,0,1],["crm",30,"12:03","2 novos contatos disponíveis!","Eles estão esperando por você. Conclua agora e potencialize seus resultados!",0,0,1],["crm",35,"12:03","1 novo contato disponível!","Ele está esperando por você. Conclua agora e potencialize seus resultados!",0,0,1],["crm",35,"08:04","5 novos contatos disponíveis!","Eles estão esperando por você. Conclua agora e potencialize seus resultados!",0,0,1],["crm",36,"12:03","3 novos contatos disponíveis!","Eles estão esperando por você. Conclua agora e potencialize seus resultados!",0,0,1],["crm",36,"11:39","Soraya Santos Silva","Não tenho interesse","Mais Crédito",0,1],["crm",36,"11:39","Soraya Santos Silva","Sim, tenho interesse","Mais Crédito",0,1],["crm",36,"11:38","Conversa autorizada","Soraya Santos Silva","Mais Crédito",1,1],["crm",36,"08:04","7 novos contatos disponíveis!","Eles estão esperando por você. Conclua agora e potencialize seus resultados!",0,0,1],["crm",37,"12:03","2 novos contatos disponíveis!","Eles estão esperando por você. Conclua agora e potencialize seus resultados!",0,0,1],["crm",38,"12:03","10 novos contatos disponíveis!","Eles estão esperando por você. Conclua agora e potencialize seus resultados!",0,0,1],["crm",45,"08:02","10 novos contatos disponíveis!","Eles estão esperando por você. Conclua agora e potencialize seus resultados!",0,0,1],["crm",46,"09:43","Conversa encerrada por inatividade","Arilza Ferreira Mello","Mais Crédito",1,1],["crm",46,"08:52","Conversa encerrada por inatividade","Josué de Amurim Jann","Mais Crédito",1,1],["crm",46,"03:49","Conversa encerrada","Nilzete da Silva Santos","Mais Crédito",1,1],["crm",46,"03:49","Conversa encerrada","Iracema Comper Santos","Mais Crédito",1,1],["crm",46,"03:49","Conversa encerrada","Maria da Penha Santos da Silva","Mais Crédito",1,1],["crm",46,"03:48","Conversa encerrada","Augusto Cesar Nicchio da Silva","Mais Crédito",1,1],["crm",47,"14:40","Adenilson Inácio de Souza","Sim, tenho interesse","Mais Crédito",0,1],["crm",47,"14:40","Conversa autorizada","Adenilson Inácio de Souza","Mais Crédito",1,1],["crm",47,"09:42","Arilza Ferreira Mello","Sim, tenho interesse","Mais Crédito",0,1],["crm",47,"08:48","Josué de Amurim Jann","Sim, tenho interesse","Mais Crédito",0,1],["crm",47,"08:48","Conversa autorizada","Josué de Amurim Jann","Mais Crédito",1,1],["crm",48,"12:02","10 novos contatos disponíveis!","Eles estão esperando por você. Conclua agora e potencialize seus resultados!",0,0,1],["crm",69,"10:05","Conversa encerrada por inatividade","Kátia Leila Tigre Pereira","Mais Crédito",1,1],["crm",70,"12:01","8 novos contatos disponíveis!","Eles estão esperando por você. Conclua agora e potencialize seus resultados!",0,0,1],["crm",70,"10:48","Conversa encerrada","Maria Neide Gonçalves de Oliveira","Empréstimo Pessoal",1,1],["crm",70,"10:47","Conversa encerrada","Maria das Dores Waguimaker","Mais Crédito",1,1],["crm",70,"10:47","Conversa encerrada","Izabel Cristina Silva Pereira Moreira","Mais Crédito",1,1],["crm",70,"10:47","Conversa encerrada","Edineia Rosa da Silva Pereira","Mais Crédito",1,1],["crm",70,"10:47","Conversa encerrada","Jaqueline Souza Moreira Bruno","Mais Crédito",1,1],["crm",70,"08:01","1 novo contato disponível!","Ele está esperando por você. Conclua agora e potencialize seus resultados!",0,0,1],["crm",71,"14:23","Conversa autorizada","Kátia Leila Tigre Pereira","Mais Crédito",1,1],["crm",71,"12:02","1 novo contato disponível!","Ele está esperando por você. Conclua agora e potencialize seus resultados!",0,0,1],["crm",72,"08:01","7 novos contatos disponíveis!","Eles estão esperando por você. Conclua agora e potencialize seus resultados!",0,0,1],["crm",72,"07:34","Conversa encerrada","Leonardo dos Santos Silva","Empréstimo Pessoal",1,1],["crm",72,"07:32","Conversa encerrada","Herenita dos Santos Oliveira","Mais Crédito",1,1],["crm",72,"07:31","Conversa encerrada","Antônio Balbino Peixoto","Mais Crédito",1,1],["crm",72,"07:28","Conversa encerrada","Glorinha Sartori","Mais Crédito",1,1],["crm",73,"14:08","3 novos contatos disponíveis!","Eles estão esperando por você. Conclua agora e potencialize seus resultados!",0,0,1],["crm",73,"12:31","Conversa encerrada","Marineide Bonomo da Silva","Mais Crédito",1,1],["crm",73,"08:01","9 novos contatos disponíveis!","Eles estão esperando por você. Conclua agora e potencialize seus resultados!",0,0,1],["crm",75,"11:13","Conversa encerrada por inatividade","Ana Bessa Sampaio","Mais Crédito",1,1],["crm",75,"06:16","Conversa encerrada","Alexandre Figueiredo Gomes","Mais Crédito",1,1],["crm",75,"06:16","Conversa encerrada","Adelsônia da Silva Viana Oliveira","Mais Crédito",1,1],["crm",75,"06:16","Conversa encerrada","Edilson Nicolau de Oliveira","Mais Crédito",1,1],["crm",75,"06:15","Conversa encerrada","Débora Celestina Mascarenhas","Empréstimo Pessoal",1,1],["crm",75,"06:14","Conversa encerrada","Elizabeth Ditiberno Frederico","Mais Crédito",1,1],["crm",75,"06:14","Conversa encerrada","Valdinei da Silva","Mais Crédito",1,1],["crm",76,"12:00","1 novo contato disponível!","Ele está esperando por você. Conclua agora e potencialize seus resultados!",0,0,1],["crm",76,"11:45","Conversa autorizada","Murilo de Jesus Nunes","Empréstimo Pessoal",1,1],["crm",76,"08:00","9 novos contatos disponíveis!","Eles estão esperando por você. Conclua agora e potencialize seus resultados!",0,0,1],["crm",76,"04:39","Conversa encerrada","Adriana da Silva Ferrugini Pizetta","Mais Crédito",1,1],["crm",76,"04:38","Conversa encerrada","Ivan Jesus Pereira","Empréstimo Pessoal",1,1],["crm",76,"04:38","Conversa encerrada","Gildásio Alves Fernandes","Mais Crédito",1,1],["crm",76,"04:38","Conversa encerrada","José Carlos dos Santos Oliveira","Mais Crédito",1,1],["crm",77,"12:56","Ana Bessa Sampaio","Sim, tenho interesse","Mais Crédito",0,1],["crm",77,"12:55","Conversa autorizada","Ana Bessa Sampaio","Empréstimo Pessoal",1,1],["crm",77,"12:00","1 novo contato disponível!","Ele está esperando por você. Conclua agora e potencialize seus resultados!",0,0,1],["crm",79,"08:00","1 novo contato disponível!","Ele está esperando por você. Conclua agora e potencialize seus resultados!",0,0,1],["crm",87,"12:00","1 novo contato disponível!","Ele está esperando por você. Conclua agora e potencialize seus resultados!",0,0,1],["crm",87,"09:47","Falha ao iniciar contato","Não foi possível iniciar contato com Vanessa Oliveira. Tente novamente.",0,0,1],["crm",87,"08:00","3 novos contatos disponíveis!","Eles estão esperando por você. Conclua agora e potencialize seus resultados!",0,0,1],["crm",89,"11:40","Conversa encerrada","Josilene Amaral Pereira","Mais Crédito",1,1],["crm",90,"11:58","Falha ao iniciar contato","Não foi possível iniciar contato com Jeane Leal. Tente novamente.",0,0,1],["crm",90,"11:58","Falha ao iniciar contato","Não foi possível iniciar contato com Rosineli Jesus. Tente novamente.",0,0,1],["crm",90,"11:58","Falha ao iniciar contato","Não foi possível iniciar contato com João Martins. Tente novamente.",0,0,1],["crm",90,"11:58","Falha ao iniciar contato","Não foi possível iniciar contato com Rosimere Oliveira. Tente novamente.",0,0,1],["crm",90,"11:57","Falha ao iniciar contato","Não foi possível iniciar contato com Elaine Andrade. Tente novamente.",0,0,1],["crm",90,"11:57","Falha ao iniciar contato","Não foi possível iniciar contato com Juliano Medina. Tente novamente.",0,0,1],["crm",90,"11:09","Falha ao iniciar contato","Não foi possível iniciar contato com Vanessa Oliveira. Tente novamente.",0,0,1],["crm",91,"14:34","Conversa encerrada por inatividade","Eliani Batista Mercês Wandel Rei","Mais Crédito",1,1],["crm",91,"05:00","6 novos contatos disponíveis!","Eles estão esperando por você. Conclua agora e potencialize seus resultados!",0,0,1],["crm",92,"13:36","Conversa encerrada","Márcia Corteletti Ziviani Covre","Mais Crédito",1,1],["crm",92,"13:35","Conversa encerrada","João Batista dos Santos","Mais Crédito",1,1],["crm",92,"13:35","Conversa encerrada","Marli Garcia da Penha","Mais Crédito",1,1],["crm",92,"05:00","4 novos contatos disponíveis!","Eles estão esperando por você. Conclua agora e potencialize seus resultados!",0,0,1],["crm",93,"21:39","Conversa autorizada","Eliani Batista Mercês Wandel Rei","Mais Crédito",1,1],["crm",93,"19:20","Conversa encerrada","Décio Pires de Lima","Mais Crédito",1,1],["crm",93,"12:31","10 novos contatos disponíveis!","Eles estão esperando por você. Conclua agora e potencialize seus resultados!",0,0,1],["crm",299,"13:20","Conversa encerrada","Ivan Kleber Jesus de Sá","Mais Crédito",1,1],["crm",299,"13:20","Conversa encerrada","José Dionizio da Paz","Mais Crédito",1,1],["crm",299,"13:19","Conversa encerrada","Beatriz Ferreira Pinto","Mais Crédito",1,1],["crm",299,"13:19","Conversa encerrada","Gilnete da Silva","Mais Crédito",1,1],["crm",299,"13:19","Conversa encerrada","José Luiz Silva Vieira","Mais Crédito",1,1],["crm",299,"13:19","Conversa encerrada","Elisilvia Pires Pereira Brandão","Mais Crédito",1,1],["crm",299,"13:18","Conversa encerrada","Ieda de Oliveira Pereira","Mais Crédito",1,1],["crm",299,"08:50","Conversa encerrada por inatividade","Aristélia Santos Teodoro","Mais Crédito",1,1],["crm",299,"06:14","Conversa encerrada","Emanuela Prates Miniz","Mais Crédito",1,1],["crm",300,"12:14","8 novos contatos disponíveis!","Eles estão esperando por você. Conclua agora e potencialize seus resultados!",0,0,1],["crm",300,"11:53","Conversa encerrada","Fabiano Alves Felício","Mais Crédito",1,1],["crm",300,"11:52","Conversa encerrada","Aline Santos Silva de Jesus","Mais Crédito",1,1],["crm",300,"11:52","Conversa encerrada","Camila da Silva Ribeiro","Mais Crédito",1,1],["crm",300,"10:12","Conversa encerrada","Izaurina Comper","Mais Crédito",1,1],["crm",300,"05:13","3 novos contatos disponíveis!","Eles estão esperando por você. Conclua agora e potencialize seus resultados!",0,0,1],["crm",301,"16:37","Conversa encerrada","Fabiana Oliveira de Souza","Mais Crédito",1,1],["crm",301,"05:02","10 novos contatos disponíveis!","Eles estão esperando por você. Conclua agora e potencialize seus resultados!",0,0,1]];
+
+    // "Agora" do protótipo: hoje, às 15:12
+    const NOW = (() => { const d = new Date(); d.setHours(15, 12, 0, 0); return d; })();
+    const MONTHS = ['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
+    const NOTIFS = RAW.map(([app, off, hm, title, desc, badge, user, read], id) => {
+      const [h, m] = hm.split(':').map(Number);
+      const date = new Date(NOW); date.setDate(date.getDate() - off); date.setHours(h, m, 0, 0);
+      let day, time;
+      if (off === 0) { day = 'Hoje'; time = hm; }
+      else if (off === 1) { day = 'Ontem'; time = hm; }
+      else {
+        day = 'Mais antigas';
+        time = `${date.getDate()} ${MONTHS[date.getMonth()]}` + (date.getFullYear() !== NOW.getFullYear() ? ` ${date.getFullYear()}` : '');
+      }
+      return { id, app, title, desc, badge: badge || null, user: !!user, read: !!read, date, day, time };
+    });
+
+    const state = { tab: 'unread', draft: new Set(), applied: new Set(), menuOpen: false, keep: new Set(), open: false };
+    const $ = (s) => document.querySelector(s);
+    const wrap = $('#np-wrap'), page = $('#np');
+    const menu = $('#np-filter-menu'), filterBtn = $('#np-filter-btn');
+    const scrollEl = $('#np-scroll'), topEl = $('#np-top');
+    const live = () => NOTIFS.filter(n => !n.deleted);
+    const countFor = (app) => live().filter(n => n.app === app && (state.tab === 'read' ? n.read : !n.read)).length;
+
+    // Contador do sino em todas as telas = total de não lidas
+    function syncBells() {
+      const unread = live().filter(n => !n.read).length;
+      document.querySelectorAll('.icon-btn[data-open="notif-page"]').forEach(btn => {
+        const b = btn.querySelector('.badge');
+        if (b) { b.textContent = unread; b.style.display = unread ? '' : 'none'; }
+        btn.setAttribute('aria-label', unread ? `Notificações, ${unread} não lidas` : 'Notificações');
+      });
+    }
+
+    function renderMenu() {
+      $('#np-menu-items').innerHTML = APPS.map(a => `
+        <button type="button" class="np-menu-item" role="checkbox" data-app="${a.id}" aria-checked="${state.draft.has(a.id)}">
+          <span class="np-checkbox"><span class="np-box">${CHECK_SVG}</span></span>
+          <span class="np-label">${a.label}</span>
+          <span class="np-count">${countFor(a.id)}</span>
+        </button>`).join('');
+    }
+
+    function cardHTML(n) {
+      const logo = LOGOS[n.app];
+      return `
+        <div class="np-item" data-id="${n.id}">
+          <a class="np-notif${n.read ? ' is-read' : ''}" href="#" data-id="${n.id}">
+            ${n.read ? '' : '<span class="np-dot" aria-hidden="true"></span>'}
+            <span class="np-sr-only">${APPS.find(a => a.id === n.app).label}.</span><div class="np-logo" aria-hidden="true">${logo.html}</div>
+            <div class="np-content">
+              ${n.badge ? `<span class="np-badge">${n.badge}</span>` : ''}
+              <div class="np-message">
+                <div class="np-texts">
+                  <p class="np-title">${n.title}</p>
+                  <div class="np-sub">${n.user ? USER_SVG : ''}<p class="np-desc">${n.desc}</p></div>
+                </div>
+                <span class="np-time">${n.time}</span>
+              </div>
+            </div>
+          </a>
+          <button type="button" class="np-more" data-id="${n.id}" aria-haspopup="menu" aria-expanded="false" aria-label="Mais ações: ${n.title.replace(/"/g, '&quot;')}">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="5" cy="12" r="1.75"/><circle cx="12" cy="12" r="1.75"/><circle cx="19" cy="12" r="1.75"/></svg>
+          </button>
+        </div>`;
+    }
+
+    const X_SVG = '<svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M10.5 3.5L3.5 10.5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/><path d="M3.5 3.5L10.5 10.5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    // Mais de 2 aplicações viram um chip só: 'N aplicações'
+    function renderChips() {
+      const sel = APPS.filter(a => state.applied.has(a.id));
+      const chips = sel.length > 2 ? [{ id: '*', label: `${sel.length} aplicações` }] : sel.map(a => ({ id: a.id, label: a.label }));
+      $('#np-chips').innerHTML = chips.map(c => `<button type="button" class="np-chip" data-chip="${c.id}" aria-label="Remover filtro ${c.label}">${c.label}${X_SVG}</button>`).join('');
+    }
+
+    function renderMeta() {
+      const unread = live().filter(n => !n.read).length;
+      $('#np-unread-count').textContent = unread;
+      $('#np-unread-count').hidden = unread === 0;
+      const visibleUnread = live().filter(n => !n.read && (!state.applied.size || state.applied.has(n.app)));
+      const showBulk = state.tab !== 'read' && visibleUnread.length > 0;
+      const bulk = $('#np-bulk-bar');
+      bulk.classList.toggle('is-off', !showBulk);
+      bulk.inert = !showBulk;
+      bulk.setAttribute('aria-hidden', String(!showBulk));
+      page.querySelector('.np-segmented').classList.toggle('has-bulk', showBulk);
+      syncBells();
+    }
+
+    function renderList() {
+      renderChips();
+      renderMeta();
+      // itens que mudaram de estado nesta visita continuam na aba até sair/voltar
+      const pool = live().filter(n => state.keep.has(n.id) || (state.tab === 'read' ? n.read : !n.read));
+      const items = state.applied.size ? pool.filter(n => state.applied.has(n.app)) : pool;
+      const el = $('#np-groups');
+      if (!items.length) {
+        el.innerHTML = `<div class="np-empty">${state.applied.size ? 'Nenhuma notificação para as aplicações selecionadas.' : (state.tab === 'read' ? 'Nenhuma notificação lida ainda.' : 'Tudo em dia. Nenhuma notificação pendente.')}${state.applied.size ? '<br><button type="button" id="np-clear">Limpar filtro</button>' : ''}</div>`;
+        const cb = $('#np-clear');
+        if (cb) cb.onclick = () => { state.applied.clear(); state.draft.clear(); renderMenu(); renderList(); };
+        return;
+      }
+      const days = ['Hoje', 'Ontem', 'Mais antigas'].filter(d => items.some(n => n.day === d));
+      el.innerHTML = days.map(d => `
+        <div class="np-group">
+          <h2>${d}</h2>
+          <div class="np-list">${items.filter(n => n.day === d).map(cardHTML).join('')}</div>
+        </div>`).join('');
+    }
+
+    function setMenu(open, opts = {}) {
+      state.menuOpen = open;
+      menu.hidden = !open;
+      filterBtn.setAttribute('aria-expanded', String(open));
+      if (open) {
+        state.draft = new Set(state.applied); renderMenu();
+        const first = menu.querySelector('.np-menu-item');
+        if (first) requestAnimationFrame(() => first.focus());
+      } else if (opts.restoreFocus) {
+        filterBtn.focus();
+      }
+    }
+    menu.addEventListener('focusout', (e) => {
+      if (state.menuOpen && e.relatedTarget && !menu.contains(e.relatedTarget) && e.relatedTarget !== filterBtn) setMenu(false);
+    });
+    menu.addEventListener('keydown', (e) => {
+      if (e.key !== 'ArrowDown' && e.key !== 'ArrowUp') return;
+      const items = [...menu.querySelectorAll('.np-menu-item')];
+      const i = items.indexOf(document.activeElement);
+      if (i < 0) return;
+      e.preventDefault();
+      items[(i + (e.key === 'ArrowDown' ? 1 : items.length - 1)) % items.length].focus();
+    });
+    filterBtn.addEventListener('click', (e) => { e.stopPropagation(); closeItemMenu(false); setMenu(!state.menuOpen); });
+    $('#np-menu-items').addEventListener('click', (e) => {
+      const item = e.target.closest('.np-menu-item');
+      if (!item) return;
+      const id = item.dataset.app;
+      state.draft.has(id) ? state.draft.delete(id) : state.draft.add(id);
+      item.setAttribute('aria-checked', String(state.draft.has(id)));
+    });
+    $('#np-apply').addEventListener('click', () => {
+      state.applied = new Set(state.draft);
+      renderList();
+      setMenu(false, { restoreFocus: true });
+      announceResults();
+    });
+    page.addEventListener('click', (e) => {
+      if (state.menuOpen && !menu.contains(e.target) && !filterBtn.contains(e.target)) setMenu(false);
+      if (!itemMenu.hidden && !itemMenu.contains(e.target) && !e.target.closest('.np-more')) closeItemMenu(false);
+    });
+    $('#np-chips').addEventListener('click', (e) => {
+      const chip = e.target.closest('.np-chip');
+      if (!chip) return;
+      const id = chip.dataset.chip;
+      const idx = [...$('#np-chips').children].indexOf(chip);
+      id === '*' ? state.applied.clear() : state.applied.delete(id);
+      state.draft = new Set(state.applied);
+      renderMenu(); renderList();
+      const rest = $('#np-chips').children;
+      (rest[Math.min(idx, rest.length - 1)] || filterBtn).focus();
+      announceResults();
+    });
+
+    page.querySelectorAll('.np-seg').forEach(t => t.addEventListener('click', () => {
+      state.tab = t.dataset.npTab;
+      state.keep.clear();
+      page.querySelectorAll('.np-seg').forEach(x => x.setAttribute('aria-pressed', String(x === t)));
+      renderList();
+      scrollEl.scrollTop = 0;
+      syncElevation();
+      announceResults();
+    }));
+
+    // Tocar numa notificação: abre a situação dela.
+    // Se a notificação é de outra aplicação (diferente da que o usuário estava), pede confirmação antes.
+    const APP_NAME = { crm: 'CRM de Vendas', pdv: 'PDV Go', smart: 'Flua Smart', catalogo: 'Catálogo' };
+    const appOfScreen = (s) => !s ? null : /^pdv/.test(s) ? 'pdv' : /^smart/.test(s) ? 'smart' : (s === 'conversas' || s === 'campanhas') ? 'crm' : null;
+    const DEST = {
+      crm:   (n) => /contato/i.test(n.title) ? { screen: 'campanhas', label: 'Campanhas' } : { screen: 'conversas', label: 'Conversas' },
+      pdv:   () => ({ screen: 'pdv', label: 'Pedidos' }),
+      smart: () => ({ screen: 'smart-carrinho', label: 'Carrinho' }),
+      catalogo: () => ({ screen: null, label: 'Catálogo' })
+    };
+    const destOf = (n) => DEST[n.app](n);
+    function markRead(n) {
+      if (n.read) return;
+      n.read = true; state.keep.add(n.id);
+      renderMeta();
+    }
+    let gotoToastTimer;
+    function gotoToast(msg) {
+      let t = document.getElementById('goto-toast');
+      if (!t) { t = document.createElement('div'); t.id = 'goto-toast'; t.className = 'goto-toast'; t.setAttribute('role', 'status'); document.body.appendChild(t); }
+      t.textContent = msg; t.classList.add('is-open');
+      clearTimeout(gotoToastTimer); gotoToastTimer = setTimeout(() => t.classList.remove('is-open'), 2600);
+    }
+    function openSituation(n) {
+      markRead(n);
+      const d = destOf(n);
+      close();
+      if (d.screen) {
+        const cur = document.querySelector('.screen.is-active');
+        if (!cur || cur.dataset.screen !== d.screen) go(d.screen);
+        else window.scrollTo(0, 0);
+        const scr = document.querySelector(`.screen[data-screen="${d.screen}"]`);
+        const target = scr && scr.querySelector('.conv-title, .camp-title, .pdv-card, .venda-com, .smart-sheet-inner, .pdv-sheet-inner');
+        if (target) { target.setAttribute('tabindex', '-1'); target.focus({ preventScroll: true }); }
+      } else {
+        gotoToast(`Abrindo o ${APP_NAME[n.app]}…`);
+      }
+    }
+    const gotoScrim = $('#np-goto-scrim');
+    let gotoFor = null, gotoFrom = null;
+    function openGoto(n, fromApp, card) {
+      if (state.menuOpen) setMenu(false);
+      closeItemMenu(false);
+      gotoFor = n; gotoFrom = card;
+      const d = destOf(n);
+      $('#np-goto-from').innerHTML = LOGOS[fromApp].html;
+      $('#np-goto-to').innerHTML = LOGOS[n.app].html;
+      $('#np-goto-title').textContent = `Abrir no ${APP_NAME[n.app]}?`;
+      $('#np-goto-text').innerHTML = `Esta notificação é do <strong>${APP_NAME[n.app]}</strong>. Você vai sair do ${APP_NAME[fromApp]} e ir para ${d.screen ? d.label : 'o ' + APP_NAME[n.app]}.`;
+      $('#np-goto-ok-label').textContent = `Abrir ${APP_NAME[n.app]}`;
+      behind().forEach(el => el && el.setAttribute('inert', ''));
+      gotoScrim.hidden = false;
+      requestAnimationFrame(() => $('#np-goto-ok').focus());
+    }
+    function closeGoto(restore) {
+      gotoScrim.hidden = true;
+      behind().forEach(el => el && el.removeAttribute('inert'));
+      const card = gotoFrom; gotoFor = null; gotoFrom = null;
+      if (restore && card && document.contains(card)) card.focus();
+    }
+    $('#np-goto-cancel').addEventListener('click', () => closeGoto(true));
+    $('#np-goto-ok').addEventListener('click', () => { const n = gotoFor; closeGoto(false); if (n) openSituation(n); });
+    gotoScrim.addEventListener('click', (e) => { if (e.target === gotoScrim) closeGoto(true); });
+    gotoScrim.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') { e.stopPropagation(); closeGoto(true); }
+      if (e.key === 'Tab') {
+        const a = $('#np-goto-cancel'), b = $('#np-goto-ok');
+        if (e.shiftKey && document.activeElement === a) { e.preventDefault(); b.focus(); }
+        else if (!e.shiftKey && document.activeElement === b) { e.preventDefault(); a.focus(); }
+      }
+    });
+    $('#np-groups').addEventListener('click', (e) => {
+      const card = e.target.closest('.np-notif');
+      if (!card) return;
+      e.preventDefault();
+      const n = NOTIFS[card.dataset.id];
+      const fromApp = appOfScreen(returnScreen && returnScreen.dataset.screen);
+      if (fromApp && fromApp !== n.app) openGoto(n, fromApp, card);
+      else openSituation(n);
+    });
+
+    const syncElevation = () => topEl.classList.toggle('is-elevated', scrollEl.scrollTop > 0);
+    scrollEl.addEventListener('scroll', () => {
+      syncElevation();
+      if (state.menuOpen) setMenu(false);
+      closeItemMenu(false);
+    }, { passive: true });
+
+    let liveTimer;
+    function announce(msg) {
+      const l = $('#np-live');
+      l.textContent = '';
+      clearTimeout(liveTimer);
+      liveTimer = setTimeout(() => { l.textContent = msg; }, 50);
+    }
+    const plural = (n, one, many) => n === 1 ? `1 ${one}` : `${n} ${many}`;
+    function announceResults() {
+      const n = page.querySelectorAll('#np-groups .np-notif').length;
+      announce(n ? plural(n, 'notificação', 'notificações') : 'Nenhuma notificação');
+    }
+
+    // Marcar todas como lidas (confirmação + desfazer)
+    let undoFn = null, undoFocus = null;
+    function showToast(msg, fn, focusAfterUndo) {
+      $('#np-toast-msg').textContent = msg;
+      $('#np-toast').hidden = false;
+      undoFn = fn || null; undoFocus = focusAfterUndo || null;
+      announce(msg + '. Desfazer disponível.');
+    }
+    function hideToast() { $('#np-toast').hidden = true; undoFn = null; }
+    const scrim = $('#np-confirm-scrim');
+    const behind = () => [topEl, scrollEl, $('#np-toast'), menu];
+    function openConfirm() {
+      if (state.menuOpen) setMenu(false);
+      closeItemMenu(false);
+      const targets = live().filter(n => !n.read && (!state.applied.size || state.applied.has(n.app)));
+      const k = targets.length;
+      const names = APPS.filter(a => state.applied.has(a.id)).map(a => 'do ' + a.label);
+      const from = names.length ? ' ' + (names.length > 1 ? names.slice(0, -1).join(', ') + ' e ' + names[names.length - 1] : names[0]) : '';
+      $('#np-confirm-text').textContent = (k === 1 ? `A notificação não lida${from} vai para a aba Lidas.` : `As ${k} notificações não lidas${from} vão para a aba Lidas.`) + ' Você pode encontrá-las lá depois.';
+      behind().forEach(el => el && el.setAttribute('inert', ''));
+      scrim.hidden = false;
+      requestAnimationFrame(() => $('#np-confirm-ok').focus());
+    }
+    function closeConfirm(restore) {
+      scrim.hidden = true;
+      behind().forEach(el => el && el.removeAttribute('inert'));
+      if (restore) $('#np-mark-all').focus();
+    }
+    $('#np-mark-all').addEventListener('click', openConfirm);
+    $('#np-confirm-cancel').addEventListener('click', () => closeConfirm(true));
+    scrim.addEventListener('click', (e) => { if (e.target === scrim) closeConfirm(true); });
+    scrim.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') { e.stopPropagation(); closeConfirm(true); }
+      if (e.key === 'Tab') {
+        const a = $('#np-confirm-cancel'), b = $('#np-confirm-ok');
+        if (e.shiftKey && document.activeElement === a) { e.preventDefault(); b.focus(); }
+        else if (!e.shiftKey && document.activeElement === b) { e.preventDefault(); a.focus(); }
+      }
+    });
+    $('#np-confirm-ok').addEventListener('click', () => {
+      closeConfirm(false);
+      const batch = live().filter(n => !n.read && (!state.applied.size || state.applied.has(n.app)));
+      batch.forEach(n => { n.read = true; });
+      state.keep.clear();
+      renderList();
+      const k = batch.length;
+      showToast(k === 1 ? '1 notificação marcada como lida' : `${k} notificações marcadas como lidas`,
+        () => batch.forEach(n => n.read = false), () => $('#np-mark-all').focus());
+      $('#np-undo').focus();
+    });
+    $('#np-undo').addEventListener('click', () => {
+      const fn = undoFn, focus = undoFocus;
+      if (fn) fn();
+      hideToast(); renderList();
+      announce('Ação desfeita');
+      if (focus) focus();
+    });
+    $('#np-toast-close').addEventListener('click', () => {
+      hideToast();
+      (page.querySelector('#np-groups .np-notif') || scrollEl).focus();
+    });
+
+    // Menu de ações por notificação (⋯)
+    const itemMenu = $('#np-item-menu');
+    let menuFor = null, menuBtn = null;
+    function closeItemMenu(restore) {
+      if (menuFor === null && itemMenu.hidden) return;
+      itemMenu.hidden = true;
+      if (menuBtn) menuBtn.setAttribute('aria-expanded', 'false');
+      if (restore && menuBtn && document.body.contains(menuBtn)) menuBtn.focus();
+      menuFor = null; menuBtn = null;
+    }
+    function openItemMenu(btn) {
+      if (state.menuOpen) setMenu(false);
+      const id = Number(btn.dataset.id);
+      if (menuFor === id) { closeItemMenu(true); return; }
+      closeItemMenu(false);
+      menuFor = id; menuBtn = btn;
+      $('#np-toggle-read-label').textContent = NOTIFS[id].read ? 'Marcar como não lida' : 'Marcar como lida';
+      const ph = page.getBoundingClientRect(), r = btn.getBoundingClientRect();
+      itemMenu.style.right = Math.max(8, ph.right - r.right) + 'px';
+      itemMenu.hidden = false;
+      const h = itemMenu.offsetHeight;
+      const up = r.bottom + 4 + h > ph.bottom - 16;
+      itemMenu.classList.toggle('up', up);
+      itemMenu.style.top = (up ? (r.top - ph.top - h - 4) : (r.bottom - ph.top + 4)) + 'px';
+      btn.setAttribute('aria-expanded', 'true');
+      requestAnimationFrame(() => itemMenu.querySelector('button').focus());
+    }
+    $('#np-groups').addEventListener('click', (e) => {
+      const btn = e.target.closest('.np-more');
+      if (!btn) return;
+      e.preventDefault(); e.stopPropagation();
+      openItemMenu(btn);
+    }, true);
+    itemMenu.addEventListener('keydown', (e) => {
+      const items = [...itemMenu.querySelectorAll('[role="menuitem"]')];
+      const i = items.indexOf(document.activeElement);
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        e.preventDefault();
+        items[(i + (e.key === 'ArrowDown' ? 1 : items.length - 1)) % items.length].focus();
+      } else if (e.key === 'Escape') { e.stopPropagation(); closeItemMenu(true); }
+      else if (e.key === 'Tab') closeItemMenu(false);
+    });
+    function focusNear(idx) {
+      const items = page.querySelectorAll('#np-groups .np-notif');
+      (items[Math.min(idx, items.length - 1)] || scrollEl).focus();
+    }
+    itemMenu.addEventListener('click', (e) => {
+      const b = e.target.closest('[role="menuitem"]');
+      if (!b || menuFor === null) return;
+      const n = NOTIFS[menuFor];
+      const idx = [...page.querySelectorAll('#np-groups .np-notif')].findIndex(a => Number(a.dataset.id) === n.id);
+      closeItemMenu(false);
+      if (b.dataset.act === 'delete') {
+        n.deleted = true;
+        renderList(); focusNear(idx);
+        showToast('Notificação excluída', () => { n.deleted = false; },
+          () => { const a = page.querySelector(`#np-groups .np-notif[data-id="${n.id}"]`); if (a) a.focus(); });
+      } else {
+        const wasRead = n.read;
+        n.read = !wasRead;
+        state.keep.add(n.id);
+        renderList();
+        const still = page.querySelector(`#np-groups .np-more[data-id="${n.id}"]`);
+        if (still) still.focus(); else focusNear(idx);
+        showToast(n.read ? 'Marcada como lida' : 'Marcada como não lida', () => { n.read = wasRead; },
+          () => { const m = page.querySelector(`#np-groups .np-more[data-id="${n.id}"]`); if (m) m.focus(); });
+      }
+    });
+
+    // ---------- Abrir / voltar ----------
+    let returnFocus = null, returnScreen = null;
+    function open() {
+      if (state.open) return;
+      state.open = true;
+      returnFocus = document.activeElement;
+      returnScreen = document.querySelector('.screen.is-active');
+      // cada visita "atualiza" a lista (como entrar de novo na página)
+      state.keep.clear();
+      hideToast(); closeItemMenu(false); if (state.menuOpen) setMenu(false); if (!scrim.hidden) closeConfirm(false);
+      renderList();
+      scrollEl.scrollTop = 0; syncElevation();
+      if (returnScreen) returnScreen.inert = true;
+      wrap.setAttribute('aria-hidden', 'false');
+      wrap.classList.add('is-open');
+      setTimeout(() => page.focus({ preventScroll: true }), 80);
+    }
+    function close() {
+      if (!state.open) return;
+      state.open = false;
+      if (state.menuOpen) setMenu(false);
+      closeItemMenu(false);
+      if (!scrim.hidden) closeConfirm(false);
+      if (!gotoScrim.hidden) closeGoto(false);
+      hideToast();
+      wrap.classList.remove('is-open');
+      wrap.setAttribute('aria-hidden', 'true');
+      // volta exatamente para a tela (e aplicação) de onde o usuário veio
+      if (returnScreen) returnScreen.inert = false;
+      if (returnFocus && document.contains(returnFocus)) returnFocus.focus({ preventScroll: true });
+      returnFocus = null; returnScreen = null;
+    }
+    $('#np-back').addEventListener('click', close);
+    document.addEventListener('keydown', (e) => {
+      if (!state.open || e.key !== 'Escape') return;
+      if (!scrim.hidden || !itemMenu.hidden || !gotoScrim.hidden) return;          // tratados pelos próprios componentes
+      if (state.menuOpen) { setMenu(false, { restoreFocus: true }); return; }
+      close();
+    });
+
+    openNotifPage = open;
+    closeNotifPage = close;
+    renderMenu();
+    renderList();
+  })();
+
+  document.addEventListener('click', function(e){
+    var chip = e.target.closest('.conv-filters .conv-chip');
+    if(!chip) return;
+    chip.parentNode.querySelectorAll('.conv-chip').forEach(function(c){
+      var on = c === chip;
+      c.classList.toggle('is-active', on);
+      c.setAttribute('aria-selected', String(on));
+    });
+  });
   function go(id){
     document.querySelectorAll('.screen').forEach(function(s){
       s.classList.toggle('is-active', s.getAttribute('data-screen') === id);
@@ -3169,15 +4137,24 @@
       if(userEl) userEl.value = '';
       if(passEl) passEl.value = '';
       if(errEl) errEl.hidden = true;
+      var banner = document.getElementById('login-pwd-banner');
+      if(banner){
+        banner.hidden = !pwdJustChanged;
+        pwdJustChanged = false;
+      }
     }
   }
   function openSheet(id){
+    if(id === 'notif-page'){ openNotifPage(); return; }
     var sheet = document.querySelector('[data-sheet="' + id + '"]');
     var backdrop = document.querySelector('.sheet-backdrop');
     if(sheet) sheet.classList.add('is-open');
     if(backdrop){
       backdrop.classList.add('is-open');
       backdrop.setAttribute('data-close', id);
+    }
+    if(id === 'change-password-modal'){
+      resetChangePasswordScreen();
     }
   }
   function closeSheet(id){
@@ -3235,6 +4212,122 @@
       if(e.key === 'Enter') tryOauthLogin();
     });
   });
+
+  var RULE_ICON_VALID = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>';
+  var RULE_ICON_INVALID = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg>';
+  var EYE_OPEN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></svg>';
+  var EYE_OFF = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49"/><path d="M14.084 14.158a3 3 0 0 1-4.242-4.242"/><path d="M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143"/><path d="m2 2 20 20"/></svg>';
+  document.querySelectorAll('.cp-eye').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var target = document.getElementById(btn.getAttribute('data-toggle'));
+      if(!target) return;
+      var showing = target.type === 'text';
+      target.type = showing ? 'password' : 'text';
+      btn.innerHTML = showing ? EYE_OPEN : EYE_OFF;
+    });
+  });
+
+  var CP_RULES = {
+    len: function(v){ return v.length >= 8; },
+    num: function(v){ return /[0-9]/.test(v); },
+    upper: function(v){ return /[A-Z]/.test(v); },
+    special: function(v){ return /[^A-Za-z0-9]/.test(v); }
+  };
+  function checkCpRules(){
+    var val = document.getElementById('cp-new') ? document.getElementById('cp-new').value : '';
+    var allValid = true;
+    Object.keys(CP_RULES).forEach(function(key){
+      var li = document.querySelector('#cp-rules li[data-rule="' + key + '"]');
+      if(!li) return;
+      var ok = CP_RULES[key](val);
+      li.classList.toggle('is-valid', ok);
+      var icon = li.querySelector('.cp-rule-icon');
+      if(icon) icon.innerHTML = ok ? RULE_ICON_VALID : RULE_ICON_INVALID;
+      if(!ok) allValid = false;
+    });
+    return allValid;
+  }
+  var cpNewEl = document.getElementById('cp-new');
+  if(cpNewEl) cpNewEl.addEventListener('input', checkCpRules);
+
+  function tryChangePassword(){
+    var currentEl = document.getElementById('cp-current');
+    var newEl = document.getElementById('cp-new');
+    var confirmEl = document.getElementById('cp-confirm');
+    var errEl = document.getElementById('cp-error');
+    var current = currentEl ? currentEl.value : '';
+    var novaSenha = newEl ? newEl.value : '';
+    var confirm = confirmEl ? confirmEl.value : '';
+    var rulesOk = checkCpRules();
+
+    function showError(msg){
+      if(errEl){ errEl.textContent = msg; errEl.hidden = false; }
+    }
+
+    if(!current){
+      showError('Informe sua senha atual.');
+      return;
+    }
+    if(current !== OAUTH_PASS){
+      showError('Senha atual incorreta.');
+      return;
+    }
+    if(!rulesOk){
+      showError('A nova senha não atende aos requisitos acima.');
+      return;
+    }
+    if(novaSenha !== confirm){
+      showError('As senhas não coincidem.');
+      return;
+    }
+
+    if(errEl) errEl.hidden = true;
+    OAUTH_PASS = novaSenha;
+    pwdJustChanged = true;
+
+    var toast = document.getElementById('cp-toast');
+    if(toast) toast.classList.add('is-open');
+    setTimeout(function(){
+      if(toast) toast.classList.remove('is-open');
+      closeSheet('change-password-modal');
+      go('login');
+    }, 1600);
+  }
+  var cpSubmit = document.getElementById('cp-submit');
+  if(cpSubmit) cpSubmit.addEventListener('click', tryChangePassword);
+  /* ===== V2 · Topo que acompanha o scroll + header da página fixo =====
+     O topo vermelho rola junto com a página, nos dois sentidos (sai e volta no mesmo ritmo do scroll).
+     O header da página (ex.: "Conversas") fica preso no topo e ganha uma sombra leve
+     conforme o conteúdo passa por baixo dele. */
+  (function(){
+    var STICKY = ['[data-screen="conversas"] .conv-title', '[data-screen="campanhas"] .camp-title',
+      '[data-screen="smart-categorias"] .smart-subhead', '[data-screen="smart-conta"] .smart-page-title-text'];
+    STICKY.forEach(function(sel){ var el = document.querySelector(sel); if(el) el.classList.add('v2-sticky'); });
+    var enabled = true, ticking = false;   // só a V2: header da página fixo ao rolar
+    document.body.classList.add('v2-on');
+
+    // Sombra progressiva: 0 com o header no lugar dele, 1 depois de 24px de conteúdo passando por baixo
+    var naturalTop = new WeakMap();
+    function measure(el){
+      var prev = el.style.position; el.style.position = 'static';
+      var t = el.getBoundingClientRect().top + window.scrollY;
+      el.style.position = prev; naturalTop.set(el, t); return t;
+    }
+    function shade(){
+      ticking = false;
+      var s = document.querySelector('.screen.is-active'); if(!s) return;
+      s.querySelectorAll('.v2-sticky').forEach(function(el){
+        if(!enabled){ el.style.removeProperty('--v2-sh'); return; }
+        var nt = naturalTop.has(el) ? naturalTop.get(el) : measure(el);
+        var passed = window.scrollY + 12 - nt;
+        el.style.setProperty('--v2-sh', Math.max(0, Math.min(1, passed / 24)).toFixed(3));
+      });
+    }
+    window.addEventListener('scroll', function(){ if(!ticking){ ticking = true; requestAnimationFrame(shade); } }, {passive:true});
+    window.addEventListener('resize', function(){ naturalTop = new WeakMap(); shade(); });
+    var _go = go;
+    go = function(id){ _go(id); naturalTop = new WeakMap(); requestAnimationFrame(shade); };
+  })();
 })();
 </script>
 
